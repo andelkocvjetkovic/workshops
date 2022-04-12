@@ -9,19 +9,21 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "jest"
+    "test": "jest",
+    "json-server": "json-server --watch -p 4000 db.json"
   },
   "dependencies": {
     "@emotion/react": "11.9.0",
     "@emotion/styled": "11.8.1",
-    "jest": "27.5.1",
     "@mui/material": "5.6.1",
+    "jest": "27.5.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-router-dom": "6.3.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "1.0.7",
-    "vite": "2.9.0"
+    "vite": "2.9.0",
+    "json-server": "0.17.0"
   }
 }
