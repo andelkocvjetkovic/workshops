@@ -33,6 +33,13 @@ export default createTheme({
     '-1px -2px 16px rgba(127, 127, 127, 0.25)'
   ],
   typography: {
-    fontFamily: `'Livvic', sans-serif`
+    fontFamily: `'Livvic', sans-serif`,
+    button: {
+      fontSize: 14,
+      fontWeight: 'bold',
+      '@media (min-width:600px)': {
+        fontSize: 18,
+      },
+    }
   }
 });
