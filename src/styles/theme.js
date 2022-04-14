@@ -7,7 +7,7 @@ export default createTheme({
     primary: {
       main: FIGMA_COLORS.YELLOW,
       light: FIGMA_COLORS.LIGHT_YELLOW,
-      contrastText: FIGMA_COLORS.DARKER_GRAY,
+      contrastText: FIGMA_COLORS.DARKER_GREY,
     },
     secondary: {
       main: FIGMA_COLORS.BLUE,
@@ -19,8 +19,13 @@ export default createTheme({
     },
     common: {
       white: FIGMA_COLORS.WHITE,
-      black: FIGMA_COLORS.DARKER_GRAY,
+      black: FIGMA_COLORS.DARKER_GREY,
     },
+    grey: {
+      lighter: FIGMA_COLORS.LIGHTER_GREY,
+      light: FIGMA_COLORS.LIGHT_GREY,
+      darker: FIGMA_COLORS.DARKER_GREY,
+    }
   },
   shape: {
     borderRadius: 8
