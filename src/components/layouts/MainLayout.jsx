@@ -7,12 +7,12 @@ import Divider from '@mui/material/Divider';
 function MainLayout() {
   return (
     <div>
-      <Navbar/>
-      <Box component="main" sx={{ height: '200vh' }}>
-        <Outlet/>
+      <Navbar />
+      <Box component='main' sx={{ height: '200vh' }}>
+        <Outlet />
       </Box>
-      <Divider sx={{ borderColor: 'common.white' }}/>
-      <Footer/>
+      <Divider sx={{ borderColor: 'common.white' }} />
+      <Footer />
     </div>
   );
 }

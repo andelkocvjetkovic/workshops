@@ -2,8 +2,6 @@ import Container from '@mui/material/Container';
 import { Link } from 'react-router-dom';
 import { ROUTE_HOME } from '@app/pages/routesConstats';
 import styled from '@emotion/styled';
-import Button from '@mui/material/Button';
-import CartIcon from '@app/components/icons/CartIcon';
 import CartButton from '@app/components/cart-button/CartButton';
 
 const BgWrapper = styled.div`
