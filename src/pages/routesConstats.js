@@ -1,2 +1,2 @@
-export const ROUTE_HOME = '/'
-export const ROUTE_WORKSHOP = ':workshopId'
+export const ROUTE_HOME = '/';
+export const ROUTE_WORKSHOP = ':workshopId';

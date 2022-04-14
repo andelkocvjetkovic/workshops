@@ -1,7 +1,6 @@
 import { createTheme } from '@mui/material';
 import FIGMA_COLORS from '@app/styles/figmaColors';
 
-
 export default createTheme({
   palette: {
     primary: {
@@ -12,7 +11,7 @@ export default createTheme({
     secondary: {
       main: FIGMA_COLORS.BLUE,
       light: FIGMA_COLORS.LIGHT_BLUE,
-      contrastText: FIGMA_COLORS.BLACK
+      contrastText: FIGMA_COLORS.BLACK,
     },
     error: {
       main: FIGMA_COLORS.RED,
@@ -25,17 +24,17 @@ export default createTheme({
       lighter: FIGMA_COLORS.LIGHTER_GREY,
       light: FIGMA_COLORS.LIGHT_GREY,
       darker: FIGMA_COLORS.DARKER_GREY,
-    }
+    },
   },
   shape: {
-    borderRadius: 8
+    borderRadius: 8,
   },
   shadows: [
     'none',
     '1px 2px 8px rgba(127, 127, 127, 0.25)',
     '1px 2px 16px rgba(127, 127, 127, 0.25)',
     '1px 2px 16px rgba(127, 127, 127, 0.35)',
-    '-1px -2px 16px rgba(127, 127, 127, 0.25)'
+    '-1px -2px 16px rgba(127, 127, 127, 0.25)',
   ],
   typography: {
     fontFamily: `'Livvic', sans-serif`,
@@ -45,6 +44,6 @@ export default createTheme({
       '@media (min-width:600px)': {
         fontSize: 18,
       },
-    }
-  }
+    },
+  },
 });

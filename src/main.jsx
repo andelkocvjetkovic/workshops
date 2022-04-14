@@ -10,8 +10,8 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider theme={theme}>
-        <CssBaseline/>
-        <App/>
+        <CssBaseline />
+        <App />
       </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>,

@@ -12,7 +12,8 @@ const Button = styled.button`
   font-family: inherit;
   font-size: ${props => props.theme.typography.pxToRem(15)};
   position: relative;
-  color: ${props => props.theme.palette.grey.darker}
+  color: ${props => props.theme.palette.grey.darker};
+  cursor: pointer;
 `;
 const Eclipse = styled.span`
   width: 13px;
@@ -23,19 +24,26 @@ const Eclipse = styled.span`
   top: 1px;
   left: 26px;
 `;
+const Amount = styled.span`
+  display: none;
 
-function CartButton({ isEmpty }) {
+  ${props => props.theme.breakpoints.up('md')} {
+    display: block;
+  }
+`;
+
+function CartButton({ cartAmount }) {
   return (
-    <Button>
-      <CartIcon/>
-      <Eclipse/>
-      Cart is empty
+    <Button title='Cart'>
+      <CartIcon />
+      {cartAmount > 0 && <Eclipse data-testid='cart-eclipse' />}
+      <Amount>{cartAmount === 0 ? 'Cart is empty' : `${cartAmount} Workshop in Cart`}</Amount>
     </Button>
   );
 }
 
 CartButton.propTypes = {
-  isEmpty: PropTypes.bool
+  cartAmount: PropTypes.number,
 };
 
 export default CartButton;
