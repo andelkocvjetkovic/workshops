@@ -1,17 +1,18 @@
-import Navbar from '@app/components/navbar/Navbar';
-import { Outlet } from 'react-router-dom';
-import Footer from '@app/components/footer/Footer';
-import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
+import Navbar from "@app/components/navbar/Navbar";
+import { Outlet } from "react-router-dom";
+import Footer from "@app/components/footer/Footer";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
+import Container from "@mui/material/Container";
 
 function MainLayout() {
   return (
     <div>
       <Navbar />
-      <Box component='main' sx={{ height: '200vh' }}>
+      <Container component="main" sx={{ height: "200vh" }}>
         <Outlet />
-      </Box>
-      <Divider sx={{ borderColor: 'common.white' }} />
+      </Container>
+      <Divider sx={{ borderColor: "common.white" }} />
       <Footer />
     </div>
   );
