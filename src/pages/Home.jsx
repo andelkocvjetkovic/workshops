@@ -4,8 +4,17 @@ import FilterCategoryDesktop from '@app/components/filter-category/desktop/Filte
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import WorkshopCard from '@app/components/workshop-card/WorkshopCard';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { SAGA_FETCH_WORKSHOPS } from '@app/store/sagaActions';
+import { selectWorkshopList } from '@app/store/reducers/workshopSlice';
 
 function Home() {
+  const dispatch = useDispatch();
+  const workshopList = useSelector(selectWorkshopList);
+  useEffect(() => {
+    dispatch({ type: SAGA_FETCH_WORKSHOPS });
+  }, [dispatch]);
   return (
     <Grid container sx={{ mt: { xs: 2, lg: 3 } }} rowSpacing={{ xs: 2 }} columnSpacing={{ md: 1, lg: 2 }}>
       <Grid item xs={12} md={3}>
@@ -22,10 +31,9 @@ function Home() {
           </Typography>
         </Box>
         <Grid container spacing={{ xs: 3, sm: 6, lg: 4 }} pt={{ xs: 2, sm: 4 }}>
-          <WorkshopCard />
-          <WorkshopCard />
-          <WorkshopCard />
-          <WorkshopCard />
+          {workshopList.map(w => (
+            <WorkshopCard key={w.id} {...w}/>
+          ))}
         </Grid>
       </Grid>
     </Grid>

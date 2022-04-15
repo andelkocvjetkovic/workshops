@@ -8,7 +8,7 @@ function MainLayout() {
   return (
     <div>
       <Navbar />
-      <Container component='main' sx={{ height: '200vh' }}>
+      <Container component='main'>
         <Outlet />
       </Container>
       <Divider sx={{ borderColor: 'common.white' }} />
