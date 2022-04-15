@@ -1,10 +1,10 @@
-import Grid from "@mui/material/Grid";
-import FilterCategoryMobile from "@app/components/filter-category/mobile/FilterCategoryMobile";
-import FilterCategoryDesktop from "@app/components/filter-category/desktop/FilterCategoryDesktop";
+import Grid from '@mui/material/Grid';
+import FilterCategoryMobile from '@app/components/filter-category/mobile/FilterCategoryMobile';
+import FilterCategoryDesktop from '@app/components/filter-category/desktop/FilterCategoryDesktop';
 
 function Home() {
   return (
-    <Grid container sx={{ mt: { xs: 2, lg: 7 } }} columnSpacing={2}>
+    <Grid container sx={{ mt: { xs: 2, lg: 7 } }}>
       <Grid item xs={12} md={3} xl={2}>
         <FilterCategoryMobile />
         <FilterCategoryDesktop />

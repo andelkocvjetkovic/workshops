@@ -1,7 +1,7 @@
-import BrushIcon from "@app/components/icons/BrushIcon";
-import LayoutIcon from "@app/components/icons/LayoutIcon";
-import CodeIcon from "@app/components/icons/CodeIcon";
-import FlashIcon from "@app/components/icons/FlashIcon";
+import BrushIcon from '@app/components/icons/BrushIcon';
+import LayoutIcon from '@app/components/icons/LayoutIcon';
+import CodeIcon from '@app/components/icons/CodeIcon';
+import FlashIcon from '@app/components/icons/FlashIcon';
 
 /**
  * Filters for  workshops
@@ -9,11 +9,11 @@ import FlashIcon from "@app/components/icons/FlashIcon";
  * @enum {string} filter
  */
 export const FILTERS = {
-  ALL: "all",
-  DESIGN: "design",
-  FRONTEND: "frontend",
-  BACKEND: "backend",
-  MARKETING: "marketing"
+  ALL: 'all',
+  DESIGN: 'design',
+  FRONTEND: 'frontend',
+  BACKEND: 'backend',
+  MARKETING: 'marketing',
 };
 
 /**
@@ -26,5 +26,5 @@ export const FILTERS_ICON = {
   [FILTERS.DESIGN]: <BrushIcon />,
   [FILTERS.FRONTEND]: <LayoutIcon />,
   [FILTERS.BACKEND]: <CodeIcon />,
-  [FILTERS.MARKETING]: <FlashIcon />
+  [FILTERS.MARKETING]: <FlashIcon />,
 };
