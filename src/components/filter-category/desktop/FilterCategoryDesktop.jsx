@@ -4,8 +4,9 @@ import { FILTERS, FILTERS_ICON } from '@app/components/filter-category/utils/Fil
 import FilterMenuItem from '@app/components/filter-category/utils/FilterMenuItem';
 import { useState } from 'react';
 import Grid from '@mui/material/Grid';
+import Box from "@mui/material/Box";
 
-const DesktopWrapper = styled('div')(
+const DesktopWrapper = styled(Box)(
   ({ theme }) => css`
     display: none;
 
@@ -25,7 +26,7 @@ const FilterTitle = styled('div')(
 function FilterCategoryDesktop() {
   const [activeFilter, setActiveFilter] = useState(FILTERS.ALL);
   return (
-    <DesktopWrapper>
+    <DesktopWrapper mt={6}>
       <FilterTitle>
         <Grid container columnSpacing={1}>
           <Grid item xs minWidth={32} />
