@@ -12,7 +12,7 @@ function WorkshopTitle({ to, children }) {
       color='secondary.main'
       sx={{ textDecoration: 'none' }}
       to={to}
-
+      flexGrow={1}
     >
       {children}
     </Typography>

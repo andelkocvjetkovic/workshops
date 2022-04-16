@@ -5,19 +5,22 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import WorkshopCard from '@app/components/workshop-card/WorkshopCard';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectIsPagesLimitExceeded, selectWorkshopList } from '@app/store/reducers/workshopSlice';
+import { selectIsPagesLimitExceeded, selectWorkshopActiveFilter, selectWorkshopList } from '@app/store/reducers/workshopSlice';
 import Button from '@mui/material/Button';
 import { SAGA_WORKSHOPS_APPEND } from '@app/store/sagaActions';
 import LoadMore from '@app/pages/home-partial/LoadMore';
 import FilterCategory from '@app/components/filter-category/FilterCategory';
+import { FILTERS } from '@app/components/filter-category/utils/Filter';
 
 function Home() {
   const dispatch = useDispatch();
   /**@type {Boolean}*/
   const isWorkshopLimitExceeded = useSelector(selectIsPagesLimitExceeded);
+  /**@type {FILTERS}*/
+  const activeFilter = useSelector(selectWorkshopActiveFilter);
   const workshopList = useSelector(selectWorkshopList);
   return (
-    <Grid container sx={{ mt: { xs: 2, lg: 3 } }} rowSpacing={{ xs: 2 }} columnSpacing={{ md: 1, lg: 2 }}>
+    <Grid container sx={{ py: { xs: 2, lg: 3 } }} rowSpacing={{ xs: 2 }} columnSpacing={{ md: 1, lg: 2 }}>
       <Grid item xs={12} md={3}>
         <FilterCategory />
       </Grid>
@@ -30,12 +33,17 @@ function Home() {
             Displayed: {workshopList.length}
           </Typography>
         </Box>
-        <Grid container spacing={{ xs: 3, sm: 6, lg: 4 }} pt={{ xs: 2, sm: 4 }}>
+        <Grid container spacing={{ xs: 2, sm: 5 }} pt={{ xs: 2, sm: 4 }}>
           {workshopList.map(w => (
             <WorkshopCard key={w.id} {...w} />
           ))}
         </Grid>
-        <LoadMore mt={3} onClick={() => dispatch({ type: SAGA_WORKSHOPS_APPEND })} isDisabled={isWorkshopLimitExceeded} />
+        <LoadMore
+          mt={3}
+          onClick={() => dispatch({ type: SAGA_WORKSHOPS_APPEND })}
+          isDisabled={isWorkshopLimitExceeded}
+          isFilterActive={activeFilter !== FILTERS.ALL}
+        />
       </Grid>
     </Grid>
   );

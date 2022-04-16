@@ -20,42 +20,58 @@ import BrushIcon from '@app/components/icons/BrushIcon';
 import WorkshopBrushIcon from '@app/components/workshop-card/utils/WorkshopBrushIcon';
 import PropTypes from 'prop-types';
 import { getDate, getTime } from '@app/utils/time-utils';
+import WorkshopImg from '@app/components/workshop-card/utils/WorkshopImg';
 
 function WorkshopCard({ title, imageUrl, price, date, id }) {
   return (
     <Grid item xs={12} sm={6} md={6} lg={4}>
-      <Card sx={{ border: theme => `1px solid ${theme.palette.grey.lighter}`, boxShadow: 'none' }}>
-        <Grid container>
-          <Grid item xs={4} sm={12} sx={{ position: 'relative' }}>
-            <Box sx={{ height: { xs: '100%', sm: 180 }, width: '100%', display: 'block' }} component={Link} to={`/${id}`}>
-              <CardMedia sx={{ height: '100%', width: '100%' }} component='img' src={imageUrl} alt='Placeholder' />
-            </Box>
+      <Card
+        sx={{
+          border: theme => `1px solid ${theme.palette.grey.lighter}`,
+          boxShadow: 'none',
+          minHeight: '100%',
+          display: 'grid',
+        }}
+      >
+        <Grid container direction={{ xs: 'row', sm: 'column' }}>
+          <Grid item xs={4} sm='auto' sx={{ position: 'relative', height: { sm: 180 } }}>
+            <WorkshopImg src={imageUrl} alt={title} to={`/${id}`} />
             <WorkshopBrushIcon />
           </Grid>
-          <Grid item xs={8} sm={12}>
-            <CardContent sx={{ paddingLeft: { xs: 3, sm: 5 }, paddingTop: { xs: 3, sm: 3 }, paddingRight: { xs: 2, sm: 5 } }}>
-              <Stack direction='row' columnGap={{ xs: 1, sm: 2 }} pb={1}>
-                <WorkshopTimeInfo>
-                  <CalendarIcon />
-                  {getDate(date)}
-                </WorkshopTimeInfo>
-                <WorkshopTimeInfo>
-                  <ClockIcon />
-                  {getTime(date)}
-                </WorkshopTimeInfo>
-              </Stack>
-              <WorkshopTitle to={`/${id}`}>{title}</WorkshopTitle>
-              <Box display='flex' alignItems='center'>
-                <WorkshopPrice>{price.toFixed(2)}</WorkshopPrice>
-                <CardActions sx={{ ml: 'auto', display: { xs: 'flex', sm: 'none' } }}>
-                  <WorkshopIconButton />
+          <Grid item xs={8} sm>
+            <CardContent
+              sx={{
+                paddingLeft: { xs: 3, sm: 5 },
+                paddingTop: { xs: 3, },
+                paddingRight: { xs: 2, sm: 5 },
+                display: 'flex',
+                minHeight: '100%',
+              }}
+            >
+              <Stack spacing={2} width='100%'>
+                <Stack direction='row' columnGap={{ xs: 1, sm: 2 }}>
+                  <WorkshopTimeInfo>
+                    <CalendarIcon />
+                    {getDate(date)}
+                  </WorkshopTimeInfo>
+                  <WorkshopTimeInfo>
+                    <ClockIcon />
+                    {getTime(date)}
+                  </WorkshopTimeInfo>
+                </Stack>
+                <WorkshopTitle to={`/${id}`}>{title}</WorkshopTitle>
+                <Box display='flex' alignItems='center'>
+                  <WorkshopPrice>{price.toFixed(2)}</WorkshopPrice>
+                  <CardActions sx={{ ml: 'auto', display: { xs: 'flex', sm: 'none' } }}>
+                    <WorkshopIconButton />
+                  </CardActions>
+                </Box>
+                <CardActions sx={{ display: { xs: 'none', sm: 'flex', padding: 0 } }}>
+                  <Button variant='contained' fullWidth>
+                    Add to cart
+                  </Button>
                 </CardActions>
-              </Box>
-              <CardActions sx={{ display: { xs: 'none', sm: 'flex', padding: 0, marginTop: '1rem' } }}>
-                <Button variant='contained' fullWidth>
-                  Add to cart
-                </Button>
-              </CardActions>
+              </Stack>
             </CardContent>
           </Grid>
         </Grid>
