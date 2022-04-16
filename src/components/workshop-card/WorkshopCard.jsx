@@ -1,28 +1,23 @@
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import CardActions from '@mui/material/CardActions';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import CalendarIcon from '@app/components/icons/CalendarIcon';
 import ClockIcon from '@app/components/icons/ClockIcon';
-import CartIcon from '@app/components/icons/CartIcon';
-import Typography from '@mui/material/Typography';
-import { Link, NavLink } from 'react-router-dom';
 import WorkshopTitle from '@app/components/workshop-card/utils/WorkshopTitle';
-import { IconButton } from '@mui/material';
 import WorkshopIconButton from '@app/components/workshop-card/utils/WorkshopIconButton';
 import WorkshopTimeInfo from '@app/components/workshop-card/utils/WorkshopTimeInfo';
 import WorkshopPrice from '@app/components/workshop-card/utils/WorkshopPrice';
-import BrushIcon from '@app/components/icons/BrushIcon';
-import WorkshopBrushIcon from '@app/components/workshop-card/utils/WorkshopBrushIcon';
+import WorkshopCategoryIcon from '@app/components/workshop-card/utils/WorkshopBrushIcon';
 import PropTypes from 'prop-types';
 import { getDate, getTime } from '@app/utils/time-utils';
 import WorkshopImg from '@app/components/workshop-card/utils/WorkshopImg';
+import { FILTERS } from '@app/utils/types';
 
-function WorkshopCard({ title, imageUrl, price, date, id }) {
+function WorkshopCard({ title, imageUrl, price, date, id, category }) {
   return (
     <Grid item xs={12} sm={6} md={6} lg={4}>
       <Card
@@ -36,13 +31,13 @@ function WorkshopCard({ title, imageUrl, price, date, id }) {
         <Grid container direction={{ xs: 'row', sm: 'column' }}>
           <Grid item xs={4} sm='auto' sx={{ position: 'relative', height: { sm: 180 } }}>
             <WorkshopImg src={imageUrl} alt={title} to={`/${id}`} />
-            <WorkshopBrushIcon />
+            <WorkshopCategoryIcon category={category} />
           </Grid>
           <Grid item xs={8} sm>
             <CardContent
               sx={{
                 paddingLeft: { xs: 3, sm: 5 },
-                paddingTop: { xs: 3, },
+                paddingTop: { xs: 3 },
                 paddingRight: { xs: 2, sm: 5 },
                 display: 'flex',
                 minHeight: '100%',
@@ -86,5 +81,6 @@ WorkshopCard.propTypes = {
   price: PropTypes.number,
   date: PropTypes.string,
   id: PropTypes.number,
+  category: PropTypes.oneOf(Object.values(FILTERS)),
 };
 export default WorkshopCard;

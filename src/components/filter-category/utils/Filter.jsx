@@ -2,19 +2,7 @@ import BrushIcon from '@app/components/icons/BrushIcon';
 import LayoutIcon from '@app/components/icons/LayoutIcon';
 import CodeIcon from '@app/components/icons/CodeIcon';
 import FlashIcon from '@app/components/icons/FlashIcon';
-
-/**
- * Filters for  workshops
- * @readonly
- * @enum {string} filter
- */
-export const FILTERS = {
-  ALL: 'all',
-  DESIGN: 'design',
-  FRONTEND: 'frontend',
-  BACKEND: 'backend',
-  MARKETING: 'marketing',
-};
+import { FILTERS } from '@app/utils/types';
 
 /**
  * Icon for filter

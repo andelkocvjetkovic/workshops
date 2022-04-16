@@ -1,5 +1,5 @@
 import { API } from '@app/api/api';
-import { FILTERS } from '@app/components/filter-category/utils/Filter';
+import { FILTERS } from '@app/utils/types';
 
 //ApiActionGetWorkshops :: AbortController -> number -> Promise
 export const ApiActionsGetWorkshops =
@@ -8,7 +8,7 @@ export const ApiActionsGetWorkshops =
     API(abortController).get('/workshops', {
       params: {
         _page: page,
-        _limit: 2,
+        _limit: 9,
         _sort: 'date',
         _order: 'desc',
         ...(category !== FILTERS.ALL ? { category } : {}),

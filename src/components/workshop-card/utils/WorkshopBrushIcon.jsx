@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
-import BrushIcon from '@app/components/icons/BrushIcon';
 import { styled } from '@mui/material';
 import { css } from '@mui/material/styles';
+import { FILTERS_ICON } from '@app/components/filter-category/utils/Filter';
 
 const StyledBox = styled(Box)(
   ({ theme }) => css`
@@ -31,12 +31,8 @@ const StyledBox = styled(Box)(
   `
 );
 
-function WorkshopBrushIcon() {
-  return (
-    <StyledBox>
-      <BrushIcon />
-    </StyledBox>
-  );
+function WorkshopBrushIcon({ category }) {
+  return <StyledBox>{FILTERS_ICON[category]}</StyledBox>;
 }
 
 export default WorkshopBrushIcon;

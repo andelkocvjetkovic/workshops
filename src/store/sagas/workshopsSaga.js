@@ -11,7 +11,7 @@ import { FETCH_STATUS } from '@app/utils/types';
 import { selectCurrentApiPage, selectIsPagesLimitExceeded, selectWorkshopActiveFilter } from '@app/store/reducers/workshopSlice';
 
 function* workshopAppend() {
-  yield takeLatest(SAGA_WORKSHOPS_APPEND, function* (action) {
+  yield takeLatest(SAGA_WORKSHOPS_APPEND, function* () {
     const isLimitExceeded = yield select(selectIsPagesLimitExceeded);
     if (!isLimitExceeded) {
       const abortController = new AbortController();
@@ -36,7 +36,7 @@ function* workshopAppend() {
 }
 
 function* workshopsSet() {
-  yield takeLatest(SAGA_WORKSHOPS_SET, function* (action) {
+  yield takeLatest(SAGA_WORKSHOPS_SET, function* () {
     const abortController = new AbortController();
     try {
       const activeFilter = yield select(selectWorkshopActiveFilter);

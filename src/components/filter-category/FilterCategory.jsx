@@ -1,6 +1,5 @@
 import FilterCategoryMobile from '@app/components/filter-category/mobile/FilterCategoryMobile';
 import FilterCategoryDesktop from '@app/components/filter-category/desktop/FilterCategoryDesktop';
-import { FILTERS } from '@app/components/filter-category/utils/Filter';
 import { useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';

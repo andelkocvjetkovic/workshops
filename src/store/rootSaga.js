@@ -1,4 +1,4 @@
-import { all, spawn, call, put } from 'redux-saga/effects';
+import { all, spawn, call } from 'redux-saga/effects';
 import workshopsSaga from '@app/store/sagas/workshopsSaga';
 //https://redux-saga.js.org/docs/advanced/RootSaga#keeping-everything-alive
 export default function* rootSaga() {

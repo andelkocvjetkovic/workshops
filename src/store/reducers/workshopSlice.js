@@ -6,8 +6,7 @@ import {
   ACTION_WORKSHOP_SET_FETCH_STATUS,
   ACTION_WORKSHOP_SET_LIMIT_EXCEEDED,
 } from '@app/store/storeActions';
-import { FILTERS } from '@app/components/filter-category/utils/Filter';
-import { FETCH_STATUS } from '@app/utils/types';
+import { FETCH_STATUS, FILTERS } from '@app/utils/types';
 
 const initialState = {
   list: [],

@@ -1,7 +1,6 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { SAGA_WORKSHOPS_APPEND } from '@app/store/sagaActions';
 import PropTypes from 'prop-types';
 
 function LoadMore({ onClick, isDisabled, isFilterActive, ...rest }) {
@@ -9,7 +8,7 @@ function LoadMore({ onClick, isDisabled, isFilterActive, ...rest }) {
     <Box {...rest}>
       {isDisabled && (
         <Typography variant='h6' component='h5' textAlign='center' color='grey.darker' fontWeight={700}>
-          That's all, currently we have no more workshops to load.
+          That&apos;s all, currently we have no more workshops to load.
           <br />
           {isFilterActive && <Typography variant='subtitle1'>Try redefining your filter.</Typography>}
         </Typography>

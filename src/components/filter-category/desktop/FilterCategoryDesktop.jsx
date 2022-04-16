@@ -1,11 +1,11 @@
 import { css, styled } from '@mui/material/styles';
 import List from '@mui/material/List';
-import { FILTERS, FILTERS_ICON } from '@app/components/filter-category/utils/Filter';
+import { FILTERS_ICON } from '@app/components/filter-category/utils/Filter';
 import FilterMenuItem from '@app/components/filter-category/utils/FilterMenuItem';
-import { useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
+import { FILTERS } from '@app/utils/types';
 
 const DesktopWrapper = styled(Box)(
   ({ theme }) => css`

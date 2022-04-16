@@ -3,9 +3,10 @@ import Menu from '@mui/material/Menu';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 import ArrowDownIcon from '@app/components/icons/ArrowDownIcon';
-import { FILTERS, FILTERS_ICON } from '@app/components/filter-category/utils/Filter';
+import { FILTERS_ICON } from '@app/components/filter-category/utils/Filter';
 import FilterMenuItem from '@app/components/filter-category/utils/FilterMenuItem';
 import PropTypes from 'prop-types';
+import { FILTERS } from '@app/utils/types';
 
 const StyledMenu = styled(props => (
   <Menu

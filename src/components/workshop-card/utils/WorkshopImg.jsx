@@ -15,7 +15,6 @@ const StyledLink = styled(Link)(
   () => css`
     display: flex;
     height: 100%;
-    
   `
 );
 
