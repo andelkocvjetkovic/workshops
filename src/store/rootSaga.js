@@ -1,13 +1,15 @@
-import { all, spawn, call } from 'redux-saga/effects';
+import { all, spawn, call, put } from 'redux-saga/effects';
 import workshopsSaga from '@app/store/sagas/workshopsSaga';
+import { SAGA_FETCH_WORKSHOPS } from '@app/store/sagaActions';
 //https://redux-saga.js.org/docs/advanced/RootSaga#keeping-everything-alive
 export default function* rootSaga() {
   const sagas = [
+    ...workshopsSaga,
     /* eslint-disable require-yield */
     function* () {
       console.log('saga started');
+      yield put({ type: SAGA_FETCH_WORKSHOPS });
     },
-    ...workshopsSaga,
   ];
 
   yield all(

@@ -4,17 +4,17 @@ import FilterCategoryDesktop from '@app/components/filter-category/desktop/Filte
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import WorkshopCard from '@app/components/workshop-card/WorkshopCard';
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { selectIsPagesLimitExceeded, selectWorkshopList } from '@app/store/reducers/workshopSlice';
+import Button from '@mui/material/Button';
 import { SAGA_FETCH_WORKSHOPS } from '@app/store/sagaActions';
-import { selectWorkshopList } from '@app/store/reducers/workshopSlice';
+import LoadMore from '@app/pages/home-partial/LoadMore';
 
 function Home() {
   const dispatch = useDispatch();
+  /**@type {Boolean}*/
+  const isWorkshopLimitExceeded = useSelector(selectIsPagesLimitExceeded);
   const workshopList = useSelector(selectWorkshopList);
-  useEffect(() => {
-    dispatch({ type: SAGA_FETCH_WORKSHOPS });
-  }, [dispatch]);
   return (
     <Grid container sx={{ mt: { xs: 2, lg: 3 } }} rowSpacing={{ xs: 2 }} columnSpacing={{ md: 1, lg: 2 }}>
       <Grid item xs={12} md={3}>
@@ -27,14 +27,15 @@ function Home() {
             Workshops
           </Typography>
           <Typography variant='subtitle1' fontWeight={700} fontSize={{ xs: 14, md: 16 }} color='grey.light'>
-            Displayed: 13
+            Displayed: {workshopList.length}
           </Typography>
         </Box>
         <Grid container spacing={{ xs: 3, sm: 6, lg: 4 }} pt={{ xs: 2, sm: 4 }}>
           {workshopList.map(w => (
-            <WorkshopCard key={w.id} {...w}/>
+            <WorkshopCard key={w.id} {...w} />
           ))}
         </Grid>
+        <LoadMore mt={3} onClick={() => dispatch({ type: SAGA_FETCH_WORKSHOPS })} isDisabled={isWorkshopLimitExceeded} />
       </Grid>
     </Grid>
   );
