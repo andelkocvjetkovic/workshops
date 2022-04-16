@@ -17,7 +17,10 @@ function* fetchWorkshops() {
       try {
         yield put({ type: ACTION_WORKSHOP_SET_FETCH_STATUS, payload: FETCH_STATUS.LOADING });
         const currentApiPage = yield select(selectCurrentApiPage);
-        const { data } = yield call(ApiActionsGetWorkshops(abortController), currentApiPage);
+        const { data } = yield call(ApiActionsGetWorkshops(abortController), {
+          page: currentApiPage,
+          category: 'frontend',
+        });
         if (data.length === 0) yield put({ type: ACTION_WORKSHOP_SET_LIMIT_EXCEEDED, payload: true });
         else yield put({ type: ACTION_WORKSHOP_APPEND_LIST, payload: data });
       } catch (e) {
