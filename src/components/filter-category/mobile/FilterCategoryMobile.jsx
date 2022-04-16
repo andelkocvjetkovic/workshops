@@ -5,6 +5,7 @@ import { useState } from 'react';
 import ArrowDownIcon from '@app/components/icons/ArrowDownIcon';
 import { FILTERS, FILTERS_ICON } from '@app/components/filter-category/utils/Filter';
 import FilterMenuItem from '@app/components/filter-category/utils/FilterMenuItem';
+import PropTypes from 'prop-types';
 
 const StyledMenu = styled(props => (
   <Menu
@@ -41,8 +42,7 @@ const MobileWrapper = styled('div')(
   `
 );
 
-function FilterCategoryMobile() {
-  const [activeFilter, setActiveFilter] = useState(FILTERS.ALL);
+function FilterCategoryMobile({ activeFilter, onClick }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = event => {
@@ -52,7 +52,7 @@ function FilterCategoryMobile() {
     setAnchorEl(null);
   };
   const handleItemClick = newActiveFilter => {
-    setActiveFilter(newActiveFilter);
+    onClick(newActiveFilter);
     handleClose();
   };
   return (
@@ -94,4 +94,8 @@ function FilterCategoryMobile() {
   );
 }
 
+FilterCategoryMobile.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  activeFilter: PropTypes.oneOf(Object.values(FILTERS)).isRequired,
+};
 export default FilterCategoryMobile;

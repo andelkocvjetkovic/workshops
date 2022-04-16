@@ -4,7 +4,8 @@ import { FILTERS, FILTERS_ICON } from '@app/components/filter-category/utils/Fil
 import FilterMenuItem from '@app/components/filter-category/utils/FilterMenuItem';
 import { useState } from 'react';
 import Grid from '@mui/material/Grid';
-import Box from "@mui/material/Box";
+import Box from '@mui/material/Box';
+import PropTypes from 'prop-types';
 
 const DesktopWrapper = styled(Box)(
   ({ theme }) => css`
@@ -23,8 +24,7 @@ const FilterTitle = styled('div')(
   `
 );
 
-function FilterCategoryDesktop() {
-  const [activeFilter, setActiveFilter] = useState(FILTERS.ALL);
+function FilterCategoryDesktop({ activeFilter, onClick }) {
   return (
     <DesktopWrapper mt={6}>
       <FilterTitle>
@@ -42,12 +42,17 @@ function FilterCategoryDesktop() {
             filterText={f}
             filterIcon={FILTERS_ICON[f]}
             selected={f === activeFilter}
-            onClick={() => setActiveFilter(f)}
+            onClick={() => onClick(f)}
           />
         ))}
       </List>
     </DesktopWrapper>
   );
 }
+
+FilterCategoryDesktop.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  activeFilter: PropTypes.oneOf(Object.values(FILTERS)),
+};
 
 export default FilterCategoryDesktop;

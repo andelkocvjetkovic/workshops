@@ -9,6 +9,7 @@ import { selectIsPagesLimitExceeded, selectWorkshopList } from '@app/store/reduc
 import Button from '@mui/material/Button';
 import { SAGA_FETCH_WORKSHOPS } from '@app/store/sagaActions';
 import LoadMore from '@app/pages/home-partial/LoadMore';
+import FilterCategory from '@app/components/filter-category/FilterCategory';
 
 function Home() {
   const dispatch = useDispatch();
@@ -18,8 +19,7 @@ function Home() {
   return (
     <Grid container sx={{ mt: { xs: 2, lg: 3 } }} rowSpacing={{ xs: 2 }} columnSpacing={{ md: 1, lg: 2 }}>
       <Grid item xs={12} md={3}>
-        <FilterCategoryMobile />
-        <FilterCategoryDesktop />
+        <FilterCategory />
       </Grid>
       <Grid item xs={12} md={9}>
         <Box pl={3}>
