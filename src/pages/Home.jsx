@@ -7,7 +7,7 @@ import WorkshopCard from '@app/components/workshop-card/WorkshopCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsPagesLimitExceeded, selectWorkshopList } from '@app/store/reducers/workshopSlice';
 import Button from '@mui/material/Button';
-import { SAGA_FETCH_WORKSHOPS } from '@app/store/sagaActions';
+import { SAGA_WORKSHOPS_APPEND } from '@app/store/sagaActions';
 import LoadMore from '@app/pages/home-partial/LoadMore';
 import FilterCategory from '@app/components/filter-category/FilterCategory';
 
@@ -35,7 +35,7 @@ function Home() {
             <WorkshopCard key={w.id} {...w} />
           ))}
         </Grid>
-        <LoadMore mt={3} onClick={() => dispatch({ type: SAGA_FETCH_WORKSHOPS })} isDisabled={isWorkshopLimitExceeded} />
+        <LoadMore mt={3} onClick={() => dispatch({ type: SAGA_WORKSHOPS_APPEND })} isDisabled={isWorkshopLimitExceeded} />
       </Grid>
     </Grid>
   );

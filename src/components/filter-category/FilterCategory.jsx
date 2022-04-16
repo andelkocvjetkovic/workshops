@@ -3,15 +3,18 @@ import FilterCategoryDesktop from '@app/components/filter-category/desktop/Filte
 import { FILTERS } from '@app/components/filter-category/utils/Filter';
 import { useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectWorkshopActiveFilter } from '@app/store/reducers/workshopSlice';
 
 function FilterCategory() {
-  const [activeFilter, setActiveFilter] = useState(FILTERS.ALL);
+  const initialActiveFilter = useSelector(selectWorkshopActiveFilter);
+  const [activeFilter, setActiveFilter] = useState(() => initialActiveFilter);
   let [, setSearchParams] = useSearchParams();
 
   const handleClick = newActiveFilter => {
     setActiveFilter(newActiveFilter);
     setSearchParams({
-      category: activeFilter,
+      category: newActiveFilter,
     });
   };
 

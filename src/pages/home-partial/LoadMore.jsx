@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { SAGA_FETCH_WORKSHOPS } from '@app/store/sagaActions';
+import { SAGA_WORKSHOPS_APPEND } from '@app/store/sagaActions';
 import PropTypes from 'prop-types';
 
 function LoadMore({ onClick, isDisabled, ...rest }) {

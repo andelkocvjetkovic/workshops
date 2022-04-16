@@ -1,6 +1,8 @@
 import {
   ACTION_WORKSHOP_APPEND_LIST,
   ACTION_WORKSHOP_RESET,
+  ACTION_WORKSHOP_SET,
+  ACTION_WORKSHOP_SET_ACTIVE_FILTER,
   ACTION_WORKSHOP_SET_FETCH_STATUS,
   ACTION_WORKSHOP_SET_LIMIT_EXCEEDED,
 } from '@app/store/storeActions';
@@ -17,6 +19,15 @@ const initialState = {
 export default function workshopReducer(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
+    case ACTION_WORKSHOP_SET: {
+      return {
+        ...state,
+        list: payload,
+        currentApiPage: 2,
+        fetchStatus: FETCH_STATUS.IDLE,
+        isPagesLimitExceeded: false,
+      };
+    }
     case ACTION_WORKSHOP_APPEND_LIST: {
       return {
         ...state,
@@ -37,6 +48,12 @@ export default function workshopReducer(state = initialState, action) {
         fetchStatus: payload,
       };
     }
+    case ACTION_WORKSHOP_SET_ACTIVE_FILTER: {
+      return {
+        ...state,
+        activeFilter: payload,
+      };
+    }
     case ACTION_WORKSHOP_RESET: {
       return initialState;
     }
@@ -47,4 +64,5 @@ export default function workshopReducer(state = initialState, action) {
 export const selectWorkshopList = state => state.workshop.list;
 export const selectCurrentApiPage = state => state.workshop.currentApiPage;
 export const selectIsPagesLimitExceeded = state => state.workshop.isPagesLimitExceeded;
+export const selectWorkshopActiveFilter = state => state.workshop.activeFilter;
 export const selectWorkshopFetchStatus = state => state.workshop.fetchStatus;
