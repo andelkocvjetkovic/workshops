@@ -14,17 +14,6 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { ACTION_CART_DELETE, ACTION_CART_UPDATE_QUANTITY } from '@app/store/storeActions';
 
-const StyledMenuItem = styled(MenuItem)(
-  ({ theme }) => css`
-    font-weight: 700;
-
-    &.Mui-selected,
-    &.Mui-selected:hover {
-      background-color: ${alpha(theme.palette.secondary.main, theme.palette.action.selectedOpacity)};
-    }
-  `
-);
-
 function CartItemCard({ imageUrl, title, id, quantity, price }) {
   const dispatch = useDispatch();
 
@@ -33,14 +22,14 @@ function CartItemCard({ imageUrl, title, id, quantity, price }) {
   }
 
   function handleQuantityChange(e) {
-    dispatch({ type: ACTION_CART_UPDATE_QUANTITY, payload: { id, quantity: e.target.value } });
+    dispatch({ type: ACTION_CART_UPDATE_QUANTITY, payload: { id, quantity: Number(e.target.value) } });
   }
 
   return (
     <Card>
       <Grid container>
         <Grid item xs={4}>
-          <WorkshopImg to='/1' src={imageUrl} alt={title} />
+          <WorkshopImg to={`/${id}`} src={imageUrl} alt={title} />
         </Grid>
         <Grid item xs={8} rowSpacing={1} p={2} bgcolor='grey.lighter'>
           <Stack spacing={2}>
@@ -67,21 +56,22 @@ function CartItemCard({ imageUrl, title, id, quantity, price }) {
             <Grid container columnGap={2} alignItems='center'>
               <Grid item xs='auto'>
                 <Select
+                  native
                   color='secondary'
                   sx={{ fontWeight: 700, width: 60, height: 45 }}
                   value={quantity}
                   onChange={handleQuantityChange}
                 >
                   {[...Array(9)].map((_, idx) => (
-                    <StyledMenuItem key={idx + 1} value={idx + 1} color='secondary.main'>
+                    <option key={idx + 1} value={idx + 1}>
                       {idx + 1}
-                    </StyledMenuItem>
+                    </option>
                   ))}
                 </Select>
               </Grid>
               <Grid item xs>
                 <Typography fontSize={23} fontWeight={700}>
-                  {price}&nbsp;
+                  {price.toFixed(2)}&nbsp;
                   <Typography fontSize={13} fontWeight={700} component='span'>
                     EUR
                   </Typography>

@@ -13,15 +13,13 @@ export default function cartReducer(state = initialState, action) {
     case ACTION_CART_ADD: {
       return {
         ...state,
-        products: state.products
-          .concat(payload)
-          .reduce(
-            (acc, x) =>
-              acc.some(y => y.id === x.id)
-                ? acc.map(y => (y.id === x.id ? { ...x, quantity: y.quantity + x.quantity } : y))
-                : acc.concat(x),
-            []
-          ),
+        products: [payload, ...state.products].reduce(
+          (acc, x) =>
+            acc.some(y => y.id === x.id)
+              ? acc.map(y => (y.id === x.id ? { ...x, quantity: y.quantity + x.quantity } : y))
+              : acc.concat(x),
+          []
+        ),
       };
     }
     case ACTION_CART_UPDATE_QUANTITY: {
