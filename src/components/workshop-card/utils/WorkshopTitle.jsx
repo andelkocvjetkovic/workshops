@@ -10,7 +10,7 @@ function WorkshopTitle({ to, children }) {
       lineHeight='23px'
       component={Link}
       color='secondary.main'
-      sx={{ textDecoration: 'none' }}
+      sx={{ textDecoration: 'none', ':hover': { textDecoration: 'underline' } }}
       to={to}
       flexGrow={1}
     >

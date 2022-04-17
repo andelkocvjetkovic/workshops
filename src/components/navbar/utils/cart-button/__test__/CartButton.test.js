@@ -1,5 +1,5 @@
 import { render } from '@app/utils/test-utils';
-import CartButton from '@app/components/cart-button/CartButton';
+import CartButton from '@app/components/navbar/utils/cart-button/CartButton';
 
 describe('<CartButton />', () => {
   it('should render without errors', () => {

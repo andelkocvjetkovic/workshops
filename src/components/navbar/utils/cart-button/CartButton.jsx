@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 import CartIcon from '@app/components/icons/CartIcon';
 import PropTypes from 'prop-types';
+import { keyframes } from '@emotion/react';
+import CartEclipse from '@app/components/cart/utils/CartEclipse';
 
 const Button = styled.button`
   display: inline-flex;
@@ -15,7 +17,18 @@ const Button = styled.button`
   color: ${props => props.theme.palette.grey.darker};
   cursor: pointer;
 `;
-const Eclipse = styled.span`
+const blink = keyframes`
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+export const Eclipse = styled.span`
   width: 13px;
   height: 13px;
   background-color: ${props => props.theme.palette.secondary.light};
@@ -23,6 +36,7 @@ const Eclipse = styled.span`
   position: absolute;
   top: 1px;
   left: 26px;
+  animation: ${blink} 0.3ms linear backwards;
 `;
 const Amount = styled.span`
   display: none;
@@ -32,11 +46,10 @@ const Amount = styled.span`
   }
 `;
 
-function CartButton({ cartAmount }) {
+function CartButton({ cartAmount, onClick }) {
   return (
-    <Button title='Cart'>
-      <CartIcon />
-      {cartAmount > 0 && <Eclipse data-testid='cart-eclipse' />}
+    <Button title='Cart' onClick={onClick}>
+      {cartAmount > 0 && <CartEclipse />}
       <Amount>{cartAmount === 0 ? 'Cart is empty' : `${cartAmount} Workshop in Cart`}</Amount>
     </Button>
   );
@@ -44,6 +57,7 @@ function CartButton({ cartAmount }) {
 
 CartButton.propTypes = {
   cartAmount: PropTypes.number,
+  onClick: PropTypes.func,
 };
 
 export default CartButton;

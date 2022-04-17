@@ -20,3 +20,19 @@ export const FILTERS = {
   BACKEND: 'backend',
   MARKETING: 'marketing',
 };
+
+/**
+ * @namespace Workshop
+ */
+/**
+ * Workshop order object types
+ * @typedef Workshop~OrderProduct
+ * @property {number} id
+ * @property {string} title
+ * @property {string} desc
+ * @property {number} price
+ * @property {string} date
+ * @property {string} category
+ * @property {string} imageUrl
+ * @property {number} quantity
+ */

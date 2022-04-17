@@ -16,16 +16,35 @@ import PropTypes from 'prop-types';
 import { getDate, getTime } from '@app/utils/time-utils';
 import WorkshopImg from '@app/components/workshop-card/utils/WorkshopImg';
 import { FILTERS } from '@app/utils/types';
+import { useDispatch } from 'react-redux';
+import { ACTION_CART_ADD } from '@app/store/storeActions';
 
-function WorkshopCard({ title, imageUrl, price, date, id, category }) {
+function WorkshopCard({ title, imageUrl, price, date, id, category, desc, userId }) {
+  const dispatch = useDispatch();
+
+  function handleAddToCard() {
+    dispatch({
+      type: ACTION_CART_ADD,
+      payload: {
+        id,
+        category,
+        title,
+        date,
+        price,
+        desc,
+        userId,
+        quantity: 1,
+      },
+    });
+  }
+
   return (
     <Grid item xs={12} sm={6} md={6} lg={4}>
       <Card
         sx={{
           border: theme => `1px solid ${theme.palette.grey.lighter}`,
-          boxShadow: 'none',
           minHeight: '100%',
-          display: 'grid',
+          display: 'flex',
         }}
       >
         <Grid container direction={{ xs: 'row', sm: 'column' }}>
@@ -58,11 +77,11 @@ function WorkshopCard({ title, imageUrl, price, date, id, category }) {
                 <Box display='flex' alignItems='center'>
                   <WorkshopPrice>{price.toFixed(2)}</WorkshopPrice>
                   <CardActions sx={{ ml: 'auto', display: { xs: 'flex', sm: 'none' } }}>
-                    <WorkshopIconButton />
+                    <WorkshopIconButton onClick={handleAddToCard} />
                   </CardActions>
                 </Box>
                 <CardActions sx={{ display: { xs: 'none', sm: 'flex', padding: 0 } }}>
-                  <Button variant='contained' fullWidth>
+                  <Button variant='contained' fullWidth onClick={handleAddToCard}>
                     Add to cart
                   </Button>
                 </CardActions>
@@ -82,5 +101,7 @@ WorkshopCard.propTypes = {
   date: PropTypes.string,
   id: PropTypes.number,
   category: PropTypes.oneOf(Object.values(FILTERS)),
+  desc: PropTypes.string,
+  userId: PropTypes.number,
 };
 export default WorkshopCard;

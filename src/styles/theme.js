@@ -11,7 +11,7 @@ export default createTheme({
     secondary: {
       main: FIGMA_COLORS.BLUE,
       light: FIGMA_COLORS.LIGHT_BLUE,
-      contrastText: FIGMA_COLORS.BLACK,
+      contrastText: FIGMA_COLORS.WHITE,
     },
     error: {
       main: FIGMA_COLORS.RED,
@@ -51,6 +51,20 @@ export default createTheme({
     MuiButtonBase: {
       defaultProps: {
         disableRipple: true,
+      },
+    },
+    MuiSelect: {
+      defaultProps: {
+        MenuProps: {
+          elevation: 3,
+        },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          boxShadow: 'none',
+        },
       },
     },
   },

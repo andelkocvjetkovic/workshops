@@ -15,6 +15,11 @@ const StyledLink = styled(Link)(
   () => css`
     display: flex;
     height: 100%;
+    transition: opacity 250ms ease-out;
+
+    &:hover {
+      opacity: .85;
+    }
   `
 );
 

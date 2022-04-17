@@ -2,7 +2,11 @@ import Container from '@mui/material/Container';
 import { Link } from 'react-router-dom';
 import { ROUTE_HOME } from '@app/pages/routesConstats';
 import styled from '@emotion/styled';
-import CartButton from '@app/components/cart-button/CartButton';
+import CartButton from '@app/components/navbar/utils/cart-button/CartButton';
+import Cart from '@app/components/cart/Cart';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectCartAmount } from '@app/store/reducers/cartSlice';
 
 const BgWrapper = styled.div`
   background-color: ${props => props.theme.palette.primary.light};
@@ -22,13 +26,16 @@ const LogoImg = styled.img`
 `;
 
 function Navbar() {
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const cartAmount = useSelector(selectCartAmount);
   return (
     <BgWrapper>
       <Container sx={{ py: { xs: 1, md: 2 }, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Link to={ROUTE_HOME} title='Workshop - Home'>
           <LogoImg src='/assets/logo.svg' alt='Logo' />
         </Link>
-        <CartButton cartAmount={2} />
+        <CartButton cartAmount={cartAmount} onClick={() => setIsCartOpen(true)} />
+        <Cart open={isCartOpen} onClose={() => setIsCartOpen(false)} />
       </Container>
     </BgWrapper>
   );
