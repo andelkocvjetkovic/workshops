@@ -10,6 +10,9 @@ import { styled, alpha } from '@mui/material';
 import TrashIcon from '@app/components/icons/TrashIcon';
 import MenuItem from '@mui/material/MenuItem';
 import { css } from '@mui/material/styles';
+import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { ACTION_CART_DELETE, ACTION_CART_UPDATE_QUANTITY } from '@app/store/storeActions';
 
 const StyledMenuItem = styled(MenuItem)(
   ({ theme }) => css`
@@ -22,12 +25,22 @@ const StyledMenuItem = styled(MenuItem)(
   `
 );
 
-function CartItemCard() {
+function CartItemCard({ imageUrl, title, id, quantity, price }) {
+  const dispatch = useDispatch();
+
+  function handleDeleteProduct() {
+    dispatch({ type: ACTION_CART_DELETE, payload: id });
+  }
+
+  function handleQuantityChange(e) {
+    dispatch({ type: ACTION_CART_UPDATE_QUANTITY, payload: { id, quantity: e.target.value } });
+  }
+
   return (
     <Card>
       <Grid container>
         <Grid item xs={4}>
-          <WorkshopImg to='/1' src='/assets/workshop-placeholder.png' alt='placeholder' />
+          <WorkshopImg to='/1' src={imageUrl} alt={title} />
         </Grid>
         <Grid item xs={8} rowSpacing={1} p={2} bgcolor='grey.lighter'>
           <Stack spacing={2}>
@@ -36,24 +49,29 @@ function CartItemCard() {
                 <Typography
                   variant='h4'
                   component={Link}
-                  to='/1'
+                  to={`/${id}`}
                   fontSize={19}
                   fontWeight={700}
                   color='secondary.main'
                   sx={{ textDecoration: 'none', ':hover': { textDecoration: 'underline' } }}
                 >
-                  Interaction Dsgn Workshop
+                  {title}
                 </Typography>
               </Grid>
               <Grid item>
-                <IconButton>
+                <IconButton onClick={handleDeleteProduct}>
                   <TrashIcon />
                 </IconButton>
               </Grid>
             </Grid>
             <Grid container columnGap={2} alignItems='center'>
               <Grid item xs='auto'>
-                <Select color='secondary' sx={{ fontWeight: 700, width: 60, height: 45 }}>
+                <Select
+                  color='secondary'
+                  sx={{ fontWeight: 700, width: 60, height: 45 }}
+                  value={quantity}
+                  onChange={handleQuantityChange}
+                >
                   {[...Array(9)].map((_, idx) => (
                     <StyledMenuItem key={idx + 1} value={idx + 1} color='secondary.main'>
                       {idx + 1}
@@ -63,7 +81,7 @@ function CartItemCard() {
               </Grid>
               <Grid item xs>
                 <Typography fontSize={23} fontWeight={700}>
-                  450.00&nbsp;
+                  {price}&nbsp;
                   <Typography fontSize={13} fontWeight={700} component='span'>
                     EUR
                   </Typography>
@@ -76,5 +94,13 @@ function CartItemCard() {
     </Card>
   );
 }
+
+CartItemCard.propTypes = {
+  imageUrl: PropTypes.string,
+  title: PropTypes.string,
+  id: PropTypes.number,
+  quantity: PropTypes.number,
+  price: PropTypes.number,
+};
 
 export default CartItemCard;

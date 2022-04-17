@@ -47,3 +47,4 @@ export default function cartReducer(state = initialState, action) {
 export const selectCartSubtotal = state => state.cart.products.reduce((acc, x) => acc + x.quantity * x.price, 0).toFixed(2);
 export const selectIsCartEmpty = state => state.cart.products.length === 0;
 export const selectCartAmount = state => state.cart.products.reduce((acc, x) => acc + x.quantity, 0);
+export const selectCartProducts = state => state.cart.products;

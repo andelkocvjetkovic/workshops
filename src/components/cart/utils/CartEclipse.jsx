@@ -26,7 +26,7 @@ export const Eclipse = styled.span`
   position: absolute;
   top: 1px;
   left: 26px;
-  animation: ${blink} 300ms linear backwards;
+  animation: ${blink} 300ms ease-out backwards;
 `;
 
 function CartEclipse() {

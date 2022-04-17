@@ -34,6 +34,7 @@ function WorkshopCard({ title, imageUrl, price, date, id, category, desc, userId
         desc,
         userId,
         quantity: 1,
+        imageUrl,
       },
     });
   }

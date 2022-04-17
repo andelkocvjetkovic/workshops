@@ -49,7 +49,7 @@ const Amount = styled.span`
 function CartButton({ cartAmount, onClick }) {
   return (
     <Button title='Cart' onClick={onClick}>
-      {cartAmount > 0 && <CartEclipse />}
+      <CartEclipse />
       <Amount>{cartAmount === 0 ? 'Cart is empty' : `${cartAmount} Workshop in Cart`}</Amount>
     </Button>
   );
