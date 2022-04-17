@@ -4,7 +4,6 @@ import Typography from '@mui/material/Typography';
 import { IconButton } from '@mui/material';
 import CloseIcon from '@app/components/icons/CloseIcon';
 import Stack from '@mui/material/Stack';
-import Grid from '@mui/material/Grid';
 import CheckoutForm from '@app/components/checkout-form/utils/CheckoutForm';
 
 function Checkout({ onClose }) {

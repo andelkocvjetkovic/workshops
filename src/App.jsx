@@ -2,7 +2,6 @@ import { Routes, Route, useSearchParams } from 'react-router-dom';
 import MainLayout from '@app/components/layouts/MainLayout';
 import { lazy, Suspense, useEffect } from 'react';
 import { ROUTE_HOME, ROUTE_WORKSHOP } from '@app/pages/routesConstats';
-import useWorkshopFilterCategoryChange from '@app/components/hooks/useWorkshopFilterCategoryChange';
 import LoaderPage from '@app/components/loader/LoaderPage';
 import { useDispatch } from 'react-redux';
 import { SAGA_STARTUP_APP } from '@app/store/sagaActions';

@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import CartIcon from '@app/components/icons/CartIcon';
 import PropTypes from 'prop-types';
 import { keyframes } from '@emotion/react';
 import CartEclipse from '@app/components/cart/utils/CartEclipse';

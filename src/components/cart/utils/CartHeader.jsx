@@ -1,8 +1,6 @@
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import CartIcon from '@app/components/icons/CartIcon';
-import { Eclipse } from '@app/components/navbar/utils/cart-button/CartButton';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@app/components/icons/CloseIcon';
 import PropTypes from 'prop-types';

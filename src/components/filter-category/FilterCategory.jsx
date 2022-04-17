@@ -1,7 +1,6 @@
 import FilterCategoryMobile from '@app/components/filter-category/mobile/FilterCategoryMobile';
 import FilterCategoryDesktop from '@app/components/filter-category/desktop/FilterCategoryDesktop';
 import { useSearchParams } from 'react-router-dom';
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectWorkshopActiveFilter } from '@app/store/reducers/workshopSlice';
 import { ACTION_WORKSHOP_SET_ACTIVE_FILTER } from '@app/store/storeActions';

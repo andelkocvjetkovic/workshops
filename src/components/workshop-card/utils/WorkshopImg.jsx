@@ -18,7 +18,7 @@ const StyledLink = styled(Link)(
     transition: opacity 250ms ease-out;
 
     &:hover {
-      opacity: .85;
+      opacity: 0.85;
     }
   `
 );

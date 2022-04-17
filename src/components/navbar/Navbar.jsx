@@ -1,10 +1,10 @@
 import Container from '@mui/material/Container';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { ROUTE_HOME } from '@app/pages/routesConstats';
 import styled from '@emotion/styled';
 import CartButton from '@app/components/navbar/utils/cart-button/CartButton';
 import Cart from '@app/components/cart/Cart';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { selectCartAmount } from '@app/store/reducers/cartSlice';
 
@@ -28,6 +28,8 @@ const LogoImg = styled.img`
 function Navbar() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const cartAmount = useSelector(selectCartAmount);
+  const location = useLocation();
+  useEffect(() => setIsCartOpen(false), [location]);
   return (
     <BgWrapper>
       <Container sx={{ py: { xs: 1, md: 2 }, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>

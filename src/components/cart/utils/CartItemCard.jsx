@@ -3,17 +3,13 @@ import Grid from '@mui/material/Grid';
 import WorkshopImg from '@app/components/workshop-card/utils/WorkshopImg';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Select from '@mui/material/Select';
 import IconButton from '@mui/material/IconButton';
-import { styled, alpha } from '@mui/material';
 import TrashIcon from '@app/components/icons/TrashIcon';
-import MenuItem from '@mui/material/MenuItem';
-import { css } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { ACTION_CART_DELETE, ACTION_CART_UPDATE_QUANTITY } from '@app/store/storeActions';
-import { useEffect } from 'react';
 
 function CartItemCard({ imageUrl, title, id, quantity, price }) {
   const dispatch = useDispatch();
