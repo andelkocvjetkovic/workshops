@@ -67,5 +67,11 @@ export default createTheme({
         },
       },
     },
+    MuiTextField: {
+      defaultProps: {
+        color: 'secondary',
+        variant: 'standard',
+      },
+    },
   },
 });

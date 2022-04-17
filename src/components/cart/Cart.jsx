@@ -19,6 +19,7 @@ import CartItemCard from '@app/components/cart/utils/CartItemCard';
 import CartSubtotal from '@app/components/cart/utils/CartSubtotal';
 import { useSelector } from 'react-redux';
 import { selectCartAmount, selectCartProducts, selectIsCartEmpty } from '@app/store/reducers/cartSlice';
+import Checkout from '@app/components/checkout-form/Checkout';
 
 function Cart({ open, onClose }) {
   /**@type {boolean}*/
@@ -28,22 +29,25 @@ function Cart({ open, onClose }) {
   /**@type {Workshop~OrderProduct[]}*/
   const cartProducts = useSelector(selectCartProducts);
   return (
-    <Drawer anchor='right' open={open} onClose={onClose} elevation={4}>
-      <Box width={{ xs: '100vw', sm: '380px' }} p={2}>
-        <Stack spacing={5}>
-          <CartHeader onClose={onClose} isCartEmpty={isCartEmpty} cartAmount={cartAmount} />
-          <Stack spacing={3}>
-            {cartProducts.map(product => (
-              <CartItemCard key={product.id} {...product} />
-            ))}
+    <>
+      <Drawer anchor='right' open={open} onClose={onClose} elevation={4}>
+        <Box width={{ xs: '100vw', sm: '380px' }} p={2}>
+          <Stack spacing={5}>
+            <CartHeader onClose={onClose} isCartEmpty={isCartEmpty} cartAmount={cartAmount} />
+            <Stack spacing={3}>
+              {cartProducts.map(product => (
+                <CartItemCard key={product.id} {...product} />
+              ))}
+            </Stack>
+            <CartSubtotal />
+            <Button variant='contained' color='secondary' onClick={onClose} disabled={isCartEmpty}>
+              Checkout
+            </Button>
           </Stack>
-          <CartSubtotal />
-          <Button variant='contained' color='secondary' onClick={onClose} disabled={isCartEmpty}>
-            Checkout
-          </Button>
-        </Stack>
-      </Box>
-    </Drawer>
+        </Box>
+      </Drawer>
+      <Checkout />
+    </>
   );
 }
 
