@@ -50,21 +50,21 @@ function WorkshopCard({ title, imageUrl, price, date, id, category, desc, userId
       >
         <Grid container direction={{ xs: 'row', sm: 'column' }}>
           <Grid item xs={4} sm='auto' sx={{ position: 'relative', height: { sm: 180 } }}>
-            <WorkshopImg src={imageUrl} alt={title} to={`/${id}`} />
+            <WorkshopImg src={imageUrl} alt={title} to={`${id}`} />
             <WorkshopCategoryIcon category={category} />
           </Grid>
           <Grid item xs={8} sm>
             <CardContent
               sx={{
-                paddingLeft: { xs: 3, sm: 5 },
-                paddingTop: { xs: 3 },
-                paddingRight: { xs: 2, sm: 5 },
+                paddingLeft: { xs: 3 },
+                paddingTop: { xs: 2 },
+                paddingRight: { xs: 2 },
                 display: 'flex',
                 minHeight: '100%',
               }}
             >
-              <Stack spacing={2} width='100%'>
-                <Stack direction='row' columnGap={{ xs: 1, sm: 2 }}>
+              <Stack spacing={1} width='100%'>
+                <Stack direction='row' columnGap={{ xs: 1 }}>
                   <WorkshopTimeInfo>
                     <CalendarIcon />
                     {getDate(date)}
@@ -74,7 +74,7 @@ function WorkshopCard({ title, imageUrl, price, date, id, category, desc, userId
                     {getTime(date)}
                   </WorkshopTimeInfo>
                 </Stack>
-                <WorkshopTitle to={`/${id}`}>{title}</WorkshopTitle>
+                <WorkshopTitle to={`${id}`}>{title}</WorkshopTitle>
                 <Box display='flex' alignItems='center'>
                   <WorkshopPrice>{price.toFixed(2)}</WorkshopPrice>
                   <CardActions sx={{ ml: 'auto', display: { xs: 'flex', sm: 'none' } }}>

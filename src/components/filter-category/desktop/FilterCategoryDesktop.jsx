@@ -6,6 +6,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 import { FILTERS } from '@app/utils/types';
+import Typography from '@mui/material/Typography';
 
 const DesktopWrapper = styled(Box)(
   ({ theme }) => css`
@@ -31,7 +32,7 @@ function FilterCategoryDesktop({ activeFilter, onClick }) {
         <Grid container columnSpacing={1}>
           <Grid item xs minWidth={32} />
           <Grid item xs={9}>
-            Filter by category:
+            <Typography variant='h6'>Filter by category:</Typography>
           </Grid>
         </Grid>
       </FilterTitle>

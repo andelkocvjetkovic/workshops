@@ -5,9 +5,7 @@ import PropTypes from 'prop-types';
 function WorkshopTitle({ to, children }) {
   return (
     <Typography
-      variant='h6'
-      fontWeight={700}
-      lineHeight='23px'
+      variant='h4'
       component={Link}
       color='secondary.main'
       sx={{ textDecoration: 'none', ':hover': { textDecoration: 'underline' } }}

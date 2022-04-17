@@ -11,7 +11,7 @@ function CheckoutForm() {
       <TextField label={CHECKOUT_FIELDS.EMAIL.label}/>
       <Grid container>
        <Grid item xs={12}>
-         
+
        </Grid>
       </Grid>
     </Box>

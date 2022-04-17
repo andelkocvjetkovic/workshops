@@ -13,13 +13,14 @@ import CardMedia from '@mui/material/CardMedia';
 import TrashIcon from '@app/components/icons/TrashIcon';
 import MenuItem from '@mui/material/MenuItem';
 import WorkshopImg from '@app/components/workshop-card/utils/WorkshopImg';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import CartHeader from '@app/components/cart/utils/CartHeader';
 import CartItemCard from '@app/components/cart/utils/CartItemCard';
 import CartSubtotal from '@app/components/cart/utils/CartSubtotal';
 import { useSelector } from 'react-redux';
 import { selectCartAmount, selectCartProducts, selectIsCartEmpty } from '@app/store/reducers/cartSlice';
 import Checkout from '@app/components/checkout-form/Checkout';
+import { useEffect } from 'react';
 
 function Cart({ open, onClose }) {
   /**@type {boolean}*/
@@ -28,6 +29,8 @@ function Cart({ open, onClose }) {
   const cartAmount = useSelector(selectCartAmount);
   /**@type {Workshop~OrderProduct[]}*/
   const cartProducts = useSelector(selectCartProducts);
+  const location = useLocation();
+  useEffect(() => onClose(), [location]);
   return (
     <>
       <Drawer anchor='right' open={open} onClose={onClose} elevation={4}>

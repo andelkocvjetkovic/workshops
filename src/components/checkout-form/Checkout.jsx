@@ -9,7 +9,7 @@ import CheckoutForm from '@app/components/checkout-form/utils/CheckoutForm';
 
 function Checkout({ onClose }) {
   return (
-    <CheckoutModal onClose={onClose} open>
+    <CheckoutModal onClose={onClose} open={false}>
       <Box p={3} bgcolor='common.white' width={{ xs: '100vw' }} height={{ xs: '100vh' }}>
         <Stack>
           <Typography

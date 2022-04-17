@@ -2,6 +2,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Grid from '@mui/material/Grid';
 import { css, alpha } from '@mui/material/styles';
 import { styled } from '@mui/material';
+import Typography from '@mui/material/Typography';
 
 const StyledMenuItem = styled(MenuItem)(
   ({ theme }) => css`
@@ -46,7 +47,9 @@ function FilterMenuItem({ filterIcon, filterText, ...rest }) {
           {filterIcon}
         </Grid>
         <Grid item xs={9}>
-          {filterText}
+          <Typography variant='h5' component='span'>
+            {filterText}
+          </Typography>
         </Grid>
       </Grid>
     </StyledMenuItem>

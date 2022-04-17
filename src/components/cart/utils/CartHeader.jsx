@@ -10,7 +10,7 @@ import CartElipse from '@app/components/cart/utils/CartEclipse';
 
 function CartHeader({ isCartEmpty, onClose, cartAmount }) {
   return (
-    <Typography display='flex' alignItems='center' variant='h6' fontSize={{ xs: 18, md: 23 }} fontWeight={700}>
+    <Typography display='flex' alignItems='center' variant='h5'>
       <Stack direction='row' alignItems='center' spacing={1}>
         <CartElipse />
         {isCartEmpty ? 'Cart is empty' : <Box>{cartAmount} Workshops</Box>}

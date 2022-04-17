@@ -7,10 +7,14 @@ function LoadMore({ onClick, isDisabled, isFilterActive, ...rest }) {
   return (
     <Box {...rest}>
       {isDisabled && (
-        <Typography variant='h6' component='h5' textAlign='center' color='grey.darker' fontWeight={700}>
+        <Typography variant='h3' textAlign='center' color='grey.darker'>
           That&apos;s all, currently we have no more workshops to load.
           <br />
-          {isFilterActive && <Typography variant='subtitle1'>Try redefining your filter.</Typography>}
+          {isFilterActive && (
+            <Typography variant='h5' color='secondary.light'>
+              Try redefining your filter.
+            </Typography>
+          )}
         </Typography>
       )}
       <Box display='flex' justifyContent='center'>
@@ -25,7 +29,9 @@ function LoadMore({ onClick, isDisabled, isFilterActive, ...rest }) {
           }}
           onClick={onClick}
         >
-          Load more
+          <Typography variant='h6' component='span'>
+            Load more
+          </Typography>
           <Box
             component='span'
             role='presentation'

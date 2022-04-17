@@ -3,6 +3,7 @@ import CartIcon from '@app/components/icons/CartIcon';
 import PropTypes from 'prop-types';
 import { keyframes } from '@emotion/react';
 import CartEclipse from '@app/components/cart/utils/CartEclipse';
+import Typography from '@mui/material/Typography';
 
 const Button = styled.button`
   display: inline-flex;
@@ -38,19 +39,14 @@ export const Eclipse = styled.span`
   left: 26px;
   animation: ${blink} 0.3ms linear backwards;
 `;
-const Amount = styled.span`
-  display: none;
-
-  ${props => props.theme.breakpoints.up('md')} {
-    display: block;
-  }
-`;
 
 function CartButton({ cartAmount, onClick }) {
   return (
     <Button title='Cart' onClick={onClick}>
       <CartEclipse />
-      <Amount>{cartAmount === 0 ? 'Cart is empty' : `${cartAmount} Workshop in Cart`}</Amount>
+      <Typography variant='h6' component='span' sx={{ display: { xs: 'none', md: 'inline-block' } }}>
+        {cartAmount === 0 ? 'Cart is empty' : `${cartAmount} Workshop in Cart`}
+      </Typography>
     </Button>
   );
 }

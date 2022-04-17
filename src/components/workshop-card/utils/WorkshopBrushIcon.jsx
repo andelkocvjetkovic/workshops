@@ -15,7 +15,7 @@ const StyledBox = styled(Box)(
     height: 2rem;
     padding: 0.25rem;
     position: absolute;
-    top: 0.75rem;
+    top: 0.65rem;
     left: 100%;
     transform: translateX(-50%);
 

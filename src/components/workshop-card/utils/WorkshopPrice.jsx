@@ -2,9 +2,9 @@ import Typography from '@mui/material/Typography';
 
 function WorkshopPrice({ children }) {
   return (
-    <Typography variant='h5' fontWeight={700}>
+    <Typography variant='h3'>
       {children}
-      <Typography component='span' fontWeight={700} variant='body2'>
+      <Typography  component='span' fontWeight={700} variant='h6'>
         &nbsp;EUR
       </Typography>
     </Typography>

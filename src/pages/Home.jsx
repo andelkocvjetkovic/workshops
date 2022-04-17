@@ -23,11 +23,12 @@ function Home() {
       </Grid>
       <Grid item xs={12} md={9}>
         <Box pl={3}>
-          <Typography variant='h4' fontWeight={700} component='div'>
-            Workshops
-          </Typography>
-          <Typography variant='subtitle1' fontWeight={700} fontSize={{ xs: 14, md: 16 }} color='grey.light'>
-            Displayed: {workshopList.length}
+          <Typography variant='h2'>Workshops</Typography>
+          <Typography variant='h6' color='grey.light'>
+            Displayed:{' '}
+            <Box component='span' color='grey.darker'>
+              {workshopList.length}
+            </Box>
           </Typography>
         </Box>
         <Grid container spacing={{ xs: 2, sm: 5 }} pt={{ xs: 2, sm: 4 }}>

@@ -7,6 +7,7 @@ import { FILTERS_ICON } from '@app/components/filter-category/utils/Filter';
 import FilterMenuItem from '@app/components/filter-category/utils/FilterMenuItem';
 import PropTypes from 'prop-types';
 import { FILTERS } from '@app/utils/types';
+import Typography from '@mui/material/Typography';
 
 const StyledMenu = styled(props => (
   <Menu
@@ -70,7 +71,9 @@ function FilterCategoryMobile({ activeFilter, onClick }) {
         startIcon={<ArrowDownIcon />}
         sx={{ minWidth: 180, justifyContent: 'flex-start' }}
       >
-        {activeFilter}
+        <Typography variant='h5' component='span'>
+          {activeFilter}
+        </Typography>
       </Button>
       <StyledMenu
         id='demo-customized-menu'

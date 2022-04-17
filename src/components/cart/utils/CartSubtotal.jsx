@@ -4,19 +4,16 @@ import { useSelector } from 'react-redux';
 import { selectCartSubtotal } from '@app/store/reducers/cartSlice';
 
 function CartSubtotal() {
-  /**
-   *
-   * @type {string}
-   */
+  /*** @type {string}*/
   const cartSubtotal = useSelector(selectCartSubtotal);
   return (
     <Box>
-      <Typography variant='subtitle2' color='grey.light' fontWeight={700} textTransform='uppercase' fontSize={{ xs: 13, md: 15 }}>
+      <Typography variant='h6' color='grey.light' textTransform='uppercase'>
         Subtotal
       </Typography>
-      <Typography variant='h4' fontSize={{ xs: 32, md: 40 }} fontWeight={700}>
+      <Typography variant='h2' j>
         {cartSubtotal}
-        <Typography component='span' fontSize={{ xs: 18, md: 26 }} fontWeight={700}>
+        <Typography variant='h4' component='span'>
           EUR
         </Typography>
       </Typography>
