@@ -1,5 +1,5 @@
 import Container from '@mui/material/Container';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { ROUTE_HOME } from '@app/pages/routesConstats';
 import styled from '@emotion/styled';
 import CartButton from '@app/components/navbar/utils/cart-button/CartButton';

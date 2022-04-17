@@ -8,6 +8,7 @@ import { SAGA_WORKSHOPS_APPEND } from '@app/store/sagaActions';
 import LoadMore from '@app/pages/home-partial/LoadMore';
 import FilterCategory from '@app/components/filter-category/FilterCategory';
 import { FILTERS } from '@app/utils/types';
+import useWorkshopFilterCategoryChange from '@app/components/hooks/useWorkshopFilterCategoryChange';
 
 function Home() {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ function Home() {
   /**@type {FILTERS}*/
   const activeFilter = useSelector(selectWorkshopActiveFilter);
   const workshopList = useSelector(selectWorkshopList);
+  useWorkshopFilterCategoryChange();
   return (
     <Grid container sx={{ py: { xs: 2, lg: 3 } }} rowSpacing={{ xs: 2 }} columnSpacing={{ md: 1, lg: 2 }}>
       <Grid item xs={12} md={3}>

@@ -2,19 +2,22 @@ import FilterCategoryMobile from '@app/components/filter-category/mobile/FilterC
 import FilterCategoryDesktop from '@app/components/filter-category/desktop/FilterCategoryDesktop';
 import { useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectWorkshopActiveFilter } from '@app/store/reducers/workshopSlice';
+import { ACTION_WORKSHOP_SET_ACTIVE_FILTER } from '@app/store/storeActions';
+import { SAGA_WORKSHOPS_SET } from '@app/store/sagaActions';
 
 function FilterCategory() {
-  const initialActiveFilter = useSelector(selectWorkshopActiveFilter);
-  const [activeFilter, setActiveFilter] = useState(() => initialActiveFilter);
+  const activeFilter = useSelector(selectWorkshopActiveFilter);
+  const dispatch = useDispatch();
   let [, setSearchParams] = useSearchParams();
 
   const handleClick = newActiveFilter => {
-    setActiveFilter(newActiveFilter);
+    dispatch({ type: ACTION_WORKSHOP_SET_ACTIVE_FILTER, payload: newActiveFilter });
     setSearchParams({
       category: newActiveFilter,
     });
+    dispatch({ type: SAGA_WORKSHOPS_SET });
   };
 
   //using display:none for show/hide proper component, for xs and sm Mob but for md and bigger show Desktop
