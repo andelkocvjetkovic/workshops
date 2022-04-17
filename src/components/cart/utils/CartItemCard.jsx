@@ -58,11 +58,11 @@ function CartItemCard({ imageUrl, title, id, quantity, price }) {
                 <Select
                   native
                   color='secondary'
-                  sx={{ fontWeight: 700, width: 60, height: 45 }}
+                  sx={{ fontWeight: 700, width: 65, height: 45 }}
                   value={quantity}
                   onChange={handleQuantityChange}
                 >
-                  {[...Array(9)].map((_, idx) => (
+                  {[...Array(20)].map((_, idx) => (
                     <option key={idx + 1} value={idx + 1}>
                       {idx + 1}
                     </option>
