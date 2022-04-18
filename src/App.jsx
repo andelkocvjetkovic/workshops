@@ -6,6 +6,8 @@ import LoaderPage from '@app/components/loader/LoaderPage';
 import { useDispatch } from 'react-redux';
 import { SAGA_STARTUP_APP } from '@app/store/sagaActions';
 import { FILTERS } from '@app/utils/types';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 const Home = lazy(() => import('@app/pages/Home'));
 const Workshop = lazy(() => import('@app/pages/Workshop'));
@@ -37,6 +39,21 @@ function App() {
           }
         />
       </Route>
+      <Route
+        path='*'
+        element={
+          <Box
+            sx={{ width: '100vw', height: '100vh' }}
+            display='flex'
+            justifyContent='center'
+            alignItems='center'
+            flexDirection='column'
+          >
+            <Typography variant='h1'>Nothing found here</Typography>
+            <Typography variant='h2'>404</Typography>
+          </Box>
+        }
+      />
     </Routes>
   );
 }
