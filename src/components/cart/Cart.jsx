@@ -7,7 +7,7 @@ import CartItemCard from '@app/components/cart/utils/CartItemCard';
 import CartSubtotal from '@app/components/cart/utils/CartSubtotal';
 import { useSelector } from 'react-redux';
 import { selectCartAmount, selectCartProducts, selectIsCartEmpty } from '@app/store/reducers/cartSlice';
-import Checkout from '@app/components/checkout-form/Checkout';
+import Checkout from '@app/components/checkout/Checkout';
 
 function Cart({ open, onClose }) {
   /**@type {boolean}*/

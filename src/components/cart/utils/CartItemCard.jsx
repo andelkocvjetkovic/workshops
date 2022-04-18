@@ -10,6 +10,9 @@ import TrashIcon from '@app/components/icons/TrashIcon';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { ACTION_CART_DELETE, ACTION_CART_UPDATE_QUANTITY } from '@app/store/storeActions';
+import Box from '@mui/material/Box';
+import FormLabel from '@mui/material/FormLabel';
+import { visuallyHidden } from '@mui/utils';
 
 function CartItemCard({ imageUrl, title, id, quantity, price }) {
   const dispatch = useDispatch();
@@ -50,19 +53,25 @@ function CartItemCard({ imageUrl, title, id, quantity, price }) {
             </Grid>
             <Grid container columnGap={2} flexWrap='nowrap' alignItems='center'>
               <Grid item xs='auto'>
-                <Select
-                  native
-                  color='secondary'
-                  sx={{ fontWeight: 700, width: 60, height: 45 }}
-                  value={quantity}
-                  onChange={handleQuantityChange}
-                >
-                  {[...Array(9)].map((_, idx) => (
-                    <option key={idx + 1} value={idx + 1}>
-                      {idx + 1}
-                    </option>
-                  ))}
-                </Select>
+                <Box>
+                  <FormLabel sx={visuallyHidden} htmlFor={`ticket-amount-${id}`}>
+                    Amount
+                  </FormLabel>
+                  <Select
+                    native
+                    id={`ticket-amount-${id}`}
+                    color='secondary'
+                    sx={{ fontWeight: 700, width: 60, height: 45 }}
+                    value={quantity}
+                    onChange={handleQuantityChange}
+                  >
+                    {[...Array(9)].map((_, idx) => (
+                      <option key={idx + 1} value={idx + 1}>
+                        {idx + 1}
+                      </option>
+                    ))}
+                  </Select>
+                </Box>
               </Grid>
               <Grid item xs>
                 <Typography variant='h3'>
