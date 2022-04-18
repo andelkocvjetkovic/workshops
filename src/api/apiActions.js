@@ -14,3 +14,9 @@ export const ApiActionsGetWorkshops =
         ...(category !== FILTERS.ALL ? { category } : {}),
       },
     });
+
+//ApiActionPostOrder :: order -> Promise
+export const ApiActionPostOrder = order =>
+  API().post('/orders', {
+    order,
+  });

@@ -30,7 +30,10 @@
     "axios": "0.26.1",
     "redux": "4.1.2",
     "react-redux": "7.2.8",
-    "dayjs": "1.11.1"
+    "dayjs": "1.11.1",
+    "react-hook-form": "7.30.0",
+    "yup": "0.32.11",
+    "@hookform/resolvers": "2.8.8"
   },
   "devDependencies": {
     "prop-types": "15.8.1",

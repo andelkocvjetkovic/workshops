@@ -1,6 +1,6 @@
-import { takeLatest, call, put, cancelled, select } from 'redux-saga/effects';
-import { SAGA_WORKSHOPS_APPEND, SAGA_WORKSHOPS_SET } from '@app/store/sagaActions';
-import { ApiActionsGetWorkshops } from '@app/api/apiActions';
+import { takeLatest, call, put, cancelled, select, take, delay } from 'redux-saga/effects';
+import { SAGA_WORKSHOPS_APPEND, SAGA_WORKSHOPS_ORDER, SAGA_WORKSHOPS_SET } from '@app/store/sagaActions';
+import { ApiActionPostOrder, ApiActionsGetWorkshops } from '@app/api/apiActions';
 import {
   ACTION_WORKSHOP_APPEND_LIST,
   ACTION_WORKSHOP_SET,
@@ -9,6 +9,7 @@ import {
 } from '@app/store/storeActions';
 import { FETCH_STATUS } from '@app/utils/types';
 import { selectCurrentApiPage, selectIsPagesLimitExceeded, selectWorkshopActiveFilter } from '@app/store/reducers/workshopSlice';
+import { selectCartProducts } from '@app/store/reducers/cartSlice';
 
 function* workshopAppend() {
   yield takeLatest(SAGA_WORKSHOPS_APPEND, function* () {
@@ -54,4 +55,22 @@ function* workshopsSet() {
   });
 }
 
-export default [workshopAppend, workshopsSet];
+function* workshopsOrder() {
+  while (true) {
+    const {
+      payload,
+      meta: { onStart, onEnd },
+    } = yield take(SAGA_WORKSHOPS_ORDER);
+    const products = yield select(selectCartProducts);
+    onStart();
+    try {
+      yield call(ApiActionPostOrder, { ...payload, products });
+      yield delay(6000);
+      onEnd();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+}
+
+export default [workshopAppend, workshopsSet, workshopsOrder];

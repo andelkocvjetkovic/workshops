@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function CheckoutModal({ open, onClose, children }) {
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal open={open} onClose={onClose} sx={{ display: 'flex' }}>
       {children}
     </Modal>
   );

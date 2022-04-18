@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material';
 import FIGMA_COLORS from '@app/styles/figmaColors';
 
-const theme = createTheme({
+let theme = createTheme({
   palette: {
     primary: {
       main: FIGMA_COLORS.YELLOW,
@@ -45,6 +45,27 @@ const theme = createTheme({
         disableRipple: true,
       },
     },
+    MuiButton: {
+      styleOverrides: {
+        sizeMedium: {
+          height: 50,
+        },
+        sizeLarge: {
+          height: 60,
+          fontSize: 18,
+        },
+      },
+    },
+    MuiInput: {
+      styleOverrides: {
+        root: {
+          height: '54px',
+        },
+        sizeSmall: {
+          height: '40px',
+        },
+      },
+    },
     MuiSelect: {
       defaultProps: {
         MenuProps: {
@@ -81,92 +102,123 @@ const theme = createTheme({
     },
   },
 });
-
-theme.typography.h1 = {
-  ...theme.typography.h1,
-  fontSize: theme.typography.pxToRem(36),
-  lineHeight: theme.typography.pxToRem(43),
-  fontWeight: 700,
-  [theme.breakpoints.up('xl')]: {
-    fontSize: theme.typography.pxToRem(60),
-    lineHeight: theme.typography.pxToRem(72),
+theme = createTheme(theme, {
+  typography: {
+    h1: {
+      fontSize: theme.typography.pxToRem(36),
+      lineHeight: theme.typography.pxToRem(43),
+      fontWeight: 700,
+      [theme.breakpoints.up('xl')]: {
+        fontSize: theme.typography.pxToRem(60),
+        lineHeight: theme.typography.pxToRem(72),
+      },
+    },
+    h2: {
+      fontWeight: 700,
+      fontSize: theme.typography.pxToRem(32),
+      lineHeight: theme.typography.pxToRem(40),
+      [theme.breakpoints.up('xl')]: {
+        fontSize: theme.typography.pxToRem(40),
+        lineHeight: theme.typography.pxToRem(50),
+      },
+    },
+    h3: {
+      fontWeight: 700,
+      fontSize: theme.typography.pxToRem(20),
+      lineHeight: theme.typography.pxToRem(25),
+      [theme.breakpoints.up('xl')]: {
+        fontSize: theme.typography.pxToRem(29),
+        lineHeight: theme.typography.pxToRem(36),
+      },
+    },
+    h4: {
+      fontWeight: 700,
+      fontSize: theme.typography.pxToRem(19),
+      lineHeight: theme.typography.pxToRem(24),
+      [theme.breakpoints.up('xl')]: {
+        fontSize: theme.typography.pxToRem(27),
+        lineHeight: theme.typography.pxToRem(34),
+      },
+    },
+    h5: {
+      fontWeight: 700,
+      fontSize: theme.typography.pxToRem(18),
+      lineHeight: theme.typography.pxToRem(23),
+      [theme.breakpoints.up('xl')]: {
+        fontSize: theme.typography.pxToRem(23),
+        lineHeight: theme.typography.pxToRem(29),
+      },
+    },
+    h6: {
+      fontWeight: 700,
+      fontSize: theme.typography.pxToRem(13),
+      lineHeight: theme.typography.pxToRem(17),
+      [theme.breakpoints.up('xl')]: {
+        fontSize: theme.typography.pxToRem(15),
+        lineHeight: theme.typography.pxToRem(19),
+      },
+    },
+    body1: {
+      //p figma
+      fontWeight: 500,
+      fontSize: theme.typography.pxToRem(18),
+      lineHeight: theme.typography.pxToRem(27),
+    },
+    body2: {
+      //p bold figma
+      fontWeight: 700,
+      fontSize: theme.typography.pxToRem(14),
+      lineHeight: theme.typography.pxToRem(18),
+      [theme.breakpoints.up('xl')]: {
+        fontSize: theme.typography.pxToRem(18),
+        lineHeight: theme.typography.pxToRem(22),
+      },
+    },
+    button: {
+      fontSize: theme.typography.pxToRem(14),
+      fontWeight: 700,
+      textTransform: 'capitalize',
+      [theme.breakpoints.up('xl')]: {
+        fontSize: theme.typography.pxToRem(18),
+      },
+    },
   },
-};
-theme.typography.h2 = {
-  ...theme.typography.h2,
-  fontWeight: 700,
-  fontSize: theme.typography.pxToRem(32),
-  lineHeight: theme.typography.pxToRem(40),
-  [theme.breakpoints.up('xl')]: {
-    fontSize: theme.typography.pxToRem(40),
-    lineHeight: theme.typography.pxToRem(50),
+  components: {
+    MuiInputLabel: {
+      defaultProps: {
+        shrink: false,
+      },
+      styleOverrides: {
+        root: {
+          position: 'static',
+          transform: 'translate(0)',
+          color: theme.palette.grey.darker,
+          fontSize: theme.typography.pxToRem(13),
+          fontWeight: 700,
+          lineHeight: theme.typography.pxToRem(17),
+          [theme.breakpoints.up('xl')]: {
+            fontWeight: 700,
+            fontSize: theme.typography.pxToRem(15),
+            lineHeight: theme.typography.pxToRem(19),
+          },
+        },
+      },
+    },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          marginTop: 0,
+          fontSize: theme.typography.pxToRem(13),
+          fontWeight: 700,
+          lineHeight: theme.typography.pxToRem(17),
+          [theme.breakpoints.up('xl')]: {
+            fontWeight: 700,
+            fontSize: theme.typography.pxToRem(15),
+            lineHeight: theme.typography.pxToRem(19),
+          },
+        },
+      },
+    },
   },
-};
-theme.typography.h3 = {
-  ...theme.typography.h3,
-  fontWeight: 700,
-  fontSize: theme.typography.pxToRem(20),
-  lineHeight: theme.typography.pxToRem(25),
-  [theme.breakpoints.up('xl')]: {
-    fontSize: theme.typography.pxToRem(29),
-    lineHeight: theme.typography.pxToRem(36),
-  },
-};
-theme.typography.h4 = {
-  ...theme.typography.h4,
-  fontWeight: 700,
-  fontSize: theme.typography.pxToRem(19),
-  lineHeight: theme.typography.pxToRem(24),
-  [theme.breakpoints.up('xl')]: {
-    fontSize: theme.typography.pxToRem(27),
-    lineHeight: theme.typography.pxToRem(34),
-  },
-};
-theme.typography.h5 = {
-  ...theme.typography.h5,
-  fontWeight: 700,
-  fontSize: theme.typography.pxToRem(18),
-  lineHeight: theme.typography.pxToRem(23),
-  [theme.breakpoints.up('xl')]: {
-    fontSize: theme.typography.pxToRem(23),
-    lineHeight: theme.typography.pxToRem(29),
-  },
-};
-theme.typography.h6 = {
-  ...theme.typography.h6,
-  fontWeight: 700,
-  fontSize: theme.typography.pxToRem(13),
-  lineHeight: theme.typography.pxToRem(17),
-  [theme.breakpoints.up('xl')]: {
-    fontSize: theme.typography.pxToRem(15),
-    lineHeight: theme.typography.pxToRem(19),
-  },
-};
-//p figma
-theme.typography.body1 = {
-  ...theme.typography.body1,
-  fontWeight: 500,
-  fontSize: theme.typography.pxToRem(18),
-  lineHeight: theme.typography.pxToRem(27),
-};
-//p bold figma
-theme.typography.body2 = {
-  ...theme.typography.body2,
-  fontWeight: 700,
-  fontSize: theme.typography.pxToRem(14),
-  lineHeight: theme.typography.pxToRem(18),
-  [theme.breakpoints.up('xl')]: {
-    fontSize: theme.typography.pxToRem(18),
-    lineHeight: theme.typography.pxToRem(22),
-  },
-};
-theme.typography.button = {
-  ...theme.typography.button,
-  fontSize: theme.typography.pxToRem(14),
-  fontWeight: 700,
-  textTransform: 'capitalize',
-  [theme.breakpoints.up('xl')]: {
-    fontSize: theme.typography.pxToRem(18),
-  },
-};
+});
 export default theme;

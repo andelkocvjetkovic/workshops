@@ -8,6 +8,7 @@ import CartSubtotal from '@app/components/cart/utils/CartSubtotal';
 import { useSelector } from 'react-redux';
 import { selectCartAmount, selectCartProducts, selectIsCartEmpty } from '@app/store/reducers/cartSlice';
 import Checkout from '@app/components/checkout/Checkout';
+import { useState } from 'react';
 
 function Cart({ open, onClose }) {
   /**@type {boolean}*/
@@ -16,6 +17,17 @@ function Cart({ open, onClose }) {
   const cartAmount = useSelector(selectCartAmount);
   /**@type {Workshop~OrderProduct[]}*/
   const cartProducts = useSelector(selectCartProducts);
+  const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
+
+  function handleOpenCheckoutModal() {
+    onClose();
+    setIsCheckoutModalOpen(true);
+  }
+
+  function handleCloseCheckoutModal() {
+    setIsCheckoutModalOpen(false);
+  }
+
   return (
     <>
       <Drawer anchor='right' open={open} onClose={onClose} elevation={4}>
@@ -28,13 +40,13 @@ function Cart({ open, onClose }) {
               ))}
             </Stack>
             <CartSubtotal />
-            <Button variant='contained' color='secondary' onClick={onClose} disabled={isCartEmpty}>
+            <Button size='large' variant='contained' color='secondary' onClick={handleOpenCheckoutModal} disabled={isCartEmpty}>
               Checkout
             </Button>
           </Stack>
         </Box>
       </Drawer>
-      <Checkout />
+      <Checkout onClose={handleCloseCheckoutModal} open={isCheckoutModalOpen} />
     </>
   );
 }
