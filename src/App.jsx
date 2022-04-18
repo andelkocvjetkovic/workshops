@@ -8,6 +8,7 @@ import { SAGA_STARTUP_APP } from '@app/store/sagaActions';
 import { FILTERS } from '@app/utils/types';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import useScrollTop from '@app/components/hooks/useScrollTop';
 
 const Home = lazy(() => import('@app/pages/Home'));
 const Workshop = lazy(() => import('@app/pages/Workshop'));
@@ -15,6 +16,7 @@ const Workshop = lazy(() => import('@app/pages/Workshop'));
 function App() {
   const dispatch = useDispatch();
   let [searchParams] = useSearchParams();
+  useScrollTop();
 
   useEffect(() => {
     dispatch({ type: SAGA_STARTUP_APP, payload: searchParams.get('category') ?? FILTERS.ALL });

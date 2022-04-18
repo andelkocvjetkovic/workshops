@@ -8,10 +8,17 @@ function MainLayout() {
   return (
     <div>
       <Navbar />
-      <Container component='main'>
+      <Container
+        component='main'
+        sx={{
+          minHeight: { xs: 'calc(100vh - 89px)', md: 'calc(100vh - 147px)' },
+          display: 'flex',
+          position: 'relative',
+        }}
+      >
         <Outlet />
       </Container>
-      <Divider sx={{ borderColor: 'common.white' }} />
+      <Divider sx={{ borderColor: 'common.white', borderWidth: 1 }} />
       <Footer />
     </div>
   );

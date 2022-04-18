@@ -13,6 +13,7 @@ import { ACTION_CART_DELETE, ACTION_CART_UPDATE_QUANTITY } from '@app/store/stor
 import Box from '@mui/material/Box';
 import FormLabel from '@mui/material/FormLabel';
 import { visuallyHidden } from '@mui/utils';
+import { ROUTE_HOME } from '@app/pages/routesConstats';
 
 function CartItemCard({ imageUrl, title, id, quantity, price }) {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ function CartItemCard({ imageUrl, title, id, quantity, price }) {
     <Card>
       <Grid container>
         <Grid item xs={4}>
-          <WorkshopImg to={`${id}`} src={imageUrl} alt={title} />
+          <WorkshopImg to={`${ROUTE_HOME}${id}`} src={imageUrl} alt={title} />
         </Grid>
         <Grid item xs={8} rowSpacing={1} p={2} bgcolor='grey.lighter'>
           <Stack spacing={2}>
@@ -38,7 +39,7 @@ function CartItemCard({ imageUrl, title, id, quantity, price }) {
                 <Typography
                   variant='h4'
                   component={Link}
-                  to={`${id}`}
+                  to={`${ROUTE_HOME}${id}`}
                   color='secondary.main'
                   sx={{ textDecoration: 'none', ':hover': { textDecoration: 'underline' } }}
                 >

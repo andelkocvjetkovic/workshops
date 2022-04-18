@@ -11,13 +11,14 @@ import WorkshopTitle from '@app/components/workshop-card/utils/WorkshopTitle';
 import WorkshopIconButton from '@app/components/workshop-card/utils/WorkshopIconButton';
 import WorkshopTimeInfo from '@app/components/workshop-card/utils/WorkshopTimeInfo';
 import WorkshopPrice from '@app/components/workshop-card/utils/WorkshopPrice';
-import WorkshopCategoryIcon from '@app/components/workshop-card/utils/WorkshopBrushIcon';
+import WorkshopCategoryIcon from '@app/components/workshop-card/utils/WorkshopCategoryIcon';
 import PropTypes from 'prop-types';
 import { getDate, getTime } from '@app/utils/time-utils';
 import WorkshopImg from '@app/components/workshop-card/utils/WorkshopImg';
 import { FILTERS } from '@app/utils/types';
 import { useDispatch } from 'react-redux';
 import { ACTION_CART_ADD } from '@app/store/storeActions';
+import { ROUTE_HOME } from '@app/pages/routesConstats';
 
 function WorkshopCard({ title, imageUrl, price, date, id, category, desc, userId }) {
   const dispatch = useDispatch();
@@ -50,7 +51,7 @@ function WorkshopCard({ title, imageUrl, price, date, id, category, desc, userId
       >
         <Grid container direction={{ xs: 'row', sm: 'column' }}>
           <Grid item xs={4} sm='auto' sx={{ position: 'relative', height: { sm: 180 } }}>
-            <WorkshopImg src={imageUrl} alt={title} to={`${id}`} />
+            <WorkshopImg src={imageUrl} alt={title} to={`${ROUTE_HOME}${id}`} />
             <WorkshopCategoryIcon category={category} />
           </Grid>
           <Grid item xs={8} sm>
@@ -64,17 +65,8 @@ function WorkshopCard({ title, imageUrl, price, date, id, category, desc, userId
               }}
             >
               <Stack spacing={1} width='100%'>
-                <Stack direction='row' columnGap={{ xs: 1 }}>
-                  <WorkshopTimeInfo>
-                    <CalendarIcon />
-                    {getDate(date)}
-                  </WorkshopTimeInfo>
-                  <WorkshopTimeInfo>
-                    <ClockIcon />
-                    {getTime(date)}
-                  </WorkshopTimeInfo>
-                </Stack>
-                <WorkshopTitle to={`${id}`}>{title}</WorkshopTitle>
+                <WorkshopTimeInfo date={date} />
+                <WorkshopTitle to={`${ROUTE_HOME}${id}`}>{title}</WorkshopTitle>
                 <Box display='flex' alignItems='center'>
                   <WorkshopPrice>{price.toFixed(2)}</WorkshopPrice>
                   <CardActions sx={{ ml: 'auto', display: { xs: 'flex', sm: 'none' } }}>

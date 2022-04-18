@@ -10,7 +10,7 @@ const StyledBox = styled(Box)(
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: ${theme.shape.borderRadius + 'px'};
+    border-radius: ${theme.shape.borderRadius}px;
     width: 2rem;
     height: 2rem;
     padding: 0.25rem;
@@ -31,8 +31,8 @@ const StyledBox = styled(Box)(
   `
 );
 
-function WorkshopBrushIcon({ category }) {
-  return <StyledBox>{FILTERS_ICON[category]}</StyledBox>;
+function WorkshopCategoryIcon({ category, ...rest }) {
+  return <StyledBox {...rest}>{FILTERS_ICON[category]}</StyledBox>;
 }
 
-export default WorkshopBrushIcon;
+export default WorkshopCategoryIcon;

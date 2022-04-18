@@ -8,6 +8,8 @@ import { SAGA_WORKSHOPS_APPEND } from '@app/store/sagaActions';
 import LoadMore from '@app/pages/home-partial/LoadMore';
 import FilterCategory from '@app/components/filter-category/FilterCategory';
 import { FILTERS } from '@app/utils/types';
+import LoaderPage from '@app/components/loader/LoaderPage';
+import PageGridLayout from '@app/components/layouts/PageGridLayout';
 
 function Home() {
   const dispatch = useDispatch();
@@ -17,11 +19,11 @@ function Home() {
   const activeFilter = useSelector(selectWorkshopActiveFilter);
   const workshopList = useSelector(selectWorkshopList);
   return (
-    <Grid container sx={{ py: { xs: 2, lg: 3 } }} rowSpacing={{ xs: 2 }} columnSpacing={{ md: 1, lg: 2 }}>
-      <Grid item xs={12} md={3}>
+    <PageGridLayout>
+      <PageGridLayout.Left>
         <FilterCategory />
-      </Grid>
-      <Grid item xs={12} md={9}>
+      </PageGridLayout.Left>
+      <PageGridLayout.Right>
         <Box pl={3}>
           <Typography variant='h2'>Workshops</Typography>
           <Typography variant='h6' color='grey.light'>
@@ -38,12 +40,13 @@ function Home() {
         </Grid>
         <LoadMore
           mt={3}
+          pb={{ xs: 2, lg: 3 }}
           onClick={() => dispatch({ type: SAGA_WORKSHOPS_APPEND })}
           isDisabled={isWorkshopLimitExceeded}
           isFilterActive={activeFilter !== FILTERS.ALL}
         />
-      </Grid>
-    </Grid>
+      </PageGridLayout.Right>
+    </PageGridLayout>
   );
 }
 
