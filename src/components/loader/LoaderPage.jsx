@@ -3,7 +3,12 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 function LoaderPage() {
   return (
-    <Box height='80vh' display='flex' justifyContent='center' alignItems='center'>
+    <Box
+      minHeight={{ xs: 'calc(100vh - 89px)', md: 'calc(100vh - 147px)' }}
+      display='flex'
+      justifyContent='center'
+      alignItems='center'
+    >
       <CircularProgress />
     </Box>
   );

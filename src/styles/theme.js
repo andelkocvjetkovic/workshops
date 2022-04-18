@@ -38,14 +38,6 @@ const theme = createTheme({
   ],
   typography: {
     fontFamily: `'Livvic', sans-serif`,
-    button: {
-      fontSize: 18,
-      fontWeight: 700,
-      textTransform: 'capitalize',
-      '@media (min-width:600px)': {
-        fontSize: 18,
-      },
-    },
   },
   components: {
     MuiButtonBase: {
@@ -95,7 +87,7 @@ theme.typography.h1 = {
   fontSize: theme.typography.pxToRem(36),
   lineHeight: theme.typography.pxToRem(43),
   fontWeight: 700,
-  [theme.breakpoints.up('lg')]: {
+  [theme.breakpoints.up('xl')]: {
     fontSize: theme.typography.pxToRem(60),
     lineHeight: theme.typography.pxToRem(72),
   },
@@ -105,7 +97,7 @@ theme.typography.h2 = {
   fontWeight: 700,
   fontSize: theme.typography.pxToRem(32),
   lineHeight: theme.typography.pxToRem(40),
-  [theme.breakpoints.up('lg')]: {
+  [theme.breakpoints.up('xl')]: {
     fontSize: theme.typography.pxToRem(40),
     lineHeight: theme.typography.pxToRem(50),
   },
@@ -115,7 +107,7 @@ theme.typography.h3 = {
   fontWeight: 700,
   fontSize: theme.typography.pxToRem(20),
   lineHeight: theme.typography.pxToRem(25),
-  [theme.breakpoints.up('lg')]: {
+  [theme.breakpoints.up('xl')]: {
     fontSize: theme.typography.pxToRem(29),
     lineHeight: theme.typography.pxToRem(36),
   },
@@ -125,7 +117,7 @@ theme.typography.h4 = {
   fontWeight: 700,
   fontSize: theme.typography.pxToRem(19),
   lineHeight: theme.typography.pxToRem(24),
-  [theme.breakpoints.up('lg')]: {
+  [theme.breakpoints.up('xl')]: {
     fontSize: theme.typography.pxToRem(27),
     lineHeight: theme.typography.pxToRem(34),
   },
@@ -135,7 +127,7 @@ theme.typography.h5 = {
   fontWeight: 700,
   fontSize: theme.typography.pxToRem(18),
   lineHeight: theme.typography.pxToRem(23),
-  [theme.breakpoints.up('lg')]: {
+  [theme.breakpoints.up('xl')]: {
     fontSize: theme.typography.pxToRem(23),
     lineHeight: theme.typography.pxToRem(29),
   },
@@ -145,7 +137,7 @@ theme.typography.h6 = {
   fontWeight: 700,
   fontSize: theme.typography.pxToRem(13),
   lineHeight: theme.typography.pxToRem(17),
-  [theme.breakpoints.up('lg')]: {
+  [theme.breakpoints.up('xl')]: {
     fontSize: theme.typography.pxToRem(15),
     lineHeight: theme.typography.pxToRem(19),
   },
@@ -163,9 +155,18 @@ theme.typography.body2 = {
   fontWeight: 700,
   fontSize: theme.typography.pxToRem(14),
   lineHeight: theme.typography.pxToRem(18),
-  [theme.breakpoints.up('lg')]: {
+  [theme.breakpoints.up('xl')]: {
     fontSize: theme.typography.pxToRem(18),
     lineHeight: theme.typography.pxToRem(22),
+  },
+};
+theme.typography.button = {
+  ...theme.typography.button,
+  fontSize: theme.typography.pxToRem(14),
+  fontWeight: 700,
+  textTransform: 'capitalize',
+  [theme.breakpoints.up('xl')]: {
+    fontSize: theme.typography.pxToRem(18),
   },
 };
 export default theme;

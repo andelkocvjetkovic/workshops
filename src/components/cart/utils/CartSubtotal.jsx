@@ -11,7 +11,7 @@ function CartSubtotal() {
       <Typography variant='h6' color='grey.light' textTransform='uppercase'>
         Subtotal
       </Typography>
-      <Typography variant='h2' j>
+      <Typography variant='h2'>
         {cartSubtotal}
         <Typography variant='h4' component='span'>
           EUR

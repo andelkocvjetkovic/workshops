@@ -48,16 +48,16 @@ function CartItemCard({ imageUrl, title, id, quantity, price }) {
                 </IconButton>
               </Grid>
             </Grid>
-            <Grid container columnGap={2} alignItems='center'>
+            <Grid container columnGap={2} flexWrap='nowrap' alignItems='center'>
               <Grid item xs='auto'>
                 <Select
                   native
                   color='secondary'
-                  sx={{ fontWeight: 700, width: 67, height: 45 }}
+                  sx={{ fontWeight: 700, width: 60, height: 45 }}
                   value={quantity}
                   onChange={handleQuantityChange}
                 >
-                  {[...Array(10)].map((_, idx) => (
+                  {[...Array(9)].map((_, idx) => (
                     <option key={idx + 1} value={idx + 1}>
                       {idx + 1}
                     </option>
@@ -66,7 +66,7 @@ function CartItemCard({ imageUrl, title, id, quantity, price }) {
               </Grid>
               <Grid item xs>
                 <Typography variant='h3'>
-                  {price.toFixed(2)}&nbsp;
+                  {price.toFixed(2)}
                   <Typography variant='h6' component='span'>
                     EUR
                   </Typography>
