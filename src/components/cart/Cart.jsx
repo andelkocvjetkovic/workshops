@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { selectCartAmount, selectCartProducts, selectIsCartEmpty } from '@app/store/reducers/cartSlice';
 import Checkout from '@app/components/checkout/Checkout';
 import { useState } from 'react';
+import ThankYou from '@app/components/thank-you/ThankYou';
 
 function Cart({ open, onClose }) {
   /**@type {boolean}*/
@@ -18,6 +19,7 @@ function Cart({ open, onClose }) {
   /**@type {Workshop~OrderProduct[]}*/
   const cartProducts = useSelector(selectCartProducts);
   const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
+  const [isThankYouModalOpen, setIsThankYouModalOpen] = useState(true);
 
   function handleOpenCheckoutModal() {
     onClose();
@@ -26,6 +28,11 @@ function Cart({ open, onClose }) {
 
   function handleCloseCheckoutModal() {
     setIsCheckoutModalOpen(false);
+  }
+
+  function handleSuccessOrder() {
+    setIsCheckoutModalOpen(false);
+    setIsThankYouModalOpen(true);
   }
 
   return (
@@ -46,7 +53,8 @@ function Cart({ open, onClose }) {
           </Stack>
         </Box>
       </Drawer>
-      <Checkout onClose={handleCloseCheckoutModal} open={isCheckoutModalOpen} />
+      <Checkout onClose={handleCloseCheckoutModal} open={isCheckoutModalOpen} onSuccessOrder={handleSuccessOrder} />
+      <ThankYou open={isThankYouModalOpen} onClose={() => setIsThankYouModalOpen(false)} />
     </>
   );
 }

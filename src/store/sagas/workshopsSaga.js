@@ -59,14 +59,14 @@ function* workshopsOrder() {
   while (true) {
     const {
       payload,
-      meta: { onStart, onEnd },
+      meta: { onStart, onSuccess },
     } = yield take(SAGA_WORKSHOPS_ORDER);
     const products = yield select(selectCartProducts);
     onStart();
     try {
       yield call(ApiActionPostOrder, { ...payload, products });
       yield delay(6000);
-      onEnd();
+      onSuccess();
     } catch (e) {
       console.log(e);
     }

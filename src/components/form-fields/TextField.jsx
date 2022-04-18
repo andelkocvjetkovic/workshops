@@ -20,7 +20,7 @@ export const StyledInput = styled(Input)(
   `
 );
 
-function TextField({ id, label, isRequired, placeholder, type = 'text', control }) {
+function TextField({ id, label, isRequired, placeholder, type = 'text', control, isLoading }) {
   const {
     field: { value, onChange },
     fieldState: { invalid, error },
@@ -30,7 +30,7 @@ function TextField({ id, label, isRequired, placeholder, type = 'text', control 
   });
 
   return (
-    <FormControl variant='standard' color='secondary' fullWidth>
+    <FormControl variant='standard' color='secondary' fullWidth disabled={isLoading}>
       <Grid container alignItems='center' justifyContent='space-between' spacing={1} flexWrap='none'>
         <Grid item xs='auto'>
           <InputLabel htmlFor={id} required={isRequired}>
@@ -63,6 +63,7 @@ TextField.propTypes = {
   label: PropTypes.string.isRequired,
   isRequired: PropTypes.bool,
   placeholder: PropTypes.string,
+  isLoading: PropTypes.bool,
 };
 
 export default TextField;

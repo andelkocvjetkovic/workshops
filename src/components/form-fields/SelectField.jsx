@@ -15,7 +15,7 @@ const StyledSelect = styled(Select)(
   `
 );
 
-function SelectField({ id, isRequired, label, children, control }) {
+function SelectField({ id, isRequired, label, children, control,isLoading }) {
   const {
     field: { value, onChange },
     fieldState: { invalid, error },
@@ -24,7 +24,7 @@ function SelectField({ id, isRequired, label, children, control }) {
     control,
   });
   return (
-    <FormControl variant='standard' color='secondary' fullWidth>
+    <FormControl variant='standard' color='secondary' fullWidth disabled={isLoading}>
       <Grid container alignItems='center' justifyContent='space-between' spacing={1} flexWrap='none'>
         <Grid item xs='auto'>
           <InputLabel htmlFor={id} required={isRequired}>
@@ -46,5 +46,6 @@ SelectField.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   isRequired: PropTypes.bool,
+  isLoading: PropTypes.bool
 };
 export default SelectField;

@@ -15,7 +15,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import PropTypes from 'prop-types';
 import { ACTION_CART_RESET } from '@app/store/storeActions';
 
-function CheckoutForm({ onClose }) {
+function CheckoutForm({ onClose, onSuccessOrder }) {
   const { control, handleSubmit: formSubmit } = useForm({
     shouldFocusError: false,
     mode: 'onSubmit',
@@ -40,6 +40,10 @@ function CheckoutForm({ onClose }) {
       payload: data,
       meta: {
         onStart: () => setIsLoading(true),
+        onSuccess: () => {
+          onSuccessOrder();
+          dispatch({ type: ACTION_CART_RESET });
+        },
         onEnd: () => {
           onClose();
           dispatch({ type: ACTION_CART_RESET });
@@ -55,12 +59,14 @@ function CheckoutForm({ onClose }) {
   return (
     <Stack component='form' spacing={4} mt={4} onSubmit={formSubmit(handleSubmit, handleError)}>
       <TextField
+        isLoading={isLoading}
         id={CHECKOUT_FIELDS.FIRST_NAME.apiValue}
         label={CHECKOUT_FIELDS.FIRST_NAME.label}
         placeholder='Type your first name here'
         control={control}
       />
       <TextField
+        isLoading={isLoading}
         id={CHECKOUT_FIELDS.LAST_NAME.apiValue}
         label={CHECKOUT_FIELDS.LAST_NAME.label}
         placeholder='Type your last name here'
@@ -69,6 +75,7 @@ function CheckoutForm({ onClose }) {
         control={control}
       />
       <TextField
+        isLoading={isLoading}
         id={CHECKOUT_FIELDS.EMAIL.apiValue}
         label={CHECKOUT_FIELDS.EMAIL.label}
         placeholder='Please type your email address here'
@@ -83,6 +90,7 @@ function CheckoutForm({ onClose }) {
       >
         <Grid item xs={12} md={6}>
           <TextField
+            isLoading={isLoading}
             label={CHECKOUT_FIELDS.DATE_BIRTH.label}
             id={CHECKOUT_FIELDS.DATE_BIRTH.apiValue}
             type='date'
@@ -91,6 +99,7 @@ function CheckoutForm({ onClose }) {
         </Grid>
         <Grid item xs={12} md={6}>
           <SelectField
+            isLoading={isLoading}
             label={CHECKOUT_FIELDS.GENDER.label}
             id={CHECKOUT_FIELDS.GENDER.apiValue}
             placeholder='Choose your gender'
@@ -106,18 +115,25 @@ function CheckoutForm({ onClose }) {
         </Grid>
       </Grid>
       <TextField
+        isLoading={isLoading}
         label={CHECKOUT_FIELDS.ADDRESS.label}
         id={CHECKOUT_FIELDS.ADDRESS.apiValue}
         placeholder='Type your address here'
         control={control}
       />
       <TextField
+        isLoading={isLoading}
         label={CHECKOUT_FIELDS.ZIP_CODE.label}
         id={CHECKOUT_FIELDS.ZIP_CODE.apiValue}
         placeholder='eg. 21310'
         control={control}
       />
-      <CheckboxField label={CHECKOUT_FIELDS.I_AGREE.label} id={CHECKOUT_FIELDS.I_AGREE.apiValue} control={control} />
+      <CheckboxField
+        isLoading={isLoading}
+        label={CHECKOUT_FIELDS.I_AGREE.label}
+        id={CHECKOUT_FIELDS.I_AGREE.apiValue}
+        control={control}
+      />
       <Button type='submit' variant='contained' size='large' sx={{ width: { xs: '100%', md: '170px' } }} disabled={isLoading}>
         {isLoading ? <CircularProgress size={36} color='secondary' /> : 'Checkout'}
       </Button>
@@ -127,6 +143,7 @@ function CheckoutForm({ onClose }) {
 
 CheckoutForm.propTypes = {
   onClose: PropTypes.func,
+  onSuccessOrder: PropTypes.func,
 };
 
 export default CheckoutForm;
