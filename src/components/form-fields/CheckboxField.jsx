@@ -15,7 +15,7 @@ const StyledFormControlLabel = styled(FormControlLabel)(
   `
 );
 
-function CheckboxField({ label, id, control,isLoading }) {
+function CheckboxField({ label, id, control, isLoading }) {
   const {
     field: { value, onChange },
     fieldState: { invalid, error },
@@ -27,7 +27,6 @@ function CheckboxField({ label, id, control,isLoading }) {
   return (
     <Box display='flex' alignItems='center'>
       <StyledFormControlLabel
-
         onChange={onChange}
         checked={value}
         control={<Checkbox disabled={isLoading} id={id} color='secondary' sx={{ '& .MuiSvgIcon-root': { fontSize: 32 } }} />}
@@ -42,6 +41,6 @@ Checkbox.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   control: PropTypes.object.isRequired,
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
 };
 export default CheckboxField;

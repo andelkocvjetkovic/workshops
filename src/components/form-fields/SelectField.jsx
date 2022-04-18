@@ -15,7 +15,7 @@ const StyledSelect = styled(Select)(
   `
 );
 
-function SelectField({ id, isRequired, label, children, control,isLoading }) {
+function SelectField({ id, isRequired, label, children, control, isLoading }) {
   const {
     field: { value, onChange },
     fieldState: { invalid, error },
@@ -46,6 +46,6 @@ SelectField.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   isRequired: PropTypes.bool,
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
 };
 export default SelectField;
