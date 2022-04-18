@@ -1,4 +1,3 @@
-import Box from '@mui/material/Box';
 import { CHECKOUT_FIELDS } from '@app/utils/form-fields';
 import Grid from '@mui/material/Grid';
 import TextField from '@app/components/form-fields/TextField';

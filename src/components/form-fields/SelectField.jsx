@@ -2,7 +2,6 @@ import { FormControl, FormHelperText, InputLabel, Select, styled } from '@mui/ma
 import Grid from '@mui/material/Grid';
 import { StyledInput } from '@app/components/form-fields/TextField';
 import { css } from '@mui/material/styles';
-import { useState } from 'react';
 import { useController } from 'react-hook-form';
 import PropTypes from 'prop-types';
 
