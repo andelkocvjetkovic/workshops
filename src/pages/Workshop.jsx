@@ -1,4 +1,4 @@
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { ApiActionGetUser, ApiActionGetWorkshop, ApiActionsGetWorkshops } from '@app/api/apiActions';
 import Grid from '@mui/material/Grid';
@@ -7,19 +7,11 @@ import ArrowBackIcon from '@app/components/icons/ArrowBackIcon';
 import PageGridLayout from '@app/components/layouts/PageGridLayout';
 import LoaderPage from '@app/components/loader/LoaderPage';
 import Box from '@mui/material/Box';
-import WorkshopTimeInfo from '@app/components/workshop-card/utils/WorkshopTimeInfo';
-import CalendarIcon from '@app/components/icons/CalendarIcon';
-import { getDate, getTime } from '@app/utils/time-utils';
-import ClockIcon from '@app/components/icons/ClockIcon';
-import { FILTERS_ICON } from '@app/components/filter-category/utils/Filter';
 import Typography from '@mui/material/Typography';
 import WorkshopCard from '@app/components/workshop-card/WorkshopCard';
 import CoverImg from '@app/pages/workshop-partial/CoverImg';
 import TimeInfo from '@app/pages/workshop-partial/TimeInfo';
 import RelatedWorkshops from '@app/pages/workshop-partial/RelatedWorkshops';
-import { InputLabel, Select } from '@mui/material';
-import { visuallyHidden } from '@mui/utils';
-import CartIcon from '@app/components/icons/CartIcon';
 import AddToCard from '@app/pages/workshop-partial/AddToCard';
 import { useDispatch } from 'react-redux';
 import { ACTION_CART_ADD } from '@app/store/storeActions';
@@ -64,7 +56,7 @@ function Workshop() {
       getWorkshop(abortController, workshopId);
     }
     return () => abortController.abort();
-  }, [params?.workshopId]);
+  }, [workshopId]);
 
   function handleGoBack() {
     navigate(-1);

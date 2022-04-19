@@ -2,7 +2,6 @@ import Typography from '@mui/material/Typography';
 import CalendarIcon from '@app/components/icons/CalendarIcon';
 import { getDate, getTime } from '@app/utils/time-utils';
 import ClockIcon from '@app/components/icons/ClockIcon';
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 
 function WorkshopTimeInfo({ date }) {

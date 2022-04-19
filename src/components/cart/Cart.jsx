@@ -10,7 +10,7 @@ import { selectCartAmount, selectCartProducts, selectIsCartEmpty } from '@app/st
 import Checkout from '@app/components/checkout/Checkout';
 import { useState } from 'react';
 import ThankYou from '@app/components/thank-you/ThankYou';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ROUTE_HOME } from '@app/pages/routesConstats';
 import { FILTERS } from '@app/utils/types';
 import { ACTION_WORKSHOP_SET_ACTIVE_FILTER } from '@app/store/storeActions';

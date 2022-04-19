@@ -8,7 +8,6 @@ import { SAGA_WORKSHOPS_APPEND } from '@app/store/sagaActions';
 import LoadMore from '@app/pages/home-partial/LoadMore';
 import FilterCategory from '@app/components/filter-category/FilterCategory';
 import { FILTERS } from '@app/utils/types';
-import LoaderPage from '@app/components/loader/LoaderPage';
 import PageGridLayout from '@app/components/layouts/PageGridLayout';
 
 function Home() {

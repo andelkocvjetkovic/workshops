@@ -70,7 +70,9 @@ function AddToCard({ price, onAdd }) {
             </InputLabel>
             <Select id='workshop-amount' native value={quantity} onChange={e => setQuantity(e.target.value)}>
               {Array.from(Array(10), (_, idx) => `${idx + 1}`).map(x => (
-                <option value={x}>{x}</option>
+                <option value={x} key={x}>
+                  {x}
+                </option>
               ))}
             </Select>
           </Grid>
