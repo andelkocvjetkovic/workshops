@@ -17,6 +17,12 @@ import WorkshopCard from '@app/components/workshop-card/WorkshopCard';
 import CoverImg from '@app/pages/workshop-partial/CoverImg';
 import TimeInfo from '@app/pages/workshop-partial/TimeInfo';
 import RelatedWorkshops from '@app/pages/workshop-partial/RelatedWorkshops';
+import { InputLabel, Select } from '@mui/material';
+import { visuallyHidden } from '@mui/utils';
+import CartIcon from '@app/components/icons/CartIcon';
+import AddToCard from '@app/pages/workshop-partial/AddToCard';
+import { useDispatch } from 'react-redux';
+import { ACTION_CART_ADD } from '@app/store/storeActions';
 
 function Workshop() {
   const params = useParams();
@@ -26,6 +32,7 @@ function Workshop() {
   const [reletedWorkshops, setReletedWorkshops] = useState([]);
   const workshopId = params?.workshopId;
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function getWorkshop(abortController, workshopId) {
@@ -63,6 +70,23 @@ function Workshop() {
     navigate(-1);
   }
 
+  function handleAddToCard(quantity) {
+    dispatch({
+      type: ACTION_CART_ADD,
+      payload: {
+        id: workshop.id,
+        category: workshop.category,
+        title: workshop.title,
+        date: workshop.date,
+        price: workshop.price,
+        desc: workshop.desc,
+        userId: workshop.userId,
+        quantity: quantity,
+        imageUrl: workshop.imageUrl,
+      },
+    });
+  }
+
   if (isLoading) {
     return <LoaderPage />;
   }
@@ -73,12 +97,15 @@ function Workshop() {
           Back
         </Button>
       </PageGridLayout.Left>
-      <PageGridLayout.Right>
+      <PageGridLayout.Right pb={{ xs: 5, md: 0 }}>
         <Box>
           <CoverImg width={1040} height={382} src={workshop.imageUrl} alt={workshop.title} />
         </Box>
-        <TimeInfo date={workshop.date} category={workshop.category} />
-        <Typography color='secondary' gutterBottom mt={1.5} variant='h1'>
+        <Box position='relative'>
+          <TimeInfo date={workshop.date} category={workshop.category} />
+          <AddToCard price={workshop.price} onAdd={handleAddToCard} />
+        </Box>
+        <Typography color='secondary' gutterBottom mt={1.5} variant='h1' width={{ lg: 400 }}>
           {workshop.title}
         </Typography>
         <Box display='flex' alignItems='baseline'>
@@ -88,7 +115,7 @@ function Workshop() {
           &nbsp;
           <Typography variant='h5'>{user.name}</Typography>
         </Box>
-        <Typography variant='body1' mt={{ xs: 2.5, xl: 4.5 }} pb={{ xs: 4.5, xl: 9.5 }}>
+        <Typography variant='body1' mt={{ xs: 2.5, xl: 4.5 }} pb={{ xs: 4.5, xl: 9.5 }} width={{ lg: 400 }}>
           {workshop.desc}
         </Typography>
         {reletedWorkshops.length > 0 && (

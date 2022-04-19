@@ -16,9 +16,9 @@ function Left({ children }) {
   );
 }
 
-function Right({ children }) {
+function Right({ children,...rest }) {
   return (
-    <Grid item xs={12} md={9}>
+    <Grid item xs={12} md={9} {...rest}>
       {children}
     </Grid>
   );

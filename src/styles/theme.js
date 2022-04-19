@@ -35,6 +35,7 @@ let theme = createTheme({
     '1px 2px 16px rgba(127, 127, 127, 0.25)',
     '1px 2px 16px rgba(127, 127, 127, 0.35)',
     '-1px -2px 16px rgba(127, 127, 127, 0.25)',
+    '-1px -2px 4px rgba(127, 127, 127, 0.25)',
   ],
   typography: {
     fontFamily: `'Livvic', sans-serif`,
