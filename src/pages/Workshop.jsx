@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import { ApiActionGetUser, ApiActionGetWorkshop, ApiActionsGetWorkshops } from '@app/api/apiActions';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
@@ -15,47 +15,50 @@ import RelatedWorkshops from '@app/pages/workshop-partial/RelatedWorkshops';
 import AddToCard from '@app/pages/workshop-partial/AddToCard';
 import { useDispatch } from 'react-redux';
 import { ACTION_CART_ADD } from '@app/store/storeActions';
+import reducer from '@app/pages/workshop-partial/reducer';
+import { FETCH_STATUS } from '@app/utils/types';
+import { WORKSHOP_FETCH_STATUS, WORKSHOP_RELATED, WORKSHOP_SET, WORKSHOP_USER } from '@app/pages/workshop-partial/reducer';
+import Page404 from '@app/pages/Page404';
 
 function Workshop() {
   const params = useParams();
-  const [isLoading, setIsLoading] = useState(true);
-  const [workshop, setWorkshop] = useState(null);
-  const [user, setUser] = useState(null);
-  const [reletedWorkshops, setReletedWorkshops] = useState([]);
-  const workshopId = params?.workshopId;
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [{ fetchStatus, workshop, user, relatedWorkshops }, dispatchWorkshop] = useReducer(reducer, {
+    fetchStatus: FETCH_STATUS.LOADING,
+    workshop: null,
+    user: null,
+    relatedWorkshops: [],
+  });
 
+  const workshopId = params?.workshopId;
   useEffect(() => {
-    async function getWorkshop(abortController, workshopId) {
-      setIsLoading(true);
+    async function getWorkshop(workshopId) {
+      dispatchWorkshop({ type: WORKSHOP_FETCH_STATUS, payload: FETCH_STATUS.LOADING });
       try {
         const { data } = await ApiActionGetWorkshop(workshopId);
-        setWorkshop(data);
+        dispatchWorkshop({ type: WORKSHOP_SET, payload: data });
         const [{ data: userData }, { data: relatedWorkshops }] = await Promise.all([
           ApiActionGetUser(data.userId),
           ApiActionsGetWorkshops()({
             page: 1,
             limit: 3,
             category: data.category,
-            id_ne: workshopId,
+            id_ne: data.id,
           }),
         ]);
-        setUser(userData);
-        setReletedWorkshops(relatedWorkshops);
-        // console.log(data);
+
+        dispatchWorkshop({ type: WORKSHOP_USER, payload: userData });
+        dispatchWorkshop({ type: WORKSHOP_RELATED, payload: relatedWorkshops });
+        dispatchWorkshop({ type: WORKSHOP_FETCH_STATUS, payload: FETCH_STATUS.IDLE });
       } catch (e) {
-        console.log(e);
-      } finally {
-        setIsLoading(false);
+        dispatchWorkshop({ type: WORKSHOP_FETCH_STATUS, payload: FETCH_STATUS.ERROR });
       }
     }
 
-    const abortController = new AbortController();
     if (workshopId) {
-      getWorkshop(abortController, workshopId);
-    }
-    return () => abortController.abort();
+      getWorkshop(workshopId);
+    } else dispatchWorkshop({ type: WORKSHOP_FETCH_STATUS, payload: FETCH_STATUS.ERROR });
   }, [workshopId]);
 
   function handleGoBack() {
@@ -79,13 +82,16 @@ function Workshop() {
     });
   }
 
-  if (isLoading) {
+  if (fetchStatus === FETCH_STATUS.LOADING) {
     return <LoaderPage />;
+  }
+  if (fetchStatus === FETCH_STATUS.ERROR) {
+    return <Page404 />;
   }
   return (
     <PageGridLayout>
       <PageGridLayout.Left>
-        <Button variant='text' color='secondary' startIcon={<ArrowBackIcon />} onClick={handleGoBack}>
+        <Button variant='text' color='info' startIcon={<ArrowBackIcon />} onClick={handleGoBack}>
           Back
         </Button>
       </PageGridLayout.Left>
@@ -110,11 +116,11 @@ function Workshop() {
         <Typography variant='body1' mt={{ xs: 2.5, xl: 4.5 }} pb={{ xs: 4.5, xl: 9.5 }} width={{ lg: 400 }}>
           {workshop.desc}
         </Typography>
-        {reletedWorkshops.length > 0 && (
+        {relatedWorkshops.length > 0 && (
           <RelatedWorkshops py={{ xs: 5, xl: 9.5 }}>
             <Typography variant='h2'>Similar Workshops</Typography>
             <Grid container pt={{ xs: 2.5, xl: 4.5 }} spacing={{ xs: 2, sm: 5 }}>
-              {reletedWorkshops.map(w => (
+              {relatedWorkshops.map(w => (
                 <WorkshopCard key={w.id} {...w} />
               ))}
             </Grid>

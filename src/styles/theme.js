@@ -20,6 +20,9 @@ let theme = createTheme({
       white: FIGMA_COLORS.WHITE,
       black: FIGMA_COLORS.DARKER_GREY,
     },
+    info: {
+      main: FIGMA_COLORS.DARKER_GREY,
+    },
     grey: {
       lighter: FIGMA_COLORS.LIGHTER_GREY,
       light: FIGMA_COLORS.LIGHT_GREY,
