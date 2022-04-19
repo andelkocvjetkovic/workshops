@@ -7,6 +7,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite & json-server --watch -p 4000 db.json",
+    "vite": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "json-server": "json-server --watch -p 4000 db.json",
