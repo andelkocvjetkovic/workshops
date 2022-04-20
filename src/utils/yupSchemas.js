@@ -19,6 +19,6 @@ export const checkoutSchema = yup.object().shape({
     .number()
     .typeError('You Zip code contains invalid symbols')
     .transform(value => Number(value))
-    .required('Please type your ZIP CODE'),
-  [CHECKOUT_FIELDS.I_AGREE.apiValue]: yup.bool().test('is-checked', 'Please, first you have to agree', value => value),
+    .required('Please type your Zip code'),
+  [CHECKOUT_FIELDS.I_AGREE.apiValue]: yup.bool().test('is-checked', 'Please, you have to agree', value => value),
 });

@@ -8,7 +8,11 @@ import {
   ACTION_WORKSHOP_SET_LIMIT_EXCEEDED,
 } from '@app/store/storeActions';
 import { FETCH_STATUS } from '@app/utils/types';
-import { selectCurrentApiPage, selectIsPagesLimitExceeded, selectWorkshopActiveFilter } from '@app/store/reducers/workshopListSlice';
+import {
+  selectCurrentApiPage,
+  selectIsPagesLimitExceeded,
+  selectWorkshopActiveFilter,
+} from '@app/store/reducers/workshopListSlice';
 import { selectCartProducts } from '@app/store/reducers/cartSlice';
 
 function* workshopAppend() {
@@ -65,7 +69,7 @@ function* workshopsOrder() {
     onStart();
     try {
       yield call(ApiActionPostOrder, { ...payload, products });
-      yield delay(6000);
+      yield delay(3000);
       onSuccess();
     } catch (e) {
       console.log(e);
