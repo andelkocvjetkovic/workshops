@@ -13,6 +13,7 @@ function MainLayout() {
         sx={{
           minHeight: { xs: 'calc(100vh - 89px)', md: 'calc(100vh - 147px)' },
           display: 'flex',
+          flexDirection: 'column',
           position: 'relative',
         }}
       >

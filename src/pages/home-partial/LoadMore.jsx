@@ -11,7 +11,7 @@ function LoadMore({ onClick, isDisabled, isFilterActive, ...rest }) {
           That&apos;s all, currently we have no more workshops to load.
           <br />
           {isFilterActive && (
-            <Typography variant='h6' color='secondary.light' component='p'>
+            <Typography variant='h6' color='grey.light' component='p'>
               Try redefining your filter.
             </Typography>
           )}

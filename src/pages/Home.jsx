@@ -3,11 +3,16 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import WorkshopCard from '@app/components/workshop-card/WorkshopCard';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectIsPagesLimitExceeded, selectWorkshopActiveFilter, selectWorkshopList } from '@app/store/reducers/workshopListSlice';
+import {
+  selectIsPagesLimitExceeded,
+  selectWorkshopActiveFilter,
+  selectWorkshopFetchStatus,
+  selectWorkshopList,
+} from '@app/store/reducers/workshopListSlice';
 import { SAGA_WORKSHOPS_APPEND } from '@app/store/sagaActions';
 import LoadMore from '@app/pages/home-partial/LoadMore';
 import FilterCategory from '@app/components/filter-category/FilterCategory';
-import { FILTERS } from '@app/utils/types';
+import { FETCH_STATUS, FILTERS } from '@app/utils/types';
 import PageGridLayout from '@app/components/layouts/PageGridLayout';
 
 function Home() {
@@ -17,6 +22,7 @@ function Home() {
   /**@type {FILTERS}*/
   const activeFilter = useSelector(selectWorkshopActiveFilter);
   const workshopList = useSelector(selectWorkshopList);
+  const wListFetchStatus = useSelector(selectWorkshopFetchStatus);
   return (
     <PageGridLayout>
       <PageGridLayout.Left>
@@ -37,6 +43,11 @@ function Home() {
             <WorkshopCard key={w.id} {...w} />
           ))}
         </Grid>
+        {wListFetchStatus === FETCH_STATUS.ERROR && (
+          <Typography gutterBottom variant='h3' textAlign='center' mt={6} flexGrow={1}>
+            Something went wrong... <br/> Please try again later.
+          </Typography>
+        )}
         <LoadMore
           mt={3}
           pb={{ xs: 2, lg: 3 }}
