@@ -54,7 +54,7 @@ function Cart({ open, onClose }) {
       <Drawer anchor='right' open={open} onClose={onClose} elevation={4}>
         <Box width={{ xs: '100vw', sm: '380px' }} p={2}>
           <Stack spacing={5}>
-            <CartHeader onClose={onClose} isCartEmpty={isCartEmpty} cartAmount={cartAmount} />
+            <CartHeader onClose={onClose} cartAmount={cartAmount} />
             <Stack spacing={3}>
               {cartProducts.map(product => (
                 <CartItemCard key={product.id} {...product} />

@@ -28,21 +28,11 @@ const blink = keyframes`
     opacity: 1;
   }
 `;
-export const Eclipse = styled.span`
-  width: 13px;
-  height: 13px;
-  background-color: ${props => props.theme.palette.secondary.light};
-  border-radius: 9999px;
-  position: absolute;
-  top: 1px;
-  left: 26px;
-  animation: ${blink} 0.3ms linear backwards;
-`;
 
 function CartButton({ cartAmount, onClick }) {
   return (
     <Button title='Cart' onClick={onClick}>
-      <CartEclipse />
+      <CartEclipse cartAmount={cartAmount} />
       <Typography variant='h6' component='span' sx={{ display: { xs: 'none', md: 'inline-block' } }}>
         {cartAmount === 0 ? 'Cart is empty' : `${cartAmount} Workshop in Cart`}
       </Typography>

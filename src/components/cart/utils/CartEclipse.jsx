@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import CartIcon from '@app/components/icons/CartIcon';
 import { useSelector } from 'react-redux';
 import { selectCartAmount, selectIsCartEmpty } from '@app/store/reducers/cartSlice';
+import PropTypes from 'prop-types';
 
 const blink = props => keyframes`
   0% {
@@ -29,17 +30,16 @@ export const Eclipse = styled.span`
   animation: ${blink} 300ms ease-out backwards;
 `;
 
-function CartEclipse() {
-  const isCartEmpty = useSelector(selectIsCartEmpty);
-  /**@type {number}*/
-  const cartAmount = useSelector(selectCartAmount);
-
+function CartEclipse({ cartAmount }) {
   return (
     <Box display='flex' alignItems='center' justifyContent='center' width={42} height={32} position='relative'>
       <CartIcon />
-      {!isCartEmpty && <Eclipse key={cartAmount} />}
+      {cartAmount > 0 && <Eclipse data-testid='cart-eclipse' key={cartAmount} />}
     </Box>
   );
 }
 
+CartEclipse.propTypes = {
+  cartAmount: PropTypes.number.isRequired,
+};
 export default CartEclipse;

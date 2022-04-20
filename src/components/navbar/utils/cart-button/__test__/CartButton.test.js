@@ -1,17 +1,17 @@
-import { render } from '@app/utils/test-utils';
+import renderWithProvider from '@app/utils/test-utils';
 import CartButton from '@app/components/navbar/utils/cart-button/CartButton';
 
 describe('<CartButton />', () => {
   it('should render without errors', () => {
-    render(<CartButton />);
+    renderWithProvider(<CartButton cartAmount={0} />);
   });
-  it('should render amount in cart', () => {
-    const { getByText, getByTestId } = render(<CartButton cartAmount={2} />);
+  it('should render amount in cart', async () => {
+    const { getByText, findByTestId } = renderWithProvider(<CartButton cartAmount={2} />);
     getByText(/^2 workshop in cart$/i);
-    getByTestId('cart-eclipse');
+    await findByTestId('cart-eclipse');
   });
   it('should render empty cart', () => {
-    const { getByText, queryByTestId } = render(<CartButton cartAmount={0} />);
+    const { getByText, queryByTestId } = renderWithProvider(<CartButton cartAmount={0} />);
     getByText(/^Cart is empty$/i);
     expect(queryByTestId('cart-eclipse')).toBe(null);
   });
