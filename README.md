@@ -41,6 +41,6 @@ Workshops is using custom-built pipeline around React.js as development framewor
 #### Development Stack
 
 - [ReactJs](https://reactjs.org/) (JavaScript ES6+)
-- [React-Bootstrap](https://mui.com/) (with React-MaterialUI)
-- [JSON-Server](https://github.com/typicode/json-server) (JSON-Server)
+- [React-MaterialUI](https://mui.com/) (with emotion.css)
+- [JSON-Server](https://github.com/typicode/json-server)
 - Bundled with Vite. See the section about [configuration](https://vitejs.dev) for more information.
