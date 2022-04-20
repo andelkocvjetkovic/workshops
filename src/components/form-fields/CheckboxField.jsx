@@ -37,7 +37,7 @@ function CheckboxField({ label, id, control, isLoading }) {
   );
 }
 
-Checkbox.propTypes = {
+CheckboxField.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   control: PropTypes.object.isRequired,

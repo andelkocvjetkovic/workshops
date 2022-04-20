@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import WorkshopCard from '@app/components/workshop-card/WorkshopCard';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectIsPagesLimitExceeded, selectWorkshopActiveFilter, selectWorkshopList } from '@app/store/reducers/workshopSlice';
+import { selectIsPagesLimitExceeded, selectWorkshopActiveFilter, selectWorkshopList } from '@app/store/reducers/workshopListSlice';
 import { SAGA_WORKSHOPS_APPEND } from '@app/store/sagaActions';
 import LoadMore from '@app/pages/home-partial/LoadMore';
 import FilterCategory from '@app/components/filter-category/FilterCategory';

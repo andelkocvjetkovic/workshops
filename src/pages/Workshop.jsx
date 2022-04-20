@@ -103,7 +103,7 @@ function Workshop() {
           <TimeInfo date={workshop.date} category={workshop.category} />
           <AddToCard price={workshop.price} onAdd={handleAddToCard} />
         </Box>
-        <Typography color='secondary' gutterBottom mt={1.5} variant='h1' width={{ lg: 400 }}>
+        <Typography color='secondary' gutterBottom mt={1.5} variant='h1' width={{ lg: 490, xl: 440 }}>
           {workshop.title}
         </Typography>
         <Box display='flex' alignItems='baseline'>
@@ -113,7 +113,7 @@ function Workshop() {
           &nbsp;
           <Typography variant='h5'>{user.name}</Typography>
         </Box>
-        <Typography variant='body1' mt={{ xs: 2.5, xl: 4.5 }} pb={{ xs: 4.5, xl: 9.5 }} width={{ lg: 400 }}>
+        <Typography variant='body1' mt={{ xs: 2.5, xl: 4.5 }} pb={{ xs: 4.5, xl: 9.5 }} width={{ lg: 490, xl: 400 }}>
           {workshop.desc}
         </Typography>
         {relatedWorkshops.length > 0 && (

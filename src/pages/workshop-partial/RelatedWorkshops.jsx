@@ -12,7 +12,7 @@ const RelatedWorkshops = styled(Box)(
     }
 
     ${theme.breakpoints.up('md')} {
-      box-shadow: -500px 0 0 ${theme.palette.grey.lighter}, 200px 0 0 0 ${theme.palette.grey.lighter};
+      box-shadow: -700px 0 0 ${theme.palette.grey.lighter}, 500px 0 0 0px ${theme.palette.grey.lighter};
     }
   `
 );

@@ -22,15 +22,20 @@ const StyledWrapper = styled(Box)(
     z-index: ${theme.zIndex.speedDial};
 
     ${theme.breakpoints.up('lg')} {
+      width: 280px;
+      height: 300px;
       position: absolute;
       left: auto;
-      width: 320px;
-      height: 360px;
       top: 0;
       margin-top: 1.25rem;
       right: 0;
       box-shadow: ${theme.shadows[2]};
       border-radius: ${theme.shape.borderRadius}px;
+    }
+    ${theme.breakpoints.up('xl')}{
+
+      width: 320px;
+      height: 360px;
     }
   `
 );
@@ -44,16 +49,14 @@ function AddToCard({ price, onAdd }) {
       <Grid
         container
         alignItems='center'
-        columnGap={{ xs: 1.5, sm: 5 }}
+        columnSpacing={{ xs: 1, sm: 5 }}
         flexWrap={{ xs: 'nowrap', lg: 'wrap' }}
-        justifyContent='flex-end'
         py={{ lg: 6 }}
-        px={{ xs: 2.5, lg: 4.5 }}
+        px={{ xs: 1, sm: 4, lg: 4.5 }}
+        sx={{ justifyContent: { sm: 'flex-end' } }}
       >
-        <Grid item xs='auto' lg={12}>
-          <Typography variant='h5' sx={{ display: { xs: 'none', md: 'block' } }}>
-            Buy Your Ticket
-          </Typography>
+        <Grid item xs={0} lg={12} sx={{ display: { xs: 'none', lg: 'block' } }}>
+          <Typography variant='h5'>Buy Your Ticket</Typography>
         </Grid>
         <Grid item xs='auto' lg={12}>
           <Typography variant='h3' color='grey.darker' fontSize={{ lg: 40 }}>
@@ -63,12 +66,19 @@ function AddToCard({ price, onAdd }) {
             </Typography>
           </Typography>
         </Grid>
-        <Grid item xs='auto' lg={12} container spacing={2} justifyContent={{ lg: 'space-between' }}>
+        <Grid item xs='auto' lg={12} container columnSpacing={1} rowSpacing={{ lg: 1 }} justifyContent={{ lg: 'space-between' }}>
           <Grid item xs='auto'>
             <InputLabel htmlFor='workshop-amount' sx={visuallyHidden}>
               Amount
             </InputLabel>
-            <Select id='workshop-amount' native value={quantity} onChange={e => setQuantity(e.target.value)}>
+            <Select
+              id='workshop-amount'
+              sx={{ height: { xs: 45 ,xl: 60} }}
+              native
+              color='secondary'
+              value={quantity}
+              onChange={e => setQuantity(e.target.value)}
+            >
               {Array.from(Array(10), (_, idx) => `${idx + 1}`).map(x => (
                 <option value={x} key={x}>
                   {x}
@@ -79,7 +89,7 @@ function AddToCard({ price, onAdd }) {
           <Grid item xs='auto'>
             <Button
               variant='contained'
-              size='large'
+              sx={{ height: { xs: 45, xl: 60 }, fontSize: { xl: 18 } }}
               endIcon={<CartIcon />}
               onClick={() => {
                 onAdd(+quantity);
@@ -89,15 +99,8 @@ function AddToCard({ price, onAdd }) {
               Add to
             </Button>
           </Grid>
-          <Grid item xs lg={12}>
-            <Typography
-              textAlign='right'
-              variant='h6'
-              color='grey.light'
-              fontWeight={600}
-              sx={{ display: { xs: 'none', lg: 'block' } }}
-              mt={-1}
-            >
+          <Grid item xs={0} lg={12} sx={{ display: { xs: 'none', lg: 'block' } }}>
+            <Typography textAlign='right' variant='h6' color='grey.light' fontWeight={600}>
               Subtotal: {subTotal.toFixed(2)} EUR
             </Typography>
           </Grid>

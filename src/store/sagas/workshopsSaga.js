@@ -8,7 +8,7 @@ import {
   ACTION_WORKSHOP_SET_LIMIT_EXCEEDED,
 } from '@app/store/storeActions';
 import { FETCH_STATUS } from '@app/utils/types';
-import { selectCurrentApiPage, selectIsPagesLimitExceeded, selectWorkshopActiveFilter } from '@app/store/reducers/workshopSlice';
+import { selectCurrentApiPage, selectIsPagesLimitExceeded, selectWorkshopActiveFilter } from '@app/store/reducers/workshopListSlice';
 import { selectCartProducts } from '@app/store/reducers/cartSlice';
 
 function* workshopAppend() {

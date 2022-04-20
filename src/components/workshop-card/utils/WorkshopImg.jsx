@@ -5,10 +5,13 @@ import { css } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 
 const StyledCardMedia = styled(CardMedia)(
-  () => css`
+  ({theme}) => css`
     max-width: 100%;
     height: auto;
     object-fit: cover;
+    ${theme.breakpoints.up('sm')}{
+      height: 180px;
+    }
   `
 );
 const StyledLink = styled(Link)(

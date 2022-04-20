@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import workshopReducer from '@app/store/reducers/workshopSlice';
+import workshopReducer from '@app/store/reducers/workshopListSlice';
 import cartReducer from '@app/store/reducers/cartSlice';
 
 export default combineReducers({
-  workshop: workshopReducer,
+  workshopList: workshopReducer,
   cart: cartReducer,
 });

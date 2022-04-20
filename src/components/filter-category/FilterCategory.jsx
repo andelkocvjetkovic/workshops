@@ -2,7 +2,7 @@ import FilterCategoryMobile from '@app/components/filter-category/mobile/FilterC
 import FilterCategoryDesktop from '@app/components/filter-category/desktop/FilterCategoryDesktop';
 import { useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectWorkshopActiveFilter } from '@app/store/reducers/workshopSlice';
+import { selectWorkshopActiveFilter } from '@app/store/reducers/workshopListSlice';
 import { ACTION_WORKSHOP_SET_ACTIVE_FILTER } from '@app/store/storeActions';
 import { SAGA_WORKSHOPS_SET } from '@app/store/sagaActions';
 

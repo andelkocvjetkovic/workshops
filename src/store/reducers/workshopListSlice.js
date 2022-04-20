@@ -60,8 +60,8 @@ export default function workshopReducer(state = initialState, action) {
       return state;
   }
 }
-export const selectWorkshopList = state => state.workshop.list;
-export const selectCurrentApiPage = state => state.workshop.currentApiPage;
-export const selectIsPagesLimitExceeded = state => state.workshop.isPagesLimitExceeded;
-export const selectWorkshopActiveFilter = state => state.workshop.activeFilter;
-export const selectWorkshopFetchStatus = state => state.workshop.fetchStatus;
+export const selectWorkshopList = state => state.workshopList.list;
+export const selectCurrentApiPage = state => state.workshopList.currentApiPage;
+export const selectIsPagesLimitExceeded = state => state.workshopList.isPagesLimitExceeded;
+export const selectWorkshopActiveFilter = state => state.workshopList.activeFilter;
+export const selectWorkshopFetchStatus = state => state.workshopList.fetchStatus;

@@ -47,7 +47,7 @@ function WorkshopCard({ title, imageUrl, price, date, id, category, desc, userId
         }}
       >
         <Grid container direction={{ xs: 'row', sm: 'column' }}>
-          <Grid item xs={4} sm='auto' sx={{ position: 'relative', height: { sm: 180 } }}>
+          <Grid item xs={4} sm='auto' sx={{ position: 'relative' }}>
             <WorkshopImg src={imageUrl} alt={title} to={`${ROUTE_HOME}${id}`} />
             <WorkshopCategoryIcon category={category} />
           </Grid>
