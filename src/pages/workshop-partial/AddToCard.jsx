@@ -32,8 +32,7 @@ const StyledWrapper = styled(Box)(
       box-shadow: ${theme.shadows[2]};
       border-radius: ${theme.shape.borderRadius}px;
     }
-    ${theme.breakpoints.up('xl')}{
-
+    ${theme.breakpoints.up('xl')} {
       width: 320px;
       height: 360px;
     }
@@ -73,7 +72,7 @@ function AddToCard({ price, onAdd }) {
             </InputLabel>
             <Select
               id='workshop-amount'
-              sx={{ height: { xs: 45 ,xl: 60} }}
+              sx={{ height: { xs: 45, xl: 60 } }}
               native
               color='secondary'
               value={quantity}

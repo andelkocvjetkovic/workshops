@@ -45,7 +45,7 @@ function Home() {
         </Grid>
         {wListFetchStatus === FETCH_STATUS.ERROR && (
           <Typography gutterBottom variant='h3' textAlign='center' mt={6} flexGrow={1}>
-            Something went wrong... <br/> Please try again later.
+            Something went wrong... <br /> Please try again later.
           </Typography>
         )}
         <LoadMore

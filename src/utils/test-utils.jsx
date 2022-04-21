@@ -7,6 +7,7 @@ import { applyMiddleware, createStore } from 'redux';
 import rootReducer from '@app/store/rootReducer';
 import { Provider } from 'react-redux';
 import rootSagas from '@app/store/rootSaga';
+//eslint-disable-next-line no-unused-vars
 import axios from 'axios';
 import orgStore from '@app/store/store';
 
@@ -25,9 +26,7 @@ export default function renderWithProvider(ui, initialState = {}, options) {
 
   const rendered = render(
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        {ui}
-      </ThemeProvider>
+      <ThemeProvider theme={theme}>{ui}</ThemeProvider>
     </Provider>,
     options
   );

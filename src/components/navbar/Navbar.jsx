@@ -6,7 +6,7 @@ import CartButton from '@app/components/navbar/utils/cart-button/CartButton';
 import Cart from '@app/components/cart/Cart';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { selectCartAmount, selectIsCartEmpty } from '@app/store/reducers/cartSlice';
+import { selectCartAmount } from '@app/store/reducers/cartSlice';
 
 const BgWrapper = styled.div`
   background-color: ${props => props.theme.palette.primary.light};

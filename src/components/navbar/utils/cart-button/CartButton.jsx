@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
-import { keyframes } from '@emotion/react';
 import CartEclipse from '@app/components/cart/utils/CartEclipse';
 import Typography from '@mui/material/Typography';
 
@@ -16,17 +15,6 @@ const Button = styled.button`
   position: relative;
   color: ${props => props.theme.palette.grey.darker};
   cursor: pointer;
-`;
-const blink = keyframes`
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 1;
-  }
 `;
 
 function CartButton({ cartAmount, onClick }) {

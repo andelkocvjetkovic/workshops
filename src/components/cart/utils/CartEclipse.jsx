@@ -2,8 +2,6 @@ import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
 import Box from '@mui/material/Box';
 import CartIcon from '@app/components/icons/CartIcon';
-import { useSelector } from 'react-redux';
-import { selectCartAmount, selectIsCartEmpty } from '@app/store/reducers/cartSlice';
 import PropTypes from 'prop-types';
 
 const blink = props => keyframes`

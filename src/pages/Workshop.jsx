@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useReducer, useState } from 'react';
+import { useEffect, useReducer } from 'react';
 import { ApiActionGetUser, ApiActionGetWorkshop, ApiActionsGetWorkshops } from '@app/api/apiActions';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
@@ -15,9 +15,13 @@ import RelatedWorkshops from '@app/pages/workshop-partial/RelatedWorkshops';
 import AddToCard from '@app/pages/workshop-partial/AddToCard';
 import { useDispatch } from 'react-redux';
 import { ACTION_CART_ADD } from '@app/store/storeActions';
-import reducer from '@app/pages/workshop-partial/reducer';
+import reducer, {
+  WORKSHOP_FETCH_STATUS,
+  WORKSHOP_RELATED,
+  WORKSHOP_SET,
+  WORKSHOP_USER,
+} from '@app/pages/workshop-partial/reducer';
 import { FETCH_STATUS } from '@app/utils/types';
-import { WORKSHOP_FETCH_STATUS, WORKSHOP_RELATED, WORKSHOP_SET, WORKSHOP_USER } from '@app/pages/workshop-partial/reducer';
 import Page404 from '@app/pages/Page404';
 
 function Workshop() {
