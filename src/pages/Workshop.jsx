@@ -23,6 +23,10 @@ import reducer, {
 } from '@app/pages/workshop-partial/reducer';
 import { FETCH_STATUS } from '@app/utils/types';
 import Page404 from '@app/pages/Page404';
+import { maybe } from 'folktale';
+import * as R from 'ramda';
+
+const { Just, Nothing } = maybe;
 
 function Workshop() {
   const params = useParams();
@@ -30,9 +34,9 @@ function Workshop() {
   const dispatch = useDispatch();
   const [{ fetchStatus, workshop, user, relatedWorkshops }, dispatchWorkshop] = useReducer(reducer, {
     fetchStatus: FETCH_STATUS.LOADING,
-    workshop: null,
-    user: null,
-    relatedWorkshops: [],
+    workshop: Nothing(),
+    user: Nothing(),
+    relatedWorkshops: Nothing(),
   });
 
   const workshopId = params?.workshopId;
@@ -41,7 +45,7 @@ function Workshop() {
       dispatchWorkshop({ type: WORKSHOP_FETCH_STATUS, payload: FETCH_STATUS.LOADING });
       try {
         const { data } = await ApiActionGetWorkshop(workshopId);
-        dispatchWorkshop({ type: WORKSHOP_SET, payload: data });
+        dispatchWorkshop({ type: WORKSHOP_SET, payload: Just(data) });
         const [{ data: userData }, { data: relatedWorkshops }] = await Promise.all([
           ApiActionGetUser(data.userId),
           ApiActionsGetWorkshops()({
@@ -52,8 +56,8 @@ function Workshop() {
           }),
         ]);
 
-        dispatchWorkshop({ type: WORKSHOP_USER, payload: userData });
-        dispatchWorkshop({ type: WORKSHOP_RELATED, payload: relatedWorkshops });
+        dispatchWorkshop({ type: WORKSHOP_USER, payload: Just(userData) });
+        dispatchWorkshop({ type: WORKSHOP_RELATED, payload: relatedWorkshops.length > 0 ? Just(relatedWorkshops) : Nothing() });
         dispatchWorkshop({ type: WORKSHOP_FETCH_STATUS, payload: FETCH_STATUS.IDLE });
       } catch (e) {
         dispatchWorkshop({ type: WORKSHOP_FETCH_STATUS, payload: FETCH_STATUS.ERROR });
@@ -100,36 +104,50 @@ function Workshop() {
         </Button>
       </PageGridLayout.Left>
       <PageGridLayout.Right pb={{ xs: 5, md: 0 }}>
-        <Box>
-          <CoverImg width={1040} height={382} src={workshop.imageUrl} alt={workshop.title} />
-        </Box>
-        <Box position='relative'>
-          <TimeInfo date={workshop.date} category={workshop.category} />
-          <AddToCard price={workshop.price} onAdd={handleAddToCard} />
-        </Box>
-        <Typography color='secondary' gutterBottom mt={1.5} variant='h1' width={{ lg: 490, xl: 440 }}>
-          {workshop.title}
-        </Typography>
+        {workshop
+          .map(w => (
+            <>
+              <Box>
+                <CoverImg width={1040} height={382} src={R.prop('imageUrl', w)} alt={R.prop('title', w)} key={w.id} />
+              </Box>
+              <Box position='relative'>
+                <TimeInfo date={R.prop('date', w)} category={R.prop('category', w)} />
+                <AddToCard price={R.prop('price', w)} onAdd={handleAddToCard} />
+              </Box>
+              <Typography color='secondary' gutterBottom mt={1.5} variant='h1' width={{ lg: 490, xl: 440 }}>
+                {R.prop('title', w)}
+              </Typography>
+            </>
+          ))
+          .getOrElse(null)}
         <Box display='flex' alignItems='baseline'>
           <Typography variant='body2' textTransform='uppercase'>
             with
           </Typography>
           &nbsp;
-          <Typography variant='h5'>{user.name}</Typography>
+          <Typography variant='h5'>{user.map(u => u.name).getOrElse(null)}</Typography>
         </Box>
-        <Typography variant='body1' mt={{ xs: 2.5, xl: 4.5 }} pb={{ xs: 4.5, xl: 9.5 }} width={{ lg: 490, xl: 400 }}>
-          {workshop.desc}
-        </Typography>
-        {relatedWorkshops.length > 0 && (
-          <RelatedWorkshops py={{ xs: 5, xl: 9.5 }}>
-            <Typography variant='h2'>Similar Workshops</Typography>
-            <Grid container pt={{ xs: 2.5, xl: 4.5 }} spacing={{ xs: 2, sm: 5 }}>
-              {relatedWorkshops.map(w => (
-                <WorkshopCard key={w.id} {...w} />
-              ))}
-            </Grid>
-          </RelatedWorkshops>
-        )}
+        {workshop
+          .map(w => (
+            <>
+              <Typography variant='body1' mt={{ xs: 2.5, xl: 4.5 }} pb={{ xs: 4.5, xl: 9.5 }} width={{ lg: 490, xl: 400 }}>
+                {R.prop('desc', w)}
+              </Typography>
+            </>
+          ))
+          .getOrElse(null)}
+        {relatedWorkshops
+          .map(releted => (
+            <RelatedWorkshops py={{ xs: 5, xl: 9.5 }} key={releted}>
+              <Typography variant='h2'>Similar Workshops</Typography>
+              <Grid container pt={{ xs: 2.5, xl: 4.5 }} spacing={{ xs: 2, sm: 5 }}>
+                {releted.map(w => (
+                  <WorkshopCard key={w.id} {...w} />
+                ))}
+              </Grid>
+            </RelatedWorkshops>
+          ))
+          .getOrElse(null)}
       </PageGridLayout.Right>
     </PageGridLayout>
   );
