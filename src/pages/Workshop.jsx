@@ -15,7 +15,13 @@ import RelatedWorkshops from '@app/pages/workshop-partial/RelatedWorkshops';
 import AddToCard from '@app/pages/workshop-partial/AddToCard';
 import { useDispatch } from 'react-redux';
 import { ACTION_CART_ADD } from '@app/store/storeActions';
-import reducer, { Leaf, WORKSHOP_FETCHED, WORKSHOP_FAILED } from '@app/pages/workshop-partial/reducer';
+import reducer, {
+  Leaf,
+  WORKSHOP_FETCHED,
+  WORKSHOP_FAILED,
+  WORKSHOP_LEFT,
+  WORKSHOP_REQUESTED,
+} from '@app/pages/workshop-partial/reducer';
 import Page404 from '@app/pages/Page404';
 import { maybe } from 'folktale';
 import * as R from 'ramda';
@@ -23,18 +29,16 @@ import * as R from 'ramda';
 const { Just, Nothing } = maybe;
 
 function Workshop() {
-  const params = useParams();
+  const { workshopId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [state, dispatchWorkshop] = useReducer(reducer, undefined, () => {
-    console.log(Leaf);
-    return Leaf.Loading;
+    return Leaf.Unloaded;
   });
-
-  const workshopId = params?.workshopId;
 
   useEffect(() => {
     async function getWorkshop(workshopId) {
+      dispatchWorkshop({ type: WORKSHOP_REQUESTED });
       try {
         const { data: workshop } = await ApiActionGetWorkshop(workshopId);
         const [{ data: userData }, { data: relatedWorkshops }] = await Promise.all([
@@ -59,16 +63,15 @@ function Workshop() {
       }
     }
 
-    if (workshopId) {
-      getWorkshop(workshopId);
-    } else dispatchWorkshop({ type: WORKSHOP_FAILED });
-  }, [workshopId]);
+    getWorkshop(workshopId);
+    return () => dispatchWorkshop({ type: WORKSHOP_LEFT });
+  }, [workshopId, dispatchWorkshop]);
 
   function handleGoBack() {
     navigate(-1);
   }
 
-  function handleAddToCard(quantity, workshop) {
+  const handleAddToCard = workshop => quantity =>
     dispatch({
       type: ACTION_CART_ADD,
       payload: {
@@ -83,7 +86,7 @@ function Workshop() {
         imageUrl: workshop.imageUrl,
       },
     });
-  }
+
   return state.cata({
     Unloaded: () => null,
     Loading: () => <LoaderPage />,
@@ -104,7 +107,7 @@ function Workshop() {
                 </Box>
                 <Box position='relative'>
                   <TimeInfo date={R.prop('date', w)} category={R.prop('category', w)} />
-                  <AddToCard price={R.prop('price', w)} onAdd={handleAddToCard} />
+                  <AddToCard price={R.prop('price', w)} onAdd={handleAddToCard(workshop.getOrElse({}))} />
                 </Box>
                 <Typography color='secondary' gutterBottom mt={1.5} variant='h1' width={{ lg: 490, xl: 440 }}>
                   {R.prop('title', w)}
