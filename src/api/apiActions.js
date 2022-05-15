@@ -1,5 +1,7 @@
 import { API } from '@app/api/api';
 import { FILTERS } from '@app/utils/types';
+import { fromPromised, task } from 'folktale/concurrency/task';
+import * as R from 'ramda';
 
 //ApiActionGetWorkshops :: AbortController -> number -> Promise
 export const ApiActionsGetWorkshops =
@@ -22,8 +24,19 @@ export const ApiActionPostOrder = order =>
     order,
   });
 
-//ApiActionGetWorkshop -> number -> Promise
-export const ApiActionGetWorkshop = workshopId => API().get(`/workshops/${workshopId}`);
+//ApiActionGetWorkshop -> number -> Task
+export const ApiActionGetWorkshop = fromPromised(workshopId => API().get(`/workshops/${workshopId}`));
 
 //ApiActionGetUser -> number -> Promise
 export const ApiActionGetUser = userId => API().get(`/users/${userId}`);
+
+//ApiActionGetWorkshopCancelable :: number -> Task
+export const ApiActionGetWorkshopCancelable = workshopId =>
+  task(resolver => {
+    const abortController = new AbortController();
+    API(abortController)
+      .get('/workshops')
+      .then(resolver.resolve)
+      .catch(e => !resolver.isCancelled && resolver.rejected(e));
+    resolver.onCancelled(() => abortController.abort());
+  });

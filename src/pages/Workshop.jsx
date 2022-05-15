@@ -1,6 +1,11 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useReducer } from 'react';
-import { ApiActionGetUser, ApiActionGetWorkshop, ApiActionsGetWorkshops } from '@app/api/apiActions';
+import { useEffect, useReducer, useState } from 'react';
+import {
+  ApiActionGetUser,
+  ApiActionGetWorkshop,
+  ApiActionsGetWorkshops,
+  ApiActionGetWorkshopCancelable,
+} from '@app/api/apiActions';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import ArrowBackIcon from '@app/components/icons/ArrowBackIcon';
@@ -40,7 +45,7 @@ function Workshop() {
     async function getWorkshop(workshopId) {
       dispatchWorkshop({ type: WORKSHOP_REQUESTED });
       try {
-        const { data: workshop } = await ApiActionGetWorkshop(workshopId);
+        const { data: workshop } = await ApiActionGetWorkshop(workshopId).run().promise();
         const [{ data: userData }, { data: relatedWorkshops }] = await Promise.all([
           ApiActionGetUser(workshop.userId),
           ApiActionsGetWorkshops()({
