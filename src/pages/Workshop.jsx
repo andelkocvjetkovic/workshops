@@ -1,11 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useReducer, useState } from 'react';
-import {
-  ApiActionGetUser,
-  ApiActionGetWorkshop,
-  ApiActionsGetWorkshops,
-  ApiActionGetWorkshopCancelable,
-} from '@app/api/apiActions';
+import { ApiActionGetUser, ApiActionGetWorkshop, ApiActionGetWorkshops } from '@app/api/apiActions';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import ArrowBackIcon from '@app/components/icons/ArrowBackIcon';
@@ -29,9 +24,10 @@ import reducer, {
 } from '@app/pages/workshop-partial/reducer';
 import Page404 from '@app/pages/Page404';
 import { maybe } from 'folktale';
-import * as R from 'ramda';
-
 const { Just, Nothing } = maybe;
+import { waitAll } from 'folktale/concurrency/task';
+import * as R from 'ramda';
+import { getTitle, getId, getImageUrl, getCategory, getDate, getName, getDesc, getPrice } from '@app/utils/prop-utils';
 
 function Workshop() {
   const { workshopId } = useParams();
@@ -46,15 +42,17 @@ function Workshop() {
       dispatchWorkshop({ type: WORKSHOP_REQUESTED });
       try {
         const { data: workshop } = await ApiActionGetWorkshop(workshopId).run().promise();
-        const [{ data: userData }, { data: relatedWorkshops }] = await Promise.all([
+        const [{ data: userData }, { data: relatedWorkshops }] = await waitAll([
           ApiActionGetUser(workshop.userId),
-          ApiActionsGetWorkshops()({
+          ApiActionGetWorkshops({
             page: 1,
             limit: 3,
             category: workshop.category,
             id_ne: workshop.id,
           }),
-        ]);
+        ])
+          .run()
+          .promise();
         dispatchWorkshop({
           type: WORKSHOP_FETCHED,
           payload: {
@@ -108,14 +106,14 @@ function Workshop() {
             .map(w => (
               <>
                 <Box>
-                  <CoverImg width={1040} height={382} src={R.prop('imageUrl', w)} alt={R.prop('title', w)} key={w.id} />
+                  <CoverImg width={1040} height={382} src={getImageUrl(w)} alt={getTitle(w)} key={getId(w)} />
                 </Box>
                 <Box position='relative'>
-                  <TimeInfo date={R.prop('date', w)} category={R.prop('category', w)} />
-                  <AddToCard price={R.prop('price', w)} onAdd={handleAddToCard(workshop.getOrElse({}))} />
+                  <TimeInfo date={getDate(w)} category={getCategory(w)} />
+                  <AddToCard price={getPrice(w)} onAdd={handleAddToCard(workshop.getOrElse({}))} />
                 </Box>
                 <Typography color='secondary' gutterBottom mt={1.5} variant='h1' width={{ lg: 490, xl: 440 }}>
-                  {R.prop('title', w)}
+                  {getTitle(w)}
                 </Typography>
               </>
             ))
@@ -125,13 +123,13 @@ function Workshop() {
               with
             </Typography>
             &nbsp;
-            <Typography variant='h5'>{user.map(u => u.name).getOrElse(null)}</Typography>
+            <Typography variant='h5'>{user.map(getName).getOrElse(null)}</Typography>
           </Box>
           {workshop
             .map(w => (
               <>
                 <Typography variant='body1' mt={{ xs: 2.5, xl: 4.5 }} pb={{ xs: 4.5, xl: 9.5 }} width={{ lg: 490, xl: 400 }}>
-                  {R.prop('desc', w)}
+                  {getDesc(w)}
                 </Typography>
               </>
             ))
@@ -142,7 +140,7 @@ function Workshop() {
                 <Typography variant='h2'>Similar Workshops</Typography>
                 <Grid container pt={{ xs: 2.5, xl: 4.5 }} spacing={{ xs: 2, sm: 5 }}>
                   {releted.map(w => (
-                    <WorkshopCard key={w.id} {...w} />
+                    <WorkshopCard key={getId(w)} {...w} />
                   ))}
                 </Grid>
               </RelatedWorkshops>

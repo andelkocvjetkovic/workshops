@@ -1,6 +1,6 @@
 import { takeLatest, call, put, cancelled, select, take, delay } from 'redux-saga/effects';
 import { SAGA_WORKSHOPS_APPEND, SAGA_WORKSHOPS_ORDER, SAGA_WORKSHOPS_SET } from '@app/store/sagaActions';
-import { ApiActionPostOrder, ApiActionsGetWorkshops } from '@app/api/apiActions';
+import { ApiActionPostOrder, ApiActionsGetWorkshopsPromise } from '@app/api/apiActions';
 import {
   ACTION_WORKSHOP_APPEND_LIST,
   ACTION_WORKSHOP_SET,
@@ -24,7 +24,7 @@ function* workshopAppend() {
         yield put({ type: ACTION_WORKSHOP_SET_FETCH_STATUS, payload: FETCH_STATUS.LOADING });
         const activeFilter = yield select(selectWorkshopActiveFilter);
         const currentApiPage = yield select(selectCurrentApiPage);
-        const { data } = yield call(ApiActionsGetWorkshops(abortController), {
+        const { data } = yield call(ApiActionsGetWorkshopsPromise(abortController), {
           page: currentApiPage,
           category: activeFilter,
         });
@@ -45,7 +45,7 @@ function* workshopsSet() {
     const abortController = new AbortController();
     try {
       const activeFilter = yield select(selectWorkshopActiveFilter);
-      const { data } = yield call(ApiActionsGetWorkshops(abortController), {
+      const { data } = yield call(ApiActionsGetWorkshopsPromise(abortController), {
         page: 1,
         category: activeFilter,
       });

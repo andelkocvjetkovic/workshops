@@ -3,8 +3,8 @@ import { FILTERS } from '@app/utils/types';
 import { fromPromised, task } from 'folktale/concurrency/task';
 import * as R from 'ramda';
 
-//ApiActionGetWorkshops :: AbortController -> number -> Promise
-export const ApiActionsGetWorkshops =
+//ApiActionGetWorkshops :: AbortController -> WorkshopsRequest -> Promise
+export const ApiActionsGetWorkshopsPromise =
   abortController =>
   ({ page, category, limit = 9, ...rest }) =>
     API(abortController).get('/workshops', {
@@ -17,7 +17,19 @@ export const ApiActionsGetWorkshops =
         ...(category !== FILTERS.ALL ? { category } : {}),
       },
     });
-
+// ApiActionGetWorkshops :: WorkshopsRequest -> Task
+export const ApiActionGetWorkshops = fromPromised(({ page, category, limit = 9, ...rest }) =>
+  API().get('/workshops', {
+    params: {
+      _page: page,
+      _limit: limit,
+      _sort: 'date',
+      _order: 'desc',
+      ...rest,
+      ...(category !== FILTERS.ALL ? { category } : {}),
+    },
+  })
+);
 //ApiActionPostOrder :: order -> Promise
 export const ApiActionPostOrder = order =>
   API().post('/orders', {
@@ -27,8 +39,8 @@ export const ApiActionPostOrder = order =>
 //ApiActionGetWorkshop -> number -> Task
 export const ApiActionGetWorkshop = fromPromised(workshopId => API().get(`/workshops/${workshopId}`));
 
-//ApiActionGetUser -> number -> Promise
-export const ApiActionGetUser = userId => API().get(`/users/${userId}`);
+//ApiActionGetUser -> number -> Task
+export const ApiActionGetUser = fromPromised(userId => API().get(`/users/${userId}`));
 
 //ApiActionGetWorkshopCancelable :: number -> Task
 export const ApiActionGetWorkshopCancelable = workshopId =>
