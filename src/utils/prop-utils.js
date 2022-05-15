@@ -26,3 +26,6 @@ export const getPrice = R.prop('price');
 
 // getUserId :: Object -> String
 export const getUserId = R.prop('userId');
+
+// getData :: Response -> a
+export const getData = R.prop('data');

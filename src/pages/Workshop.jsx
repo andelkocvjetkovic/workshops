@@ -25,9 +25,20 @@ import reducer, {
 import Page404 from '@app/pages/Page404';
 import { maybe } from 'folktale';
 const { Just, Nothing } = maybe;
-import { waitAll } from 'folktale/concurrency/task';
+import { waitAll, rejected } from 'folktale/concurrency/task';
 import * as R from 'ramda';
-import { getTitle, getId, getImageUrl, getCategory, getDate, getName, getDesc, getPrice, getUserId } from '@app/utils/prop-utils';
+import {
+  getTitle,
+  getId,
+  getImageUrl,
+  getCategory,
+  getDate,
+  getName,
+  getDesc,
+  getPrice,
+  getUserId,
+  getData,
+} from '@app/utils/prop-utils';
 
 function Workshop() {
   const { workshopId } = useParams();
@@ -41,16 +52,19 @@ function Workshop() {
     async function getWorkshop(workshopId) {
       dispatchWorkshop({ type: WORKSHOP_REQUESTED });
       try {
-        const { data: workshop } = await ApiActionGetWorkshop(workshopId).run().promise();
-        const [{ data: userData }, { data: relatedWorkshops }] = await waitAll([
-          ApiActionGetUser(workshop.userId),
-          ApiActionGetWorkshops({
-            page: 1,
-            limit: 3,
-            category: workshop.category,
-            id_ne: workshop.id,
-          }),
-        ])
+        const { workshop, userData, relatedWorkshops } = await ApiActionGetWorkshop(workshopId)
+          .map(getData)
+          .chain(workshop =>
+            waitAll([
+              ApiActionGetUser(workshop.userId),
+              ApiActionGetWorkshops({
+                page: 1,
+                limit: 3,
+                category: workshop.category,
+                id_ne: workshop.id,
+              }),
+            ]).map(([{ data: userData }, { data: relatedWorkshops }]) => ({ workshop, userData, relatedWorkshops }))
+          )
           .run()
           .promise();
 
@@ -63,6 +77,7 @@ function Workshop() {
           },
         });
       } catch (e) {
+        console.log(e);
         dispatchWorkshop({ type: WORKSHOP_FAILED });
       }
     }
