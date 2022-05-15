@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useReducer, useState } from 'react';
+import { useEffect, useReducer } from 'react';
 import { ApiActionGetUser, ApiActionGetWorkshop, ApiActionGetWorkshops } from '@app/api/apiActions';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
@@ -53,6 +53,7 @@ function Workshop() {
         ])
           .run()
           .promise();
+
         dispatchWorkshop({
           type: WORKSHOP_FETCHED,
           payload: {

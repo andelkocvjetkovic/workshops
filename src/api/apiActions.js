@@ -1,7 +1,6 @@
 import { API } from '@app/api/api';
 import { FILTERS } from '@app/utils/types';
 import { fromPromised, task } from 'folktale/concurrency/task';
-import * as R from 'ramda';
 
 //ApiActionGetWorkshops :: AbortController -> WorkshopsRequest -> Promise
 export const ApiActionsGetWorkshopsPromise =
@@ -47,7 +46,7 @@ export const ApiActionGetWorkshopCancelable = workshopId =>
   task(resolver => {
     const abortController = new AbortController();
     API(abortController)
-      .get('/workshops')
+      .get(`/workshops/${workshopId}`)
       .then(resolver.resolve)
       .catch(e => !resolver.isCancelled && resolver.rejected(e));
     resolver.onCancelled(() => abortController.abort());
