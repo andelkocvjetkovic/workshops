@@ -23,3 +23,6 @@ export const getDesc = R.prop('desc');
 
 // getPrice :: Object -> String
 export const getPrice = R.prop('price');
+
+// getUserId :: Object -> String
+export const getUserId = R.prop('userId');

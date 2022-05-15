@@ -27,7 +27,7 @@ import { maybe } from 'folktale';
 const { Just, Nothing } = maybe;
 import { waitAll } from 'folktale/concurrency/task';
 import * as R from 'ramda';
-import { getTitle, getId, getImageUrl, getCategory, getDate, getName, getDesc, getPrice } from '@app/utils/prop-utils';
+import { getTitle, getId, getImageUrl, getCategory, getDate, getName, getDesc, getPrice, getUserId } from '@app/utils/prop-utils';
 
 function Workshop() {
   const { workshopId } = useParams();
@@ -74,21 +74,22 @@ function Workshop() {
     navigate(-1);
   }
 
-  const handleAddToCard = workshop => quantity =>
+  const handleAddToCard = R.curry((workshop, quantity) =>
     dispatch({
       type: ACTION_CART_ADD,
       payload: {
-        id: workshop.id,
-        category: workshop.category,
-        title: workshop.title,
-        date: workshop.date,
-        price: workshop.price,
-        desc: workshop.desc,
-        userId: workshop.userId,
+        id: getId(workshop),
+        category: getCategory(workshop),
+        title: getTitle(workshop),
+        date: getDate(workshop),
+        price: getPrice(workshop),
+        desc: getDesc(workshop),
+        userId: getUserId(workshop),
         quantity: quantity,
-        imageUrl: workshop.imageUrl,
+        imageUrl: getImageUrl(workshop),
       },
-    });
+    })
+  );
 
   return state.cata({
     Unloaded: () => null,
