@@ -26,6 +26,7 @@ import Page404 from '@app/pages/Page404';
 import { maybe } from 'folktale';
 const { Just, Nothing } = maybe;
 import { waitAll, rejected } from 'folktale/concurrency/task';
+import Result from 'folktale/result';
 import * as R from 'ramda';
 import {
   getTitle,
@@ -49,37 +50,36 @@ function Workshop() {
   });
 
   useEffect(() => {
-    async function getWorkshop(workshopId) {
+    function getWorkshop(workshopId) {
       dispatchWorkshop({ type: WORKSHOP_REQUESTED });
-      try {
-        const { workshop, userData, relatedWorkshops } = await ApiActionGetWorkshop(workshopId)
-          .map(getData)
-          .chain(workshop =>
-            waitAll([
-              ApiActionGetUser(workshop.userId),
-              ApiActionGetWorkshops({
-                page: 1,
-                limit: 3,
-                category: workshop.category,
-                id_ne: workshop.id,
-              }),
-            ]).map(([{ data: userData }, { data: relatedWorkshops }]) => ({ workshop, userData, relatedWorkshops }))
-          )
-          .run()
-          .promise();
 
-        dispatchWorkshop({
-          type: WORKSHOP_FETCHED,
-          payload: {
-            workshop: Just(workshop),
-            relatedWorkshops: relatedWorkshops.length > 0 ? Just(relatedWorkshops) : Nothing(),
-            user: Just(userData),
-          },
+      ApiActionGetWorkshop(workshopId)
+        .map(getData)
+        .chain(workshop =>
+          waitAll([
+            ApiActionGetUser(workshop.userId),
+            ApiActionGetWorkshops({
+              page: 1,
+              limit: 3,
+              category: workshop.category,
+              id_ne: workshop.id,
+            }),
+          ]).map(([{ data: userData }, { data: relatedWorkshops }]) => ({ workshop, userData, relatedWorkshops }))
+        )
+        .run()
+        .future()
+        .listen({
+          onRejected: _ => dispatchWorkshop({ type: WORKSHOP_FAILED }),
+          onResolved: ({ workshop, userData, relatedWorkshops }) =>
+            dispatchWorkshop({
+              type: WORKSHOP_FETCHED,
+              payload: {
+                workshop: Just(workshop),
+                relatedWorkshops: relatedWorkshops.length > 0 ? Just(relatedWorkshops) : Nothing(),
+                user: Just(userData),
+              },
+            }),
         });
-      } catch (e) {
-        console.log(e);
-        dispatchWorkshop({ type: WORKSHOP_FAILED });
-      }
     }
 
     getWorkshop(workshopId);
