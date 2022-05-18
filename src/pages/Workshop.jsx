@@ -45,9 +45,7 @@ function Workshop() {
   const { workshopId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [state, dispatchWorkshop] = useReducer(reducer, undefined, () => {
-    return Leaf.Unloaded;
-  });
+  const [state, dispatchWorkshop] = useReducer(reducer, undefined, () => Leaf.Unloaded);
 
   useEffect(() => {
     function getWorkshop(workshopId) {
@@ -57,12 +55,12 @@ function Workshop() {
         .map(getData)
         .chain(workshop =>
           waitAll([
-            ApiActionGetUser(workshop.userId),
+            ApiActionGetUser(getUserId(workshop)),
             ApiActionGetWorkshops({
               page: 1,
               limit: 3,
-              category: workshop.category,
-              id_ne: workshop.id,
+              category: getCategory(workshop),
+              id_ne: getId(workshop),
             }),
           ]).map(([{ data: userData }, { data: relatedWorkshops }]) => ({ workshop, userData, relatedWorkshops }))
         )
