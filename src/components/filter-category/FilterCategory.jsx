@@ -1,14 +1,12 @@
 import FilterCategoryMobile from '@app/components/filter-category/mobile/FilterCategoryMobile';
 import FilterCategoryDesktop from '@app/components/filter-category/desktop/FilterCategoryDesktop';
 import { useSearchParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import { useMemo } from 'react';
 import { FILTERS } from '@app/utils/types';
 import Maybe from 'folktale/maybe';
 const { Just, Nothing } = Maybe;
 
 function FilterCategory() {
-  const dispatch = useDispatch();
   let [searchParams, setSearchParams] = useSearchParams();
   const category = searchParams.get('category');
   // activeFilter :: String -> Maybe Category

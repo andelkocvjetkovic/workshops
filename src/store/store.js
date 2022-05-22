@@ -1,6 +1,5 @@
-import { applyMiddleware, createStore, compose } from 'redux';
+import { createStore, compose } from 'redux';
 import { isProduction } from '@app/constants';
-import createSagaMiddleware from 'redux-saga';
 import rootReducer from '@app/store/rootReducer';
 
 const composeEnhancers = isProduction ? compose : window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

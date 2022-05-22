@@ -5,16 +5,14 @@ import Button from '@mui/material/Button';
 import CartHeader from '@app/components/cart/utils/CartHeader';
 import CartItemCard from '@app/components/cart/utils/CartItemCard';
 import CartSubtotal from '@app/components/cart/utils/CartSubtotal';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectCartAmount, selectCartProducts, selectIsCartEmpty } from '@app/store/reducers/cartSlice';
 import Checkout from '@app/components/checkout/Checkout';
 import { useState } from 'react';
 import ThankYou from '@app/components/thank-you/ThankYou';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ROUTE_HOME } from '@app/pages/routesConstats';
 import { FILTERS } from '@app/utils/types';
-import { ACTION_WORKSHOP_SET_ACTIVE_FILTER } from '@app/store/storeActions';
-import { SAGA_WORKSHOPS_SET } from '@app/store/sagaActions';
 
 function Cart({ open, onClose }) {
   /**@type {boolean}*/
@@ -26,7 +24,8 @@ function Cart({ open, onClose }) {
   const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
   const [isThankYouModalOpen, setIsThankYouModalOpen] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+
+  const [, setSearchParams] = useSearchParams();
 
   function handleOpenCheckoutModal() {
     onClose();
@@ -45,8 +44,8 @@ function Cart({ open, onClose }) {
   function handleThankYouClose() {
     setIsThankYouModalOpen(false);
     navigate(ROUTE_HOME);
-    dispatch({ type: ACTION_WORKSHOP_SET_ACTIVE_FILTER, payload: FILTERS.ALL });
-    dispatch({ type: SAGA_WORKSHOPS_SET });
+    setSearchParams('category', FILTERS.ALL);
+    //TODO dispatch({ type: SAGA_WORKSHOPS_SET });
   }
 
   return (
