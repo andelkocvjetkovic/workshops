@@ -13,13 +13,8 @@ const Home = lazy(() => import('@app/pages/Home'));
 const Workshop = lazy(() => import('@app/pages/Workshop'));
 
 function App() {
-  const dispatch = useDispatch();
-  let [searchParams] = useSearchParams();
   useScrollTop();
 
-  useEffect(() => {
-    dispatch({ type: SAGA_STARTUP_APP, payload: searchParams.get('category') ?? FILTERS.ALL });
-  }, [dispatch, searchParams]);
   return (
     <Routes>
       <Route path={ROUTE_HOME} element={<MainLayout />}>
