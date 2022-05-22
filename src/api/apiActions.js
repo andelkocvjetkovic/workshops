@@ -29,11 +29,12 @@ export const ApiActionGetWorkshops = fromPromised(({ page, category, limit = 9, 
     },
   })
 );
-//ApiActionPostOrder :: order -> Promise
-export const ApiActionPostOrder = order =>
+//ApiActionPostOrder :: Order -> Task
+export const ApiActionPostOrder = fromPromised(order =>
   API().post('/orders', {
     order,
-  });
+  })
+);
 
 //ApiActionGetWorkshop -> number -> Task
 export const ApiActionGetWorkshop = fromPromised(workshopId => API().get(`/workshops/${workshopId}`));

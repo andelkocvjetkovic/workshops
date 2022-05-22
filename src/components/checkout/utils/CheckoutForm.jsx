@@ -8,12 +8,13 @@ import CheckboxField from '@app/components/form-fields/CheckboxField';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { checkoutSchema } from '@app/utils/yupSchemas';
-import { useDispatch } from 'react-redux';
-import { SAGA_WORKSHOPS_ORDER } from '@app/store/sagaActions';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import PropTypes from 'prop-types';
 import { ACTION_CART_RESET } from '@app/store/storeActions';
+import { selectCart } from '@app/store/reducers/cartSlice';
+import { ApiActionPostOrder } from '@app/api/apiActions';
 
 function CheckoutForm({ onClose, onSuccessOrder }) {
   const { control, handleSubmit: formSubmit } = useForm({
@@ -33,22 +34,27 @@ function CheckoutForm({ onClose, onSuccessOrder }) {
   });
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
+  const cart = useSelector(selectCart);
 
   function handleSubmit(data) {
-    dispatch({
-      type: SAGA_WORKSHOPS_ORDER,
-      payload: data,
-      meta: {
-        onStart: () => setIsLoading(true),
-        onSuccess: () => {
-          onSuccessOrder();
-          dispatch({ type: ACTION_CART_RESET });
-        },
-        onEnd: () => {
-          onClose();
-          dispatch({ type: ACTION_CART_RESET });
-        },
-      },
+    setIsLoading(true);
+    cart.cata({
+      Filled: products =>
+        ApiActionPostOrder({ ...data, products })
+          .run()
+          .future()
+          .listen({
+            onRejected: reason => {
+              setIsLoading(false);
+              console.error(reason);
+            },
+            onResolved: () => {
+              setIsLoading(false);
+              onSuccessOrder();
+              dispatch({ type: ACTION_CART_RESET });
+            },
+          }),
+      Empty: () => new Error('Sorry but you cannot purchase an empty cart'),
     });
   }
 
