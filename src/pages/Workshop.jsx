@@ -14,7 +14,7 @@ import TimeInfo from '@app/pages/workshop-partial/TimeInfo';
 import RelatedWorkshops from '@app/pages/workshop-partial/RelatedWorkshops';
 import AddToCard from '@app/pages/workshop-partial/AddToCard';
 import { useDispatch } from 'react-redux';
-import { ACTION_CART_ADD } from '@app/store/storeActions';
+import { ACTION_CART_APPEND } from '@app/store/storeActions';
 import reducer, {
   Leaf,
   WORKSHOP_FETCHED,
@@ -90,7 +90,7 @@ function Workshop() {
 
   const handleAddToCard = R.curry((workshop, quantity) =>
     dispatch({
-      type: ACTION_CART_ADD,
+      type: ACTION_CART_APPEND,
       payload: {
         id: getId(workshop),
         category: getCategory(workshop),

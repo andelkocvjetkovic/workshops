@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 import WorkshopImg from '@app/components/workshop-card/utils/WorkshopImg';
 import { FILTERS } from '@app/utils/types';
 import { useDispatch } from 'react-redux';
-import { ACTION_CART_ADD } from '@app/store/storeActions';
+import { ACTION_CART_APPEND } from '@app/store/storeActions';
 import { ROUTE_HOME } from '@app/pages/routesConstats';
 
 function WorkshopCard({ title, imageUrl, price, date, id, category, desc, userId }) {
@@ -22,7 +22,7 @@ function WorkshopCard({ title, imageUrl, price, date, id, category, desc, userId
 
   function handleAddToCard() {
     dispatch({
-      type: ACTION_CART_ADD,
+      type: ACTION_CART_APPEND,
       payload: {
         id,
         category,
