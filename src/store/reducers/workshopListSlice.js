@@ -28,7 +28,7 @@ export default function workshopReducer(state = Leaf.Unloaded, action) {
     case ACTION_WORKSHOP_FETCHED:
       return Leaf.Loaded(payload.list, payload.apiPage);
     case ACTION_WORKSHOP_FAILED:
-      return Leaf.Loaded;
+      return Leaf.Failed;
     case ACTION_WORKSHOP_NOT_FOUND:
       return Leaf.NotFound;
     case ACTION_WORKSHOP_NO_MORE:

@@ -158,7 +158,7 @@ function Home() {
             </Typography>
             <br />
             {appliedFilter.map(filter => filter !== FILTERS.ALL).getOrElse(false) && (
-              <Typography variant='h6' color='grey.light' component='p'>
+              <Typography variant='h6' color='grey.light' component='p' textAlign='center'>
                 Try redefining your filter.
               </Typography>
             )}
