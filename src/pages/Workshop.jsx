@@ -65,7 +65,6 @@ function Workshop() {
           ]).map(([{ data: userData }, { data: relatedWorkshops }]) => ({ workshop, userData, relatedWorkshops }))
         )
         .run()
-        .future()
         .listen({
           onRejected: _ => dispatchWorkshop({ type: WORKSHOP_FAILED }),
           onResolved: ({ workshop, userData, relatedWorkshops }) =>
