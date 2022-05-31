@@ -6,7 +6,7 @@ import CartButton from '@app/components/navbar/utils/cart-button/CartButton';
 import Cart from '@app/components/cart/Cart';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { selectCartAmount } from '@app/store/reducers/cartSlice';
+import { selectCart } from '@app/store/reducers/cartSlice';
 
 const BgWrapper = styled.div`
   background-color: ${props => props.theme.palette.primary.light};
@@ -27,8 +27,8 @@ const LogoImg = styled.img`
 
 function Navbar() {
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const cartAmount = useSelector(selectCartAmount);
   const location = useLocation();
+  const cart = useSelector(selectCart);
   useEffect(() => setIsCartOpen(false), [location]);
   return (
     <BgWrapper>
@@ -36,7 +36,12 @@ function Navbar() {
         <Link to={ROUTE_HOME} title='Workshop - Home'>
           <LogoImg src='/assets/logo.svg' alt='Logo' />
         </Link>
-        <CartButton cartAmount={cartAmount} onClick={() => setIsCartOpen(true)} />
+        {cart.cata({
+          Empty: () => <CartButton cartAmount={0} onClick={() => setIsCartOpen(true)} />,
+          Filled: products => (
+            <CartButton cartAmount={products.reduce((acc, x) => acc + x.quantity, 0)} onClick={() => setIsCartOpen(true)} />
+          ),
+        })}
         <Cart open={isCartOpen} onClose={() => setIsCartOpen(false)} />
       </Container>
     </BgWrapper>

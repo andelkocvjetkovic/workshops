@@ -1,30 +1,27 @@
+import daggy from 'daggy';
+
+export const Leaf = daggy.taggedSum('Leaf', {
+  Unloaded: [],
+  Loading: [],
+  Loaded: ['state'],
+  Failed: [],
+});
+
 export default function reducer(state, action) {
   const { type, payload } = action;
 
   switch (type) {
-    case WORKSHOP_SET: {
-      return {
-        ...state,
-        workshop: payload,
-      };
+    case WORKSHOP_FETCHED: {
+      return Leaf.Loaded(payload);
     }
-    case WORKSHOP_FETCH_STATUS: {
-      return {
-        ...state,
-        fetchStatus: payload,
-      };
+    case WORKSHOP_REQUESTED: {
+      return Leaf.Loading;
     }
-    case WORKSHOP_RELATED: {
-      return {
-        ...state,
-        relatedWorkshops: payload,
-      };
+    case WORKSHOP_FAILED: {
+      return Leaf.Failed;
     }
-    case WORKSHOP_USER: {
-      return {
-        ...state,
-        user: payload,
-      };
+    case WORKSHOP_LEFT: {
+      return Leaf.Unloaded;
     }
     default: {
       throw Error('Unknown action type ' + type);
@@ -32,7 +29,7 @@ export default function reducer(state, action) {
   }
 }
 // ==================================
-export const WORKSHOP_SET = 'WORKSHOP_SET';
-export const WORKSHOP_FETCH_STATUS = 'WORKSHOP_FETCH_STATUS';
-export const WORKSHOP_RELATED = 'WORKSHOP_RELATED';
-export const WORKSHOP_USER = 'WORKSHOP_USER';
+export const WORKSHOP_FETCHED = 'WORKSHOP_FETCHED';
+export const WORKSHOP_REQUESTED = 'WORKSHOP_REQUESTED';
+export const WORKSHOP_FAILED = 'WORKSHOP_FAILED';
+export const WORKSHOP_LEFT = 'WORKSHOP_LEFT';

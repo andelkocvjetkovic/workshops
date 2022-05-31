@@ -3,20 +3,10 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import PropTypes from 'prop-types';
 
-function LoadMore({ onClick, isDisabled, isFilterActive, ...rest }) {
+function LoadMore({ onClick, isDisabled, children, ...rest }) {
   return (
     <Box {...rest}>
-      {isDisabled && (
-        <Typography variant='h5' textAlign='center' color='grey.darker'>
-          That&apos;s all, currently we have no more workshops to load.
-          <br />
-          {isFilterActive && (
-            <Typography variant='h6' color='grey.light' component='p'>
-              Try redefining your filter.
-            </Typography>
-          )}
-        </Typography>
-      )}
+      {children}
       <Box display='flex' justifyContent='center'>
         <Button
           disabled={isDisabled}
@@ -48,6 +38,5 @@ function LoadMore({ onClick, isDisabled, isFilterActive, ...rest }) {
 LoadMore.propTypes = {
   isDisabled: PropTypes.bool,
   onClick: PropTypes.func,
-  isFilterActive: PropTypes.bool,
 };
 export default LoadMore;

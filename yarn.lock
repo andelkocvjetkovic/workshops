@@ -2579,6 +2579,14 @@ csstype@^3.0.11, csstype@^3.0.2:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.0.11.tgz#d66700c5eacfac1940deb4e3ee5642792d85cd33"
   integrity sha512-sa6P2wJ+CAbgyy4KFssIb/JNMLxFvKF1pCYCSXS8ZMuqZnMsrxqI2E5sPyoTpxoPU/gVZMzr2zjOfg8GIZOMsw==
 
+daggy@1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/daggy/-/daggy-1.5.0.tgz#82d9818a614e018a7ebb68f53a10970493293ee8"
+  integrity sha512-BQMsnneUmsqvPth/o+Cv9JPhQwjR0aqzDckMxH0tAdupsdFkePKVFFvhoB7HDtMnOJDxA/U4994MV/bNSJ28gw==
+  dependencies:
+    sanctuary-show "2.0.0"
+    sanctuary-type-identifiers "1.0.0"
+
 data-urls@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/data-urls/-/data-urls-2.0.0.tgz#156485a72963a970f5d5821aaf642bef2bf2db9b"
@@ -3347,6 +3355,11 @@ flatted@^3.1.0:
   version "3.2.5"
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.5.tgz#76c8584f4fc843db64702a6bd04ab7a8bd666da3"
   integrity sha512-WIWGi2L3DyTUvUrwRKgGi9TwxQMUEqPOPQBVi71R96jZXJdFskXEmf54BoZaS1kknGODoIGASGEzBUYdyMCBJg==
+
+folktale@2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/folktale/-/folktale-2.3.2.tgz#38231b039e5ef36989920cbf805bf6b227bf4fd4"
+  integrity sha512-+8GbtQBwEqutP0v3uajDDoN64K2ehmHd0cjlghhxh0WpcfPzAIjPA03e1VvHlxL02FVGR0A6lwXsNQKn3H1RNQ==
 
 follow-redirects@^1.14.8:
   version "1.14.9"
@@ -5171,6 +5184,11 @@ qs@6.9.7:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.7.tgz#4610846871485e1e048f44ae3b94033f0e675afe"
   integrity sha512-IhMFgUmuNpyRfxA90umL7ByLlgRXu6tIfKPpF5TmcfRLlLCckfP/g3IQmju6jjpu+Hh8rA+2p6A27ZSPOOHdKw==
 
+ramda@0.28.0:
+  version "0.28.0"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.28.0.tgz#acd785690100337e8b063cab3470019be427cc97"
+  integrity sha512-9QnLuG/kPVgWvMQ4aODhsBUFKOUmnbUnsSXACv+NCQZcHbeb+v8Lodp8OVxtRULN1/xOyYLLaL6npE6dMq5QTA==
+
 range-parser@~1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.1.tgz#3cf37023d199e1c24d1a55b84800c2f3e6468031"
@@ -5456,6 +5474,16 @@ safe-buffer@5.2.1:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
+
+sanctuary-show@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/sanctuary-show/-/sanctuary-show-2.0.0.tgz#2326b4744f4b0f993f18ca56a29f68a50f514637"
+  integrity sha512-REj4ZiioUXnDLj6EpJ9HcYDIEGaEexmB9Fg5o6InZR9f0x5PfnnC21QeU9SZ9E7G8zXSZPNjy8VRUK4safbesw==
+
+sanctuary-type-identifiers@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/sanctuary-type-identifiers/-/sanctuary-type-identifiers-1.0.0.tgz#e8f359f006cb5e624cfb8464603fc114608bde9f"
+  integrity sha1-6PNZ8AbLXmJM+4RkYD/BFGCL3p8=
 
 saxes@^5.0.1:
   version "5.0.1"
