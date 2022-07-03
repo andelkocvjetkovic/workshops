@@ -1,3 +1,4 @@
+import Page404 from './Page404';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -9,7 +10,7 @@ import FilterCategory from '@app/components/filter-category/FilterCategory';
 import { FILTERS } from '@app/utils/types';
 import PageGridLayout from '@app/components/layouts/PageGridLayout';
 import { useSearchParams } from 'react-router-dom';
-import { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { ApiActionGetWorkshops } from '@app/api/apiActions';
 import { getData } from '@app/utils/prop-utils';
 import Maybe from 'folktale/maybe';
@@ -23,6 +24,7 @@ import {
 } from '@app/store/storeActions';
 import LoaderPage from '@app/components/loader/LoaderPage';
 const { Just, Nothing } = Maybe;
+import { useQuery, useInfiniteQuery } from 'react-query';
 
 function Home() {
   const dispatch = useDispatch();
@@ -36,23 +38,60 @@ function Home() {
     return validCategories.includes(category) ? Just(category) : Nothing();
   }, [category]);
 
-  useEffect(() => {
-    dispatch({ type: ACTION_WORKSHOP_REQUESTED });
-    ApiActionGetWorkshops({ page: 1, category: appliedFilter.getOrElse(FILTERS.ALL) })
-      .map(getData)
-      .run()
-      .future()
-      .listen({
-        onCancelled: () => console.log('cancelled'),
-        onRejected: () => dispatch({ type: ACTION_WORKSHOP_FAILED }),
-        onResolved: list =>
-          list.length > 0
-            ? dispatch({ type: ACTION_WORKSHOP_FETCHED, payload: { list, apiPage: 2 } })
-            : dispatch({ type: ACTION_WORKSHOP_NOT_FOUND }),
-      });
-  }, [appliedFilter, dispatch]);
-
   const state = useSelector(selectWorkshopListState);
+
+  const { data, status, isFetching, fetchNextPage, isFetchingNextPage, hasNextPage } = useInfiniteQuery(
+    ['workshops', appliedFilter.getOrElse(FILTERS.ALL)],
+    ({ pageParam = 1 }) =>
+      ApiActionGetWorkshops({ page: pageParam, category: appliedFilter.getOrElse(FILTERS.ALL) })
+        .map(getData)
+        .run()
+        .promise(),
+    { getNextPageParam: (lastPage, pages) => (lastPage.length > 0 ? pages.length + 1 : undefined) }
+  );
+
+  if (status === 'error') return <Page404 />;
+  if (status === 'loading') return <LoaderPage />;
+
+  return (
+    <PageGridLayout>
+      <PageGridLayout.Left>
+        <FilterCategory />
+      </PageGridLayout.Left>
+      <PageGridLayout.Right>
+        <Box pl={3}>
+          <Typography variant='h2'>Workshops</Typography>
+          <Typography variant='h6' color='grey.light'>
+            Displayed:&nbsp;
+            <Box component='span' color='grey.darker'>
+              {data.pages.flatMap(w => w).length}
+            </Box>
+          </Typography>
+        </Box>
+        <Grid container spacing={{ xs: 2, sm: 5 }} pt={{ xs: 2, sm: 4 }}>
+          {data.pages.map((group, i) => (
+            <React.Fragment key={i}>
+              {group.map(w => (
+                <WorkshopCard key={w.id} {...w} />
+              ))}
+            </React.Fragment>
+          ))}
+
+          {isFetchingNextPage && (
+            <Typography variant='h6' color='grey.light' component='p' textAlign='center'>
+              Loading ...
+            </Typography>
+          )}
+          {!hasNextPage && (
+            <Typography variant='h6' color='grey.light' component='p' textAlign='center'>
+              No more to load
+            </Typography>
+          )}
+        </Grid>
+        <LoadMore mt={3} pb={{ xs: 2, lg: 3 }} onClick={fetchNextPage} isDisabled={!hasNextPage || isFetchingNextPage} />
+      </PageGridLayout.Right>
+    </PageGridLayout>
+  );
 
   return state.cata({
     Unloaded: () => null,

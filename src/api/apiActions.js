@@ -17,7 +17,7 @@ export const ApiActionsGetWorkshopsPromise =
       },
     });
 // ApiActionGetWorkshops :: WorkshopsRequest -> Task
-export const ApiActionGetWorkshops = fromPromised(({ page, category, limit = 9, ...rest }) =>
+export const ApiActionGetWorkshops = fromPromised(({ page, category, limit = 3, ...rest }) =>
   API().get('/workshops', {
     params: {
       _page: page,
