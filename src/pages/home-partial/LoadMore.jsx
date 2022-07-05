@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 function LoadMore({ onClick, isDisabled, children, ...rest }) {
   return (
     <Box {...rest}>
-      {children}
       <Box display='flex' justifyContent='center'>
         <Button
           disabled={isDisabled}
@@ -16,11 +15,12 @@ function LoadMore({ onClick, isDisabled, children, ...rest }) {
             color: 'grey.darker',
             flexDirection: 'column',
             px: '2rem',
+            textTransform: 'none',
           }}
           onClick={onClick}
         >
           <Typography variant='h6' component='span'>
-            Load more
+            {children}
           </Typography>
           <Box
             component='span'
