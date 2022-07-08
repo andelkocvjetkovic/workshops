@@ -2,7 +2,6 @@ import { Routes, Route } from 'react-router-dom';
 import MainLayout from '@app/components/layouts/MainLayout';
 import { lazy, Suspense } from 'react';
 import { ROUTE_HOME, ROUTE_WORKSHOP } from '@app/pages/routesConstats';
-import LoaderPage from '@app/components/loader/LoaderPage';
 import useScrollTop from '@app/components/hooks/useScrollTop';
 import Page404 from '@app/pages/Page404';
 
@@ -15,22 +14,8 @@ function App() {
   return (
     <Routes>
       <Route path={ROUTE_HOME} element={<MainLayout />}>
-        <Route
-          index
-          element={
-            <Suspense fallback={<LoaderPage />}>
-              <Home />
-            </Suspense>
-          }
-        />
-        <Route
-          path={ROUTE_WORKSHOP}
-          element={
-            <Suspense fallback={<LoaderPage />}>
-              <Workshop />
-            </Suspense>
-          }
-        />
+        <Route index element={<Home />} />
+        <Route path={ROUTE_WORKSHOP} element={<Workshop />} />
       </Route>
       <Route path='*' element={<Page404 />} />
     </Routes>

@@ -8,7 +8,7 @@ import FilterCategory from '@app/components/filter-category/FilterCategory';
 import { FILTERS } from '@app/utils/types';
 import PageGridLayout from '@app/components/layouts/PageGridLayout';
 import { useSearchParams } from 'react-router-dom';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { ApiActionGetWorkshops } from '@app/api/apiActions';
 import { getData } from '@app/utils/prop-utils';
 import Maybe from 'folktale/maybe';
@@ -16,14 +16,15 @@ import LoaderPage from '@app/components/loader/LoaderPage';
 const { Just, Nothing } = Maybe;
 import { useInfiniteQuery } from 'react-query';
 
+const validCategories = Object.values(FILTERS);
+
+// getAppliedCategorie :: String -> Maybe String
+const getAppliedCategorie = category => (validCategories.includes(category) ? Just(category) : Nothing());
+
 function Home() {
   let [searchParams] = useSearchParams();
-  const category = searchParams.get('category');
-  // appliedFilter :: String -> Maybe Category
-  const appliedFilter = useMemo(() => {
-    const validCategories = Object.values(FILTERS);
-    return validCategories.includes(category) ? Just(category) : Nothing();
-  }, [category]);
+
+  const appliedFilter = getAppliedCategorie(searchParams.get('category'));
 
   const { data, status, fetchNextPage, isFetchingNextPage, hasNextPage } = useInfiniteQuery(
     ['workshops', appliedFilter.getOrElse(FILTERS.ALL)],
