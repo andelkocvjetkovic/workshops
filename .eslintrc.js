@@ -44,5 +44,7 @@ module.exports = {
     navigator: true,
     __dirname: true,
     requestAnimationFrame: true,
+    alert: true,
   },
 };
+
