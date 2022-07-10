@@ -9,15 +9,20 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { checkoutSchema } from '@app/utils/yupSchemas';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import PropTypes from 'prop-types';
 import { ACTION_CART_RESET } from '@app/store/storeActions';
 import { selectCart } from '@app/store/reducers/cartSlice';
 import { ApiActionPostOrder } from '@app/api/apiActions';
+import Result from 'folktale/result';
+import { tryAsync } from '@app/utils/tryAsync';
 
-function CheckoutForm({ onClose, onSuccessOrder }) {
-  const { control, handleSubmit: formSubmit } = useForm({
+function CheckoutForm({ onSuccessOrder }) {
+  const {
+    control,
+    handleSubmit: formSubmit,
+    formState: { isSubmitting },
+  } = useForm({
     shouldFocusError: false,
     mode: 'onSubmit',
     resolver: yupResolver(checkoutSchema),
@@ -33,28 +38,25 @@ function CheckoutForm({ onClose, onSuccessOrder }) {
     },
   });
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
   const cart = useSelector(selectCart);
 
-  function handleSubmit(data) {
-    setIsLoading(true);
-    cart.cata({
+  async function handleSubmit(data) {
+    const res = await cart.cata({
       Filled: products =>
-        ApiActionPostOrder({ ...data, products })
-          .run()
-          .future()
-          .listen({
-            onRejected: reason => {
-              setIsLoading(false);
-              console.error(reason);
-            },
-            onResolved: () => {
-              setIsLoading(false);
-              onSuccessOrder();
-              dispatch({ type: ACTION_CART_RESET });
-            },
-          }),
-      Empty: () => new Error('Sorry but you cannot purchase an empty cart'),
+        tryAsync(() =>
+          ApiActionPostOrder({ ...data, products })
+            .run()
+            .promise()
+        ),
+      Empty: () => Promise.resolve(Result.Error('Sorry but you cannot make a purchase with an empty cart')),
+    });
+    res.matchWith({
+      Ok: ({ value }) => {
+        console.log(value);
+        dispatch({ type: ACTION_CART_RESET });
+        onSuccessOrder();
+      },
+      Error: ({ value }) => alert(value),
     });
   }
 
@@ -65,14 +67,14 @@ function CheckoutForm({ onClose, onSuccessOrder }) {
   return (
     <Stack component='form' spacing={4} mt={4} onSubmit={formSubmit(handleSubmit, handleError)}>
       <TextField
-        isLoading={isLoading}
+        isLoading={isSubmitting}
         id={CHECKOUT_FIELDS.FIRST_NAME.apiValue}
         label={CHECKOUT_FIELDS.FIRST_NAME.label}
         placeholder='Type your first name here'
         control={control}
       />
       <TextField
-        isLoading={isLoading}
+        isLoading={isSubmitting}
         id={CHECKOUT_FIELDS.LAST_NAME.apiValue}
         label={CHECKOUT_FIELDS.LAST_NAME.label}
         placeholder='Type your last name here'
@@ -81,7 +83,7 @@ function CheckoutForm({ onClose, onSuccessOrder }) {
         control={control}
       />
       <TextField
-        isLoading={isLoading}
+        isLoading={isSubmitting}
         id={CHECKOUT_FIELDS.EMAIL.apiValue}
         label={CHECKOUT_FIELDS.EMAIL.label}
         placeholder='Please type your email address here'
@@ -96,7 +98,7 @@ function CheckoutForm({ onClose, onSuccessOrder }) {
       >
         <Grid item xs={12} md={6}>
           <TextField
-            isLoading={isLoading}
+            isLoading={isSubmitting}
             label={CHECKOUT_FIELDS.DATE_BIRTH.label}
             id={CHECKOUT_FIELDS.DATE_BIRTH.apiValue}
             type='date'
@@ -105,7 +107,7 @@ function CheckoutForm({ onClose, onSuccessOrder }) {
         </Grid>
         <Grid item xs={12} md={6}>
           <SelectField
-            isLoading={isLoading}
+            isLoading={isSubmitting}
             label={CHECKOUT_FIELDS.GENDER.label}
             id={CHECKOUT_FIELDS.GENDER.apiValue}
             placeholder='Choose your gender'
@@ -121,34 +123,33 @@ function CheckoutForm({ onClose, onSuccessOrder }) {
         </Grid>
       </Grid>
       <TextField
-        isLoading={isLoading}
+        isLoading={isSubmitting}
         label={CHECKOUT_FIELDS.ADDRESS.label}
         id={CHECKOUT_FIELDS.ADDRESS.apiValue}
         placeholder='Type your address here'
         control={control}
       />
       <TextField
-        isLoading={isLoading}
+        isLoading={isSubmitting}
         label={CHECKOUT_FIELDS.ZIP_CODE.label}
         id={CHECKOUT_FIELDS.ZIP_CODE.apiValue}
         placeholder='eg. 21310'
         control={control}
       />
       <CheckboxField
-        isLoading={isLoading}
+        isLoading={isSubmitting}
         label={CHECKOUT_FIELDS.I_AGREE.label}
         id={CHECKOUT_FIELDS.I_AGREE.apiValue}
         control={control}
       />
-      <Button type='submit' variant='contained' size='large' sx={{ width: { xs: '100%', md: '170px' } }} disabled={isLoading}>
-        {isLoading ? <CircularProgress size={36} color='secondary' /> : 'Checkout'}
+      <Button type='submit' variant='contained' size='large' sx={{ width: { xs: '100%', md: '170px' } }} disabled={isSubmitting}>
+        {isSubmitting ? <CircularProgress size={36} color='secondary' /> : 'Checkout'}
       </Button>
     </Stack>
   );
 }
 
 CheckoutForm.propTypes = {
-  onClose: PropTypes.func,
   onSuccessOrder: PropTypes.func,
 };
 

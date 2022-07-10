@@ -15,7 +15,7 @@ import { useDispatch } from 'react-redux';
 import { ACTION_CART_APPEND } from '@app/store/storeActions';
 import Page404 from '@app/pages/Page404';
 import * as R from 'ramda';
-import { useQuery, useQueries } from 'react-query';
+import { useQuery } from 'react-query';
 
 import { getTitle, getId, getImageUrl, getCategory, getDate, getDesc, getPrice, getUserId, getData } from '@app/utils/prop-utils';
 
@@ -47,8 +47,11 @@ function Workshop() {
       },
     })
   );
+
   if (workshopStatus === 'error') return <Page404 />;
+
   if (workshopStatus === 'loading') return <LoaderPage />;
+
   return (
     <PageGridLayout>
       <PageGridLayout.Left>

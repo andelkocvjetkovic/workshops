@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import MainLayout from '@app/components/layouts/MainLayout';
-import { lazy, Suspense } from 'react';
+import { lazy } from 'react';
 import { ROUTE_HOME, ROUTE_WORKSHOP } from '@app/pages/routesConstats';
 import useScrollTop from '@app/components/hooks/useScrollTop';
 import Page404 from '@app/pages/Page404';

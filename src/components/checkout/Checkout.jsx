@@ -30,7 +30,7 @@ function Checkout({ onClose, open, onSuccessOrder }) {
               What is Lorem Ipsum Lorem Ipsum is simply dummy text of the printing.
             </Typography>
           </Stack>
-          <CheckoutForm onClose={onClose} onSuccessOrder={onSuccessOrder} />
+          <CheckoutForm onSuccessOrder={onSuccessOrder} />
         </Box>
       </Paper>
     </CheckoutModal>
