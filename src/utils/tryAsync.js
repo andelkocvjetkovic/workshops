@@ -1,6 +1,6 @@
 import Result from 'folktale/result';
 
-// tryAsync ::  (a -> b) -> Promise Result (Error, Ok b)
+// tryAsync ::  (_ -> a) -> Promise Result (Error e, Ok a)
 export const tryAsync = async f => {
   try {
     const asyncRes = await f();

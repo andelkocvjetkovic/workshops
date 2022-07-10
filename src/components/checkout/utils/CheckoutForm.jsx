@@ -48,7 +48,7 @@ function CheckoutForm({ onSuccessOrder }) {
             .run()
             .promise()
         ),
-      Empty: () => Promise.resolve(Result.Error('Sorry but you cannot make a purchase with an empty cart')),
+      Empty: () => Result.Error('Sorry but you cannot make a purchase with an empty cart'),
     });
     res.matchWith({
       Ok: ({ value }) => {
