@@ -15,7 +15,6 @@ import { ACTION_CART_RESET } from '@app/store/storeActions';
 import { selectCart } from '@app/store/reducers/cartSlice';
 import { ApiActionPostOrder } from '@app/api/apiActions';
 import Result from 'folktale/result';
-import { tryAsync } from '@app/utils/tryAsync';
 
 function CheckoutForm({ onSuccessOrder }) {
   const {
@@ -43,11 +42,11 @@ function CheckoutForm({ onSuccessOrder }) {
   async function handleSubmit(data) {
     const res = await cart.cata({
       Filled: products =>
-        tryAsync(() =>
-          ApiActionPostOrder({ ...data, products })
-            .run()
-            .promise()
-        ),
+        ApiActionPostOrder({ ...data, products })
+          .run()
+          .promise()
+          .then(Result.Ok)
+          .catch(Result.Error),
       Empty: () => Result.Error('Sorry but you cannot make a purchase with an empty cart'),
     });
     res.matchWith({
